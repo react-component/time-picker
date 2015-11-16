@@ -47,10 +47,6 @@ const Picker = React.createClass({
     return { open, value };
   },
 
-  componentWillMount() {
-    document.addEventListener('click', this.handleDocumentClick, false);
-  },
-
   componentWillReceiveProps(nextProps) {
     const { value, open } = nextProps;
     if (value !== undefined) {
@@ -59,10 +55,6 @@ const Picker = React.createClass({
     if (open !== undefined) {
       this.setState({open});
     }
-  },
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleDocumentClick, false);
   },
 
   onPanelChange(value) {
@@ -112,16 +104,6 @@ const Picker = React.createClass({
         onClose(event);
       }
     }
-  },
-
-  handleDocumentClick(event) {
-    // hide popup when click outside
-    if (this.state.open && ReactDOM.findDOMNode(this.panelInstance).contains(event.target)) {
-      return;
-    }
-    this.setState({
-      open: false,
-    });
   },
 
   focus() {

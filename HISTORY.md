@@ -3,6 +3,11 @@ History
 
 ---
 
+0.2.0 / 2015-11-16
+------------------
+
+`update` rename the component, update document.
+
 0.1.0 / 2015-11-12
 ------------------
 

@@ -1,14 +1,15 @@
-import '../component/timepicker/assets/index.less';
+import 'rc-time-picker/assets/index.less';
 
 import React from 'react';
 import ReactDom from 'react-dom';
-import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
-import GregorianCalendar from 'gregorian-calendar';
 
-import TimePicker from '../component/timepicker/src/Picker';
-import TimePanel from '../component/timepicker/src/TimePanel';
-import TimepickerLocale from '../component/timepicker/src/locale/zh_CN';
+import GregorianCalendar from 'gregorian-calendar';
 import DateTimeFormat from 'gregorian-calendar-format';
+import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
+
+import TimePicker from 'rc-time-picker/src/TimePicker';
+import TimePanel from 'rc-time-picker/src/TimePanel';
+import TimePickerLocale from 'rc-time-picker/src/locale/zh_CN';
 
 const formatter = new DateTimeFormat('HH:mm:ss');
 
@@ -18,7 +19,7 @@ now.setTime(Date.now());
 const timePanel = (
   <TimePanel
     defaultValue={now}
-    locale={TimepickerLocale}
+    locale={TimePickerLocale}
     formatter={formatter}
     minuteOptions={[0, 30]}
   />
@@ -32,5 +33,5 @@ ReactDom.render(
       }
     }
   </TimePicker>,
-  document.getElementById('react-content')
+  document.getElementById('__react-content')
 );

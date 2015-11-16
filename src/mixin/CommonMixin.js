@@ -10,7 +10,7 @@ export default {
 
   getDefaultProps() {
     return {
-      prefixCls: 'rc-timepicker',
+      prefixCls: 'rc-time-picker',
       locale: enUs,
     };
   },

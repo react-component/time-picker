@@ -4,7 +4,7 @@ const Header = React.createClass({
   propTypes: {
     formatter: PropTypes.object,
     prefixCls: PropTypes.string,
-    gregorianTimepickerLocale: PropTypes.object,
+    gregorianTimePickerLocale: PropTypes.object,
     locale: PropTypes.object,
     disabledDate: PropTypes.func,
     placeholder: PropTypes.string,
@@ -26,7 +26,7 @@ const Header = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const value = this.formatValue(nextProps.value);
+    const value = nextProps.value;
     this.setState({
       str: value && nextProps.formatter.format(value) || '',
       invalid: false,
@@ -39,16 +39,15 @@ const Header = React.createClass({
       str,
     });
     let value = null;
-    const {formatter, gregorianTimepickerLocale, hourOptions, minuteOptions, secondOptions, onChange} = this.props;
+    const {formatter, gregorianTimePickerLocale, hourOptions, minuteOptions, secondOptions, onChange} = this.props;
 
     if (str) {
       const originalValue = this.props.value;
       try {
         value = formatter.parse(str, {
-          locale: gregorianTimepickerLocale,
+          locale: gregorianTimePickerLocale,
           obeyCount: true,
         });
-        value = this.formatValue(value);
       } catch (ex) {
         this.setState({
           invalid: true,
@@ -112,17 +111,6 @@ const Header = React.createClass({
     const { invalid, str } = this.state;
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
     return <input className={`${prefixCls}-input  ${invalidClass}`} value={str} placeholder={placeholder} onChange={this.onInputChange} />;
-  },
-
-  formatValue(value) {
-    const newValue = this.props.value.clone();
-    if (!value) {
-      return newValue;
-    }
-    newValue.fields[4] = value.fields[4];
-    newValue.fields[5] = value.fields[5];
-    newValue.fields[6] = value.fields[6];
-    return newValue;
   },
 
   render() {

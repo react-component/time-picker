@@ -1,12 +1,13 @@
 {
-  "name": "rc-timepicker",
-  "version": "0.1.0",
-  "description": "React Timepicker",
+  "name": "rc-time-picker",
+  "version": "0.2.0",
+  "description": "React TimePicker",
   "keywords": [
     "react",
-    "react-timepicker",
+    "react-time-picker",
     "react-component",
     "timepicker",
+    "time-picker",
     "ui component",
     "ui",
     "component"
@@ -16,14 +17,14 @@
     "assets/*.css"
   ],
   "main": "lib/index",
-  "homepage": "http://github.com/react-component/timepicker",
+  "homepage": "http://github.com/react-component/time-picker",
   "author": "wuzhao.mail@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:react-component/timepicker.git"
+    "url": "git@github.com:react-component/time-picker.git"
   },
   "bugs": {
-    "url": "http://github.com/react-component/timepicker/issues"
+    "url": "http://github.com/react-component/time-picker/issues"
   },
   "licenses": "MIT",
   "config": {
@@ -57,6 +58,7 @@
     "lint"
   ],
   "dependencies": {
+    "classnames": "~2.2.0",
     "gregorian-calendar": "4.x",
     "gregorian-calendar-format": "4.x",
     "object-assign": "4.x",

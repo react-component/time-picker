@@ -90,7 +90,7 @@ const TimePanel = React.createClass({
       <div className={`${prefixCls}-panel ${cls}`}>
         <Header
           prefixCls={prefixCls}
-          gregorianTimepickerLocale={defaultValue.locale}
+          gregorianTimePickerLocale={defaultValue.locale}
           locale={locale}
           value={value}
           formatter={this.getFormatter()}
