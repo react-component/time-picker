@@ -22215,9 +22215,9 @@ webpackJsonp([0,1],[
 	
 	var _rcUtil = __webpack_require__(211);
 	
-	var _rcTimePickerSrcModulePanel = __webpack_require__(226);
+	var _modulePanel = __webpack_require__(226);
 	
-	var _rcTimePickerSrcModulePanel2 = _interopRequireDefault(_rcTimePickerSrcModulePanel);
+	var _modulePanel2 = _interopRequireDefault(_modulePanel);
 	
 	var _utilPlacements = __webpack_require__(233);
 	
@@ -22323,7 +22323,7 @@ webpackJsonp([0,1],[
 	    var minuteOptions = _props2.minuteOptions;
 	    var secondOptions = _props2.secondOptions;
 	
-	    return _react2['default'].createElement(_rcTimePickerSrcModulePanel2['default'], {
+	    return _react2['default'].createElement(_modulePanel2['default'], {
 	      defaultValue: value,
 	      locale: locale,
 	      formatter: formatter,
