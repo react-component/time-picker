@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>pick-time.js - example - rc-time-picker@0.2.0</title>
+  <title>pick-time.js - example - rc-time-picker@0.3.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,51 +257,35 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-time-picker@0.2.0</h1>
+    <h1>rc-time-picker@0.3.0</h1>
 
     <p>React TimePicker</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="pick-time.js?nowrap"></script>
-  <div class="highlight"><pre><code language="undefined">import 'rc-time-picker/assets/index.css';
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rc-time-picker/assets/index.css'</span>;
 
-import React from 'react';
-import ReactDom from 'react-dom';
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
-import GregorianCalendar from 'gregorian-calendar';
-import DateTimeFormat from 'gregorian-calendar-format';
-import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
+<span class="hljs-keyword">import</span> GregorianCalendar <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar'</span>;
+<span class="hljs-keyword">import</span> DateTimeFormat <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar-format'</span>;
+<span class="hljs-keyword">import</span> zhCn <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
 
-import TimePicker from 'rc-time-picker/lib/TimePicker';
-import TimePanel from 'rc-time-picker/lib/TimePanel';
-import TimePickerLocale from 'rc-time-picker/lib/locale/zh_CN';
+<span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker/lib/TimePicker'</span>;
+<span class="hljs-keyword">import</span> TimePickerLocale <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker/lib/locale/zh_CN'</span>;
 
-const formatter = new DateTimeFormat('HH:mm:ss');
+<span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(<span class="hljs-string">'HH:mm:ss'</span>);
 
-const now = new GregorianCalendar(zhCn);
-now.setTime(Date.now());
-
-const timePanel = (
-  &lt;TimePanel
-    defaultValue={now}
-    locale={TimePickerLocale}
-    formatter={formatter}
-    minuteOptions={[0, 30]}
-  /&gt;
-);
+<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(zhCn);
+now.setTime(<span class="hljs-built_in">Date</span>.now());
 
 ReactDom.render(
-  &lt;TimePicker panel={timePanel} value={now}&gt;
-    {
-      ({value}) =&gt; {
-        return &lt;input type="text" placeholder="请选择时间" readOnly value={value &amp;&amp; formatter.format(value)} /&gt;;
-      }
-    }
-  &lt;/TimePicker&gt;,
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">{now}</span> /&gt;</span>,
   document.getElementById('__react-content')
 );
-</code></pre></div>
+</span></code></pre></div>
 </div>
 <a href="http://github.com/react-component/time-picker">
   <img style="position: absolute; top: 0; right: 0; border: 0;"

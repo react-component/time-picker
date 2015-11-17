@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-time-picker@0.2.0 - React TimePicker</title>
+  <title>rc-time-picker@0.3.0 - React TimePicker</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-time-picker@0.2.0</h1>
+  <h1>rc-time-picker@0.3.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -756,7 +756,7 @@
 <h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm install rc-time-picker</code></pre></div><h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> /&gt;</span>, container);</span></code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>TimePanel<a id="user-content-timepanel" name="timepanel" class="anchor" aria-hidden="true" href="#timepanel"><span class="octicon octicon-link"></span></a></h3><table>
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> /&gt;</span>, container);</span></code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>TimePicker<a id="user-content-timepicker" name="timepicker" class="anchor" aria-hidden="true" href="#timepicker"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
 <tr>
 <th>Name</th>
@@ -779,10 +779,22 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td></td>
 </tr>
 <tr>
-<td>defaultValue</td>
+<td>disabled</td>
+<td>Boolean</td>
+<td>false</td>
+<td>whether picker is disabled</td>
+</tr>
+<tr>
+<td>open</td>
+<td>Boolean</td>
+<td>false</td>
+<td>current open state of picker. controlled prop</td>
+</tr>
+<tr>
+<td>value</td>
 <td>GregorianCalendar</td>
 <td>null</td>
-<td>defaultValue like input&#39;s defaultValue</td>
+<td>current value like input&#39;s value</td>
 </tr>
 <tr>
 <td>placeholder</td>
@@ -813,54 +825,6 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td>Array<String></td>
 <td>second options</td>
 <td></td>
-</tr>
-<tr>
-<td>onChange</td>
-<td>Function</td>
-<td>null</td>
-<td>called when input or select a different value</td>
-</tr>
-</tbody>
-</table>
-<h3>TimePicker<a id="user-content-timepicker" name="timepicker" class="anchor" aria-hidden="true" href="#timepicker"><span class="octicon octicon-link"></span></a></h3><table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>prefixCls</td>
-<td>String</td>
-<td></td>
-<td>prefixCls of this component</td>
-</tr>
-<tr>
-<td>panel</td>
-<td>TimePanel React Element</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>disabled</td>
-<td>Boolean</td>
-<td>false</td>
-<td>whether picker is disabled</td>
-</tr>
-<tr>
-<td>open</td>
-<td>Boolean</td>
-<td>false</td>
-<td>current open state of picker. controlled prop</td>
-</tr>
-<tr>
-<td>value</td>
-<td>GregorianCalendar</td>
-<td>null</td>
-<td>current value like input&#39;s value</td>
 </tr>
 <tr>
 <td>onChange</td>

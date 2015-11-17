@@ -39,10 +39,6 @@ webpackJsonp([0,1],[
 	
 	var _rcTimePickerSrcTimePicker2 = _interopRequireDefault(_rcTimePickerSrcTimePicker);
 	
-	var _rcTimePickerSrcTimePanel = __webpack_require__(230);
-	
-	var _rcTimePickerSrcTimePanel2 = _interopRequireDefault(_rcTimePickerSrcTimePanel);
-	
 	var _rcTimePickerSrcLocaleZh_CN = __webpack_require__(234);
 	
 	var _rcTimePickerSrcLocaleZh_CN2 = _interopRequireDefault(_rcTimePickerSrcLocaleZh_CN);
@@ -52,22 +48,7 @@ webpackJsonp([0,1],[
 	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
 	now.setTime(Date.now());
 	
-	var timePanel = _react2['default'].createElement(_rcTimePickerSrcTimePanel2['default'], {
-	  defaultValue: now,
-	  locale: _rcTimePickerSrcLocaleZh_CN2['default'],
-	  formatter: formatter,
-	  minuteOptions: [0, 30]
-	});
-	
-	_reactDom2['default'].render(_react2['default'].createElement(
-	  _rcTimePickerSrcTimePicker2['default'],
-	  { panel: timePanel, value: now },
-	  function (_ref) {
-	    var value = _ref.value;
-	
-	    return _react2['default'].createElement('input', { type: 'text', placeholder: '请选择时间', readOnly: true, value: value && formatter.format(value) });
-	  }
-	), document.getElementById('__react-content'));
+	_reactDom2['default'].render(_react2['default'].createElement(_rcTimePickerSrcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'], value: now }), document.getElementById('__react-content'));
 
 /***/ },
 /* 2 */
@@ -22234,7 +22215,11 @@ webpackJsonp([0,1],[
 	
 	var _rcUtil = __webpack_require__(211);
 	
-	var _utilPlacements = __webpack_require__(226);
+	var _rcTimePickerSrcModulePanel = __webpack_require__(226);
+	
+	var _rcTimePickerSrcModulePanel2 = _interopRequireDefault(_rcTimePickerSrcModulePanel);
+	
+	var _utilPlacements = __webpack_require__(233);
 	
 	var _utilPlacements2 = _interopRequireDefault(_utilPlacements);
 	
@@ -22253,7 +22238,7 @@ webpackJsonp([0,1],[
 	
 	  propTypes: {
 	    prefixCls: _react.PropTypes.string,
-	    panel: _react.PropTypes.element,
+	    locale: _react.PropTypes.object,
 	    children: _react.PropTypes.func,
 	    disabled: _react.PropTypes.bool,
 	    value: _react.PropTypes.object,
@@ -22261,6 +22246,11 @@ webpackJsonp([0,1],[
 	    align: _react.PropTypes.object,
 	    placement: _react.PropTypes.any,
 	    transitionName: _react.PropTypes.string,
+	    placeholder: _react.PropTypes.string,
+	    formatter: _react.PropTypes.object,
+	    hourOptions: _react.PropTypes.array,
+	    minuteOptions: _react.PropTypes.array,
+	    secondOptions: _react.PropTypes.array,
 	    onChange: _react.PropTypes.func,
 	    onOpen: _react.PropTypes.func,
 	    onClose: _react.PropTypes.func
@@ -22309,7 +22299,7 @@ webpackJsonp([0,1],[
 	  },
 	
 	  onPanelClear: function onPanelClear() {
-	    this.setOpen(false, this.focus);
+	    this.setOpen(false);
 	  },
 	
 	  onVisibleChange: function onVisibleChange(open) {
@@ -22317,13 +22307,35 @@ webpackJsonp([0,1],[
 	
 	    this.setOpen(open, function () {
 	      if (open) {
+	        _reactDom2['default'].findDOMNode(_this.refs.picker).blur();
 	        _reactDom2['default'].findDOMNode(_this.panelInstance).focus();
 	      }
 	    });
 	  },
 	
+	  getPanel: function getPanel() {
+	    var _props2 = this.props;
+	    var value = _props2.value;
+	    var locale = _props2.locale;
+	    var formatter = _props2.formatter;
+	    var placeholder = _props2.placeholder;
+	    var hourOptions = _props2.hourOptions;
+	    var minuteOptions = _props2.minuteOptions;
+	    var secondOptions = _props2.secondOptions;
+	
+	    return _react2['default'].createElement(_rcTimePickerSrcModulePanel2['default'], {
+	      defaultValue: value,
+	      locale: locale,
+	      formatter: formatter,
+	      placeholder: placeholder,
+	      hourOptions: hourOptions,
+	      minuteOptions: minuteOptions,
+	      secondOptions: secondOptions
+	    });
+	  },
+	
 	  getPanelElement: function getPanelElement() {
-	    var panel = this.props.panel;
+	    var panel = this.getPanel();
 	    var extraProps = {
 	      ref: this.savePanelRef,
 	      defaultValue: this.state.value || panel.props.defaultValue,
@@ -22335,9 +22347,9 @@ webpackJsonp([0,1],[
 	  },
 	
 	  setOpen: function setOpen(open, callback) {
-	    var _props2 = this.props;
-	    var onOpen = _props2.onOpen;
-	    var onClose = _props2.onClose;
+	    var _props3 = this.props;
+	    var onOpen = _props3.onOpen;
+	    var onClose = _props3.onClose;
 	
 	    if (this.state.open !== open) {
 	      this.setState({
@@ -22354,21 +22366,18 @@ webpackJsonp([0,1],[
 	    }
 	  },
 	
-	  focus: function focus() {
-	    if (!this.state.open) {
-	      _reactDom2['default'].findDOMNode(this).focus();
-	    }
-	  },
-	
 	  render: function render() {
-	    var state = this.state;
-	    var props = this.props;
-	    var prefixCls = props.prefixCls;
-	    var placement = props.placement;
-	    var align = props.align;
-	    var disabled = props.disabled;
-	    var transitionName = props.transitionName;
-	    var children = props.children;
+	    var _props4 = this.props;
+	    var prefixCls = _props4.prefixCls;
+	    var placement = _props4.placement;
+	    var align = _props4.align;
+	    var disabled = _props4.disabled;
+	    var transitionName = _props4.transitionName;
+	    var children = _props4.children;
+	    var formatter = _props4.formatter;
+	    var _state = this.state;
+	    var open = _state.open;
+	    var value = _state.value;
 	
 	    return _react2['default'].createElement(
 	      _rcTrigger2['default'],
@@ -22381,13 +22390,13 @@ webpackJsonp([0,1],[
 	        action: disabled ? [] : ['click'],
 	        destroyPopupOnHide: true,
 	        popupTransitionName: transitionName,
-	        popupVisible: state.open,
+	        popupVisible: open,
 	        onPopupVisibleChange: this.onVisibleChange
 	      },
 	      _react2['default'].createElement(
 	        'span',
 	        { className: prefixCls + '-picker' },
-	        children(state, props)
+	        _react2['default'].createElement('input', { ref: 'picker', type: 'text', placeholder: '请选择时间', readOnly: true, disabled: disabled, value: value && formatter.format(value) })
 	      )
 	    );
 	  }
@@ -24445,23 +24454,13 @@ webpackJsonp([0,1],[
 	  offset[1] = convertOffset(offset[1], el.height);
 	}
 	
-	/*
-	 * align node
-	 * @param {Element} node current dom node
-	 * @param {Object} align align config
-	 *
-	 *    @example
-	 *    {
-	 *      node: null,         // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
-	 *      points: ['cc','cc'], // ['tr', 'tl'] 表示 overlay 的 tr 与参考节点的 tl 对齐
-	 *      offset: [0, 0]      // 有效值为 [n, m]
-	 *    }
-	 */
 	function domAlign(el, refNode, align) {
 	  var points = align.points;
 	  var offset = align.offset || [0, 0];
 	  var targetOffset = align.targetOffset || [0, 0];
 	  var overflow = align.overflow;
+	  var target = align.target || refNode;
+	  var source = align.source || el;
 	  offset = [].concat(offset);
 	  targetOffset = [].concat(targetOffset);
 	  overflow = overflow || {};
@@ -24469,11 +24468,11 @@ webpackJsonp([0,1],[
 	
 	  var fail = 0;
 	  // 当前节点可以被放置的显示区域
-	  var visibleRect = (0, _getVisibleRectForElement2['default'])(el);
+	  var visibleRect = (0, _getVisibleRectForElement2['default'])(source);
 	  // 当前节点所占的区域, left/top/width/height
-	  var elRegion = (0, _getRegion2['default'])(el);
+	  var elRegion = (0, _getRegion2['default'])(source);
 	  // 参照节点所占的区域, left/top/width/height
-	  var refNodeRegion = (0, _getRegion2['default'])(refNode);
+	  var refNodeRegion = (0, _getRegion2['default'])(target);
 	  // 将 offset 转换成数值，支持百分比
 	  normalizeOffset(offset, elRegion);
 	  normalizeOffset(targetOffset, refNodeRegion);
@@ -24534,18 +24533,18 @@ webpackJsonp([0,1],[
 	
 	  // need judge to in case set fixed with in css on height auto element
 	  if (newElRegion.width !== elRegion.width) {
-	    _utils2['default'].css(el, 'width', el.width() + newElRegion.width - elRegion.width);
+	    _utils2['default'].css(source, 'width', source.width() + newElRegion.width - elRegion.width);
 	  }
 	
 	  if (newElRegion.height !== elRegion.height) {
-	    _utils2['default'].css(el, 'height', el.height() + newElRegion.height - elRegion.height);
+	    _utils2['default'].css(source, 'height', source.height() + newElRegion.height - elRegion.height);
 	  }
 	
 	  // https://github.com/kissyteam/kissy/issues/190
 	  // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
 	  // 相对于屏幕位置没变，而 left/top 变了
 	  // 例如 <div 'relative'><el absolute></div>
-	  _utils2['default'].offset(el, {
+	  _utils2['default'].offset(source, {
 	    left: newElRegion.left,
 	    top: newElRegion.top
 	  }, {
@@ -27558,48 +27557,174 @@ webpackJsonp([0,1],[
 
 /***/ },
 /* 226 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var autoAdjustOverflow = {
-	  adjustX: 1,
-	  adjustY: 1
-	};
 	
-	var targetOffset = [0, 0];
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var placements = {
-	  topLeft: {
-	    points: ['tl', 'tl'],
-	    overflow: autoAdjustOverflow,
-	    offset: [0, -3],
-	    targetOffset: targetOffset
+	var _react = __webpack_require__(3);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(175);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _gregorianCalendar = __webpack_require__(161);
+	
+	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
+	
+	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(168);
+	
+	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
+	
+	var _mixinCommonMixin = __webpack_require__(227);
+	
+	var _mixinCommonMixin2 = _interopRequireDefault(_mixinCommonMixin);
+	
+	var _Header = __webpack_require__(230);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
+	var _Combobox = __webpack_require__(231);
+	
+	var _Combobox2 = _interopRequireDefault(_Combobox);
+	
+	function noop() {}
+	
+	function generateOptions(length) {
+	  return Array.apply(null, { length: length }).map(function (item, index) {
+	    return index;
+	  });
+	}
+	
+	var Panel = _react2['default'].createClass({
+	  displayName: 'Panel',
+	
+	  propTypes: {
+	    prefixCls: _react.PropTypes.string,
+	    defaultValue: _react.PropTypes.object,
+	    locale: _react.PropTypes.object,
+	    placeholder: _react.PropTypes.string,
+	    formatter: _react.PropTypes.object,
+	    hourOptions: _react.PropTypes.array,
+	    minuteOptions: _react.PropTypes.array,
+	    secondOptions: _react.PropTypes.array,
+	    onChange: _react.PropTypes.func,
+	    onClear: _react.PropTypes.func
 	  },
-	  topRight: {
-	    points: ['tr', 'tr'],
-	    overflow: autoAdjustOverflow,
-	    offset: [0, -3],
-	    targetOffset: targetOffset
+	
+	  mixins: [_mixinCommonMixin2['default']],
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      hourOptions: generateOptions(24),
+	      minuteOptions: generateOptions(60),
+	      secondOptions: generateOptions(60),
+	      onChange: noop,
+	      onClear: noop
+	    };
 	  },
-	  bottomRight: {
-	    points: ['br', 'br'],
-	    overflow: autoAdjustOverflow,
-	    offset: [0, 3],
-	    targetOffset: targetOffset
+	
+	  getInitialState: function getInitialState() {
+	    var defaultValue = this.props.defaultValue;
+	    if (!defaultValue) {
+	      defaultValue = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
+	      defaultValue.setTime(Date.now());
+	    }
+	    return {
+	      value: defaultValue
+	    };
 	  },
-	  bottomLeft: {
-	    points: ['bl', 'bl'],
-	    overflow: autoAdjustOverflow,
-	    offset: [0, 3],
-	    targetOffset: targetOffset
+	
+	  componentWillMount: function componentWillMount() {
+	    var formatter = this.props.formatter;
+	    var pattern = formatter.originalPattern;
+	    if (pattern === 'HH:mm') {
+	      this.showSecond = false;
+	    } else if (pattern === 'mm:ss') {
+	      this.showHour = false;
+	    }
+	  },
+	
+	  onChange: function onChange(newValue) {
+	    this.setState({ value: newValue });
+	    this.props.onChange(newValue);
+	  },
+	
+	  onClear: function onClear() {
+	    this.props.onClear();
+	  },
+	
+	  getPlaceholder: function getPlaceholder(placeholder) {
+	    if (placeholder) {
+	      return placeholder;
+	    }
+	
+	    var locale = this.props.locale;
+	
+	    if (!this.showHour) {
+	      return locale.placeholdermmss;
+	    } else if (!this.showSecond) {
+	      return locale.placeholderHHmm;
+	    }
+	    return locale.placeholderHHmmss;
+	  },
+	
+	  showHour: true,
+	  showSecond: true,
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var locale = _props.locale;
+	    var prefixCls = _props.prefixCls;
+	    var defaultValue = _props.defaultValue;
+	    var placeholder = _props.placeholder;
+	    var hourOptions = _props.hourOptions;
+	    var minuteOptions = _props.minuteOptions;
+	    var secondOptions = _props.secondOptions;
+	
+	    var value = this.state.value || defaultValue;
+	    var cls = (0, _classnames2['default'])({ 'narrow': !this.showHour || !this.showSecond });
+	
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: prefixCls + '-panel ' + cls },
+	      _react2['default'].createElement(_Header2['default'], {
+	        prefixCls: prefixCls,
+	        gregorianTimePickerLocale: value.locale,
+	        locale: locale,
+	        value: value,
+	        formatter: this.getFormatter(),
+	        placeholder: this.getPlaceholder(placeholder),
+	        hourOptions: hourOptions,
+	        minuteOptions: minuteOptions,
+	        secondOptions: secondOptions,
+	        onChange: this.onChange,
+	        onClear: this.onClear,
+	        showClear: true
+	      }),
+	      _react2['default'].createElement(_Combobox2['default'], {
+	        prefixCls: prefixCls,
+	        value: value,
+	        formatter: this.getFormatter(),
+	        onChange: this.onChange,
+	        showHour: this.showHour,
+	        showSecond: this.showSecond,
+	        hourOptions: hourOptions,
+	        minuteOptions: minuteOptions,
+	        secondOptions: secondOptions
+	      })
+	    );
 	  }
-	};
+	});
 	
-	exports['default'] = placements;
+	exports['default'] = Panel;
 	module.exports = exports['default'];
 
 /***/ },
@@ -27717,165 +27842,6 @@ webpackJsonp([0,1],[
 
 /***/ },
 /* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(3);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _classnames = __webpack_require__(175);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
-	var _mixinCommonMixin = __webpack_require__(227);
-	
-	var _mixinCommonMixin2 = _interopRequireDefault(_mixinCommonMixin);
-	
-	var _moduleHeader = __webpack_require__(231);
-	
-	var _moduleHeader2 = _interopRequireDefault(_moduleHeader);
-	
-	var _moduleCombobox = __webpack_require__(232);
-	
-	var _moduleCombobox2 = _interopRequireDefault(_moduleCombobox);
-	
-	function noop() {}
-	
-	function generateOptions(length) {
-	  return Array.apply(null, { length: length }).map(function (item, index) {
-	    return index;
-	  });
-	}
-	
-	var TimePanel = _react2['default'].createClass({
-	  displayName: 'TimePanel',
-	
-	  propTypes: {
-	    prefixCls: _react.PropTypes.string,
-	    defaultValue: _react.PropTypes.object,
-	    locale: _react.PropTypes.object,
-	    placeholder: _react.PropTypes.string,
-	    formatter: _react.PropTypes.object,
-	    hourOptions: _react.PropTypes.array,
-	    minuteOptions: _react.PropTypes.array,
-	    secondOptions: _react.PropTypes.array,
-	    onChange: _react.PropTypes.func,
-	    onClear: _react.PropTypes.func
-	  },
-	
-	  mixins: [_mixinCommonMixin2['default']],
-	
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      hourOptions: generateOptions(24),
-	      minuteOptions: generateOptions(60),
-	      secondOptions: generateOptions(60),
-	      onChange: noop,
-	      onClear: noop
-	    };
-	  },
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      value: this.props.defaultValue
-	    };
-	  },
-	
-	  componentWillMount: function componentWillMount() {
-	    var formatter = this.props.formatter;
-	    var pattern = formatter.originalPattern;
-	    if (pattern === 'HH:mm') {
-	      this.showSecond = false;
-	    } else if (pattern === 'mm:ss') {
-	      this.showHour = false;
-	    }
-	  },
-	
-	  onChange: function onChange(newValue) {
-	    this.setState({ value: newValue });
-	    this.props.onChange(newValue);
-	  },
-	
-	  onClear: function onClear() {
-	    this.props.onClear();
-	  },
-	
-	  getPlaceholder: function getPlaceholder(placeholder) {
-	    if (placeholder) {
-	      return placeholder;
-	    }
-	
-	    var locale = this.props.locale;
-	
-	    if (!this.showHour) {
-	      return locale.placeholdermmss;
-	    } else if (!this.showSecond) {
-	      return locale.placeholderHHmm;
-	    }
-	    return locale.placeholderHHmmss;
-	  },
-	
-	  showHour: true,
-	  showSecond: true,
-	
-	  render: function render() {
-	    var _props = this.props;
-	    var locale = _props.locale;
-	    var prefixCls = _props.prefixCls;
-	    var defaultValue = _props.defaultValue;
-	    var placeholder = _props.placeholder;
-	    var hourOptions = _props.hourOptions;
-	    var minuteOptions = _props.minuteOptions;
-	    var secondOptions = _props.secondOptions;
-	
-	    var value = this.state.value || defaultValue;
-	    var cls = (0, _classnames2['default'])({ 'narrow': !this.showHour || !this.showSecond });
-	
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: prefixCls + '-panel ' + cls },
-	      _react2['default'].createElement(_moduleHeader2['default'], {
-	        prefixCls: prefixCls,
-	        gregorianTimePickerLocale: defaultValue.locale,
-	        locale: locale,
-	        value: value,
-	        formatter: this.getFormatter(),
-	        placeholder: this.getPlaceholder(placeholder),
-	        hourOptions: hourOptions,
-	        minuteOptions: minuteOptions,
-	        secondOptions: secondOptions,
-	        onChange: this.onChange,
-	        onClear: this.onClear,
-	        showClear: true
-	      }),
-	      _react2['default'].createElement(_moduleCombobox2['default'], {
-	        prefixCls: prefixCls,
-	        value: value,
-	        formatter: this.getFormatter(),
-	        onChange: this.onChange,
-	        showHour: this.showHour,
-	        showSecond: this.showSecond,
-	        hourOptions: hourOptions,
-	        minuteOptions: minuteOptions,
-	        secondOptions: secondOptions
-	      })
-	    );
-	  }
-	});
-	
-	exports['default'] = TimePanel;
-	module.exports = exports['default'];
-
-/***/ },
-/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28028,7 +27994,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28043,7 +28009,7 @@ webpackJsonp([0,1],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Select = __webpack_require__(233);
+	var _Select = __webpack_require__(232);
 	
 	var _Select2 = _interopRequireDefault(_Select);
 	
@@ -28161,7 +28127,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28286,6 +28252,52 @@ webpackJsonp([0,1],[
 	});
 	
 	exports['default'] = Select;
+	module.exports = exports['default'];
+
+/***/ },
+/* 233 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var autoAdjustOverflow = {
+	  adjustX: 1,
+	  adjustY: 1
+	};
+	
+	var targetOffset = [0, 0];
+	
+	var placements = {
+	  topLeft: {
+	    points: ['tl', 'tl'],
+	    overflow: autoAdjustOverflow,
+	    offset: [0, -3],
+	    targetOffset: targetOffset
+	  },
+	  topRight: {
+	    points: ['tr', 'tr'],
+	    overflow: autoAdjustOverflow,
+	    offset: [0, -3],
+	    targetOffset: targetOffset
+	  },
+	  bottomRight: {
+	    points: ['br', 'br'],
+	    overflow: autoAdjustOverflow,
+	    offset: [0, 3],
+	    targetOffset: targetOffset
+	  },
+	  bottomLeft: {
+	    points: ['bl', 'bl'],
+	    overflow: autoAdjustOverflow,
+	    offset: [0, 3],
+	    targetOffset: targetOffset
+	  }
+	};
+	
+	exports['default'] = placements;
 	module.exports = exports['default'];
 
 /***/ },
