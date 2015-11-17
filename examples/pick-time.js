@@ -22371,6 +22371,7 @@ webpackJsonp([0,1],[
 	  render: function render() {
 	    var _props4 = this.props;
 	    var prefixCls = _props4.prefixCls;
+	    var placeholder = _props4.placeholder;
 	    var placement = _props4.placement;
 	    var align = _props4.align;
 	    var disabled = _props4.disabled;
@@ -22398,7 +22399,7 @@ webpackJsonp([0,1],[
 	      _react2['default'].createElement(
 	        'span',
 	        { className: prefixCls + '-picker' },
-	        _react2['default'].createElement('input', { ref: 'picker', type: 'text', placeholder: '请选择时间', readOnly: true, disabled: disabled, value: value && formatter.format(value) }),
+	        _react2['default'].createElement('input', { ref: 'picker', type: 'text', placeholder: placeholder, readOnly: true, disabled: disabled, value: value && formatter.format(value) }),
 	        _react2['default'].createElement('span', { className: prefixCls + '-picker-icon' })
 	      )
 	    );
