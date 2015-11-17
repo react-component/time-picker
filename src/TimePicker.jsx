@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import {createChainedFunction} from 'rc-util';
-import Panel from 'rc-time-picker/src/module/Panel';
+import Panel from './module/Panel';
 import placements from './util/placements';
 import CommonMixin from './mixin/CommonMixin';
 
@@ -85,9 +85,10 @@ const Picker = React.createClass({
   },
 
   getPanel() {
-    const { value, locale, formatter, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
+    const { prefixCls, value, locale, formatter, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
     return (
       <Panel
+        prefixCls={prefixCls}
         defaultValue={value}
         locale={locale}
         formatter={formatter}
@@ -147,6 +148,7 @@ const Picker = React.createClass({
       >
         <span className={`${prefixCls}-picker`}>
           <input ref="picker" type="text" placeholder="请选择时间" readOnly disabled={disabled} value={value && formatter.format(value)} />
+          <span className={`${prefixCls}-picker-icon`} />
         </span>
       </Trigger>
     );
