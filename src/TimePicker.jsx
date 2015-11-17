@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import {createChainedFunction} from 'rc-util';
+import Panel from 'rc-time-picker/src/module/Panel';
 import placements from './util/placements';
 import CommonMixin from './mixin/CommonMixin';
 
@@ -15,7 +16,7 @@ function refFn(field, component) {
 const Picker = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
-    panel: PropTypes.element,
+    locale: PropTypes.object,
     children: PropTypes.func,
     disabled: PropTypes.bool,
     value: PropTypes.object,
@@ -23,6 +24,11 @@ const Picker = React.createClass({
     align: PropTypes.object,
     placement: PropTypes.any,
     transitionName: PropTypes.string,
+    placeholder: PropTypes.string,
+    formatter: PropTypes.object,
+    hourOptions: PropTypes.array,
+    minuteOptions: PropTypes.array,
+    secondOptions: PropTypes.array,
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
@@ -66,19 +72,35 @@ const Picker = React.createClass({
   },
 
   onPanelClear() {
-    this.setOpen(false, this.focus);
+    this.setOpen(false);
   },
 
   onVisibleChange(open) {
     this.setOpen(open, () => {
       if (open) {
+        ReactDOM.findDOMNode(this.refs.picker).blur();
         ReactDOM.findDOMNode(this.panelInstance).focus();
       }
     });
   },
 
+  getPanel() {
+    const { value, locale, formatter, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
+    return (
+      <Panel
+        defaultValue={value}
+        locale={locale}
+        formatter={formatter}
+        placeholder={placeholder}
+        hourOptions={hourOptions}
+        minuteOptions={minuteOptions}
+        secondOptions={secondOptions}
+      />
+    );
+  },
+
   getPanelElement() {
-    const panel = this.props.panel;
+    const panel = this.getPanel();
     const extraProps = {
       ref: this.savePanelRef,
       defaultValue: this.state.value || panel.props.defaultValue,
@@ -106,16 +128,10 @@ const Picker = React.createClass({
     }
   },
 
-  focus() {
-    if (!this.state.open) {
-      ReactDOM.findDOMNode(this).focus();
-    }
-  },
-
   render() {
-    const state = this.state;
-    const props = this.props;
-    const { prefixCls, placement, align, disabled, transitionName, children } = props;
+    const { prefixCls, placement, align, disabled, transitionName, children, formatter } = this.props;
+    const { open, value } = this.state;
+
     return (
       <Trigger
         prefixCls={prefixCls}
@@ -126,11 +142,11 @@ const Picker = React.createClass({
         action={disabled ? [] : ['click']}
         destroyPopupOnHide
         popupTransitionName={transitionName}
-        popupVisible={state.open}
+        popupVisible={open}
         onPopupVisibleChange={this.onVisibleChange}
       >
         <span className={`${prefixCls}-picker`}>
-          {children(state, props)}
+          <input ref="picker" type="text" placeholder="请选择时间" readOnly disabled={disabled} value={value && formatter.format(value)} />
         </span>
       </Trigger>
     );

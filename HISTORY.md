@@ -3,6 +3,11 @@ History
 
 ---
 
+0.3.0 / 2015-11-17
+------------------
+
+`update` remove TimePanel and merge it to TimePicker.
+
 0.2.0 / 2015-11-16
 ------------------
 

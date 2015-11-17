@@ -1,8 +1,11 @@
 import React, {PropTypes} from 'react';
 import classnames from 'classnames';
-import CommonMixin from './mixin/CommonMixin';
-import Header from './module/Header';
-import Combobox from './module/Combobox';
+import GregorianCalendar from 'gregorian-calendar';
+import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
+
+import CommonMixin from '../mixin/CommonMixin';
+import Header from './Header';
+import Combobox from './Combobox';
 
 function noop() {
 }
@@ -13,7 +16,7 @@ function generateOptions(length) {
   });
 }
 
-const TimePanel = React.createClass({
+const Panel = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
     defaultValue: PropTypes.object,
@@ -40,8 +43,13 @@ const TimePanel = React.createClass({
   },
 
   getInitialState() {
+    let defaultValue = this.props.defaultValue;
+    if (!defaultValue) {
+      defaultValue = new GregorianCalendar(zhCn);
+      defaultValue.setTime(Date.now());
+    }
     return {
-      value: this.props.defaultValue,
+      value: defaultValue,
     };
   },
 
@@ -90,7 +98,7 @@ const TimePanel = React.createClass({
       <div className={`${prefixCls}-panel ${cls}`}>
         <Header
           prefixCls={prefixCls}
-          gregorianTimePickerLocale={defaultValue.locale}
+          gregorianTimePickerLocale={value.locale}
           locale={locale}
           value={value}
           formatter={this.getFormatter()}
@@ -118,4 +126,4 @@ const TimePanel = React.createClass({
   },
 });
 
-export default TimePanel;
+export default Panel;
