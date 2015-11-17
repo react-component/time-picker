@@ -130,7 +130,7 @@ const Picker = React.createClass({
   },
 
   render() {
-    const { prefixCls, placement, align, disabled, transitionName, children, formatter } = this.props;
+    const { prefixCls, placeholder, placement, align, disabled, transitionName, children, formatter } = this.props;
     const { open, value } = this.state;
 
     return (
@@ -147,7 +147,7 @@ const Picker = React.createClass({
         onPopupVisibleChange={this.onVisibleChange}
       >
         <span className={`${prefixCls}-picker`}>
-          <input ref="picker" type="text" placeholder="请选择时间" readOnly disabled={disabled} value={value && formatter.format(value)} />
+          <input ref="picker" type="text" placeholder={placeholder} readOnly disabled={disabled} value={value && formatter.format(value)} />
           <span className={`${prefixCls}-picker-icon`} />
         </span>
       </Trigger>
