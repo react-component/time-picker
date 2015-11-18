@@ -72,7 +72,6 @@ const Picker = React.createClass({
   },
 
   onPanelClear() {
-    this.setOpen(false);
   },
 
   onVisibleChange(open) {

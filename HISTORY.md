@@ -3,6 +3,11 @@ History
 
 ---
 
+0.4.0 / 2015-11-18
+------------------
+
+`update` clear input content when click [x] on select panel.
+
 0.3.3 / 2015-11-17
 ------------------
 
