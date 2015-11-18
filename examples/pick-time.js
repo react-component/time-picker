@@ -22298,9 +22298,7 @@ webpackJsonp([0,1],[
 	    props.onChange(value);
 	  },
 	
-	  onPanelClear: function onPanelClear() {
-	    this.setOpen(false);
-	  },
+	  onPanelClear: function onPanelClear() {},
 	
 	  onVisibleChange: function onVisibleChange(open) {
 	    var _this = this;
