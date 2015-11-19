@@ -3,7 +3,12 @@ History
 
 ---
 
-0.5.0 / 2015-11-18
+0.5.1 / 2015-11-19
+------------------
+
+`update` change the className of select panel container.
+
+0.5.0 / 2015-11-19
 ------------------
 
 `update` clear input content and close select panel when click [x] on select panel.
