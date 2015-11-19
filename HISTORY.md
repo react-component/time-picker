@@ -3,6 +3,14 @@ History
 
 ---
 
+0.5.0 / 2015-11-18
+------------------
+
+`update` clear input content and close select panel when click [x] on select panel.
+
+`new` can custom input className now.
+
+
 0.4.0 / 2015-11-18
 ------------------
 

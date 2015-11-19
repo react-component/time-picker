@@ -16,10 +16,11 @@ function refFn(field, component) {
 const Picker = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
+    inputClassName: PropTypes.string,
     locale: PropTypes.object,
     children: PropTypes.func,
     disabled: PropTypes.bool,
-    value: PropTypes.object,
+    defaultValue: PropTypes.object,
     open: PropTypes.bool,
     align: PropTypes.object,
     placement: PropTypes.any,
@@ -54,9 +55,9 @@ const Picker = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const { value, open } = nextProps;
-    if (value !== undefined) {
-      this.setState({value});
+    const { defaultValue, open } = nextProps;
+    if (defaultValue !== undefined) {
+      this.setState({value: defaultValue});
     }
     if (open !== undefined) {
       this.setState({open});
@@ -64,14 +65,17 @@ const Picker = React.createClass({
   },
 
   onPanelChange(value) {
-    const props = this.props;
     this.setState({
       value: value,
     });
-    props.onChange(value);
+    this.props.onChange(value);
   },
 
   onPanelClear() {
+    this.setState({
+      value: '',
+    });
+    this.setOpen(false);
   },
 
   onVisibleChange(open) {
@@ -84,11 +88,11 @@ const Picker = React.createClass({
   },
 
   getPanel() {
-    const { prefixCls, value, locale, formatter, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
+    const { prefixCls, defaultValue, locale, formatter, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
     return (
       <Panel
         prefixCls={prefixCls}
-        defaultValue={value}
+        defaultValue={defaultValue}
         locale={locale}
         formatter={formatter}
         placeholder={placeholder}
@@ -129,7 +133,7 @@ const Picker = React.createClass({
   },
 
   render() {
-    const { prefixCls, placeholder, placement, align, disabled, transitionName, children, formatter } = this.props;
+    const { prefixCls, placeholder, placement, align, disabled, transitionName, children, formatter, inputClassName } = this.props;
     const { open, value } = this.state;
 
     return (
@@ -146,7 +150,7 @@ const Picker = React.createClass({
         onPopupVisibleChange={this.onVisibleChange}
       >
         <span className={`${prefixCls}-picker`}>
-          <input ref="picker" type="text" placeholder={placeholder} readOnly disabled={disabled} value={value && formatter.format(value)} />
+          <input className={inputClassName} ref="picker" type="text" placeholder={placeholder} readOnly disabled={disabled} value={value && formatter.format(value)} />
           <span className={`${prefixCls}-picker-icon`} />
         </span>
       </Trigger>

@@ -72,20 +72,6 @@ const Panel = React.createClass({
     this.props.onClear();
   },
 
-  getPlaceholder(placeholder) {
-    if (placeholder) {
-      return placeholder;
-    }
-
-    const { locale } = this.props;
-    if (!this.showHour) {
-      return locale.placeholdermmss;
-    } else if (!this.showSecond) {
-      return locale.placeholderHHmm;
-    }
-    return locale.placeholderHHmmss;
-  },
-
   showHour: true,
   showSecond: true,
 
@@ -102,7 +88,7 @@ const Panel = React.createClass({
           locale={locale}
           value={value}
           formatter={this.getFormatter()}
-          placeholder={this.getPlaceholder(placeholder)}
+          placeholder={placeholder}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
