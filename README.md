@@ -30,7 +30,8 @@ API
 | locale         | Object                     | import from 'rc-time-picker/lib/locale/en_US' |                                                                                            |
 | disabled       | Boolean                    | false                                         | whether picker is disabled                                                                 |
 | open           | Boolean                    | false                                         | current open state of picker. controlled prop                                              |
-| defaultValue   | GregorianCalendar          | null                                          | current value like input's value                                                           |
+| defaultValue   | GregorianCalendar          | null                                          | default initial value                                                                      |
+| value   | GregorianCalendar                 | null                                          | current value                                                                              |
 | placeholder    | String                     | ''                                            | time input's placeholder                                                                   |
 | formatter      | GregorianCalendarFormatter | HH:mm:ss or HH:mm or mm:ss                    |                                                                                            |
 | hourOptions    | Array<String>              | hour options                                  |                                                                                            |

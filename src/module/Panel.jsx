@@ -19,7 +19,7 @@ function generateOptions(length) {
 const Panel = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
-    defaultValue: PropTypes.object,
+    value: PropTypes.object,
     locale: PropTypes.object,
     placeholder: PropTypes.string,
     formatter: PropTypes.object,
@@ -43,13 +43,13 @@ const Panel = React.createClass({
   },
 
   getInitialState() {
-    let defaultValue = this.props.defaultValue;
-    if (!defaultValue) {
-      defaultValue = new GregorianCalendar(zhCn);
-      defaultValue.setTime(Date.now());
+    let value = this.props.value;
+    if (!value) {
+      value = new GregorianCalendar(zhCn);
+      value.setTime(Date.now());
     }
     return {
-      value: defaultValue,
+      value,
     };
   },
 
@@ -60,6 +60,15 @@ const Panel = React.createClass({
       this.showSecond = false;
     } else if (pattern === 'mm:ss') {
       this.showHour = false;
+    }
+  },
+
+  componentWillReceiveProps(nextProps) {
+    const value = nextProps.value;
+    if (value) {
+      this.setState({
+        value,
+      });
     }
   },
 
@@ -76,8 +85,8 @@ const Panel = React.createClass({
   showSecond: true,
 
   render() {
-    const { locale, prefixCls, defaultValue, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
-    const value = this.state.value || defaultValue;
+    const { locale, prefixCls, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
+    const value = this.state.value;
     const cls = classnames({ 'narrow': !this.showHour || !this.showSecond });
 
     return (

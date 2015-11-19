@@ -15,7 +15,11 @@ const formatter = new DateTimeFormat('HH:mm:ss');
 const now = new GregorianCalendar(zhCn);
 now.setTime(Date.now());
 
+function onChange(v) {
+  console.log(v && formatter.format(v));
+}
+
 ReactDom.render(
-  <TimePicker formatter={formatter} locale={TimePickerLocale} defaultValue={now} />,
+  <TimePicker formatter={formatter} locale={TimePickerLocale} defaultValue={now} onChange={onChange}/>,
   document.getElementById('__react-content')
 );

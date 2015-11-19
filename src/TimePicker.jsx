@@ -18,6 +18,7 @@ const Picker = React.createClass({
     prefixCls: PropTypes.string,
     inputClassName: PropTypes.string,
     locale: PropTypes.object,
+    value: PropTypes.object,
     children: PropTypes.func,
     disabled: PropTypes.bool,
     defaultValue: PropTypes.object,
@@ -50,17 +51,19 @@ const Picker = React.createClass({
 
   getInitialState() {
     this.savePanelRef = refFn.bind(this, 'panelInstance');
-    const { open, defaultValue } = this.props;
+    const { open, defaultValue, value } = this.props;
     return {
       open: open,
-      value: defaultValue,
+      value: value || defaultValue,
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    const { defaultValue, open } = nextProps;
-    if (defaultValue !== undefined) {
-      this.setState({value: defaultValue});
+    const { value, open } = nextProps;
+    if (value !== undefined) {
+      this.setState({
+        value,
+      });
     }
     if (open !== undefined) {
       this.setState({open});
@@ -68,16 +71,11 @@ const Picker = React.createClass({
   },
 
   onPanelChange(value) {
-    this.setState({
-      value: value,
-    });
-    this.props.onChange(value);
+    this.setValue(value);
   },
 
   onPanelClear() {
-    this.setState({
-      value: '',
-    });
+    this.setValue('');
     this.setOpen(false);
   },
 
@@ -88,6 +86,15 @@ const Picker = React.createClass({
         ReactDOM.findDOMNode(this.panelInstance).focus();
       }
     });
+  },
+
+  setValue(value) {
+    if (!('value' in this.props)) {
+      this.setState({
+        value,
+      });
+    }
+    this.props.onChange(value);
   },
 
   getPanel() {
@@ -110,7 +117,7 @@ const Picker = React.createClass({
     const panel = this.getPanel();
     const extraProps = {
       ref: this.savePanelRef,
-      defaultValue: this.state.value || panel.props.defaultValue,
+      value: this.state.value,
       onChange: createChainedFunction(panel.props.onChange, this.onPanelChange),
       onClear: createChainedFunction(panel.props.onClear, this.onPanelClear),
     };
@@ -136,12 +143,12 @@ const Picker = React.createClass({
   },
 
   render() {
-    const { prefixCls, placeholder, placement, align, disabled, transitionName, children, formatter, inputClassName } = this.props;
+    const { prefixCls, placeholder, placement, align, disabled, transitionName, formatter, inputClassName } = this.props;
     const { open, value } = this.state;
 
     return (
       <Trigger
-        prefixCls={`${prefixCls}-picker-container`}
+        prefixCls={`${prefixCls}-container`}
         popup={this.getPanelElement()}
         popupAlign={align}
         builtinPlacements={placements}
@@ -152,9 +159,10 @@ const Picker = React.createClass({
         popupVisible={open}
         onPopupVisibleChange={this.onVisibleChange}
       >
-        <span className={`${prefixCls}-picker`}>
-          <input className={inputClassName} ref="picker" type="text" placeholder={placeholder} readOnly disabled={disabled} value={value && formatter.format(value)} />
-          <span className={`${prefixCls}-picker-icon`} />
+        <span className={`${prefixCls}`}>
+          <input className={inputClassName} ref="picker" type="text" placeholder={placeholder} readOnly
+                 disabled={disabled} value={value && formatter.format(value)}/>
+          <span className={`${prefixCls}-icon`}/>
         </span>
       </Trigger>
     );
