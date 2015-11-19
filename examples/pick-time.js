@@ -28337,7 +28337,7 @@ webpackJsonp([0,1],[
 	      }
 	
 	      if (value) {
-	        if (hourOptions.indexOf(value.fields[4]) < 0 || minuteOptions.indexOf(value.fields[5]) < 0 || secondOptions.indexOf(value.fields[6]) < 0) {
+	        if (hourOptions.indexOf(value.getHourOfDay()) < 0 || minuteOptions.indexOf(value.getMinutes()) < 0 || secondOptions.indexOf(value.getSeconds()) < 0) {
 	          this.setState({
 	            invalid: true
 	          });
@@ -28345,7 +28345,7 @@ webpackJsonp([0,1],[
 	        }
 	
 	        if (originalValue && value) {
-	          if (originalValue.fields[4] !== value.fields[4] || originalValue.fields[5] !== value.fields[5] || originalValue.fields[6] !== value.fields[6]) {
+	          if (originalValue.getHourOfDay() !== value.getHourOfDay() || originalValue.getMinutes() !== value.getMinutes() || originalValue.getSeconds() !== value.getSeconds()) {
 	            onChange(value);
 	          }
 	        } else if (originalValue !== value) {
@@ -28457,13 +28457,13 @@ webpackJsonp([0,1],[
 	    var value = _props.value;
 	    var onChange = _props.onChange;
 	
-	    var index = 4;
-	    if (type === 'minute') {
-	      index = 5;
-	    } else if (type === 'second') {
-	      index = 6;
+	    if (type === 'hour') {
+	      value.setHourOfDay(itemValue);
+	    } else if (type === 'minute') {
+	      value.setMinutes(itemValue);
+	    } else {
+	      value.setSeconds(itemValue);
 	    }
-	    value.fields[index] = itemValue;
 	    onChange(value);
 	  },
 	
@@ -28528,14 +28528,12 @@ webpackJsonp([0,1],[
 	    var prefixCls = _props5.prefixCls;
 	    var value = _props5.value;
 	
-	    var timeFields = value.fields;
-	
 	    return _react2['default'].createElement(
 	      'div',
 	      { className: prefixCls + '-combobox' },
-	      this.getHourSelect(timeFields[4]),
-	      this.getMinuteSelect(timeFields[5]),
-	      this.getSectionSelect(timeFields[6])
+	      this.getHourSelect(value.getHourOfDay()),
+	      this.getMinuteSelect(value.getMinutes()),
+	      this.getSectionSelect(value.getSeconds())
 	    );
 	  }
 	});
