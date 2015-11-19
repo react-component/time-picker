@@ -22312,9 +22312,12 @@ webpackJsonp([0,1],[
 	    this.savePanelRef = refFn.bind(this, 'panelInstance');
 	    var _props = this.props;
 	    var open = _props.open;
-	    var value = _props.value;
+	    var defaultValue = _props.defaultValue;
 	
-	    return { open: open, value: value };
+	    return {
+	      open: open,
+	      value: defaultValue
+	    };
 	  },
 	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
