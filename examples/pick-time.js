@@ -22427,7 +22427,7 @@ webpackJsonp([0,1],[
 	    return _react2['default'].createElement(
 	      _rcTrigger2['default'],
 	      {
-	        prefixCls: prefixCls,
+	        prefixCls: prefixCls + '-picker-container',
 	        popup: this.getPanelElement(),
 	        popupAlign: align,
 	        builtinPlacements: _utilPlacements2['default'],
