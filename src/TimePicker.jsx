@@ -50,8 +50,11 @@ const Picker = React.createClass({
 
   getInitialState() {
     this.savePanelRef = refFn.bind(this, 'panelInstance');
-    const { open, value } = this.props;
-    return { open, value };
+    const { open, defaultValue } = this.props;
+    return {
+      open: open,
+      value: defaultValue,
+    };
   },
 
   componentWillReceiveProps(nextProps) {

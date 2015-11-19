@@ -1,5 +1,4 @@
-TimePicker
-==========
+# TimePicker
 
 React TimePicker
 
@@ -25,21 +24,24 @@ API
 
 ### TimePicker
 
-| Name          | Type                       | Default                                       | Description                                   |
-|---------------|----------------------------|-----------------------------------------------|-----------------------------------------------|
-| prefixCls     | String                     |                                               | prefixCls of this component                   |
-| locale        | Object                     | import from 'rc-time-picker/lib/locale/en_US' |                                               |
-| disabled      | Boolean                    | false                                         | whether picker is disabled                    |
-| open          | Boolean                    | false                                         | current open state of picker. controlled prop |
-| value         | GregorianCalendar          | null                                          | current value like input's value              |
-| placeholder   | String                     | ''                                            | time input's placeholder                      |
-| formatter     | GregorianCalendarFormatter | HH:mm:ss or HH:mm or mm:ss                    |                                               |
-| hourOptions   | Array<String>              | hour options                                  |                                               |
-| minuteOptions | Array<String>              | minute options                                |                                               |
-| secondOptions | Array<String>              | second options                                |                                               |
-| onChange      | Function                   | null                                          | called when select a different value          |
-| onOpen        | Function                   | null                                          | called when open picker                       |
-| onClose       | Function                   | null                                          | called when close picker                      |
+| Name           | Type                       | Default                                       | Description                                                                                |
+|----------------|----------------------------|-----------------------------------------------|--------------------------------------------------------------------------------------------|
+| prefixCls      | String                     |                                               | prefixCls of this component                                                                |
+| locale         | Object                     | import from 'rc-time-picker/lib/locale/en_US' |                                                                                            |
+| disabled       | Boolean                    | false                                         | whether picker is disabled                                                                 |
+| open           | Boolean                    | false                                         | current open state of picker. controlled prop                                              |
+| defaultValue   | GregorianCalendar          | null                                          | current value like input's value                                                           |
+| placeholder    | String                     | ''                                            | time input's placeholder                                                                   |
+| formatter      | GregorianCalendarFormatter | HH:mm:ss or HH:mm or mm:ss                    |                                                                                            |
+| hourOptions    | Array<String>              | hour options                                  |                                                                                            |
+| minuteOptions  | Array<String>              | minute options                                |                                                                                            |
+| secondOptions  | Array<String>              | second options                                |                                                                                            |
+| onChange       | Function                   | null                                          | called when select a different value                                                       |
+| onOpen         | Function                   | null                                          | called when open picker                                                                    |
+| onClose        | Function                   | null                                          | called when close picker                                                                   |
+| inputClassName | String                     | ''                                            |                                                                                            |
+| placement      | String                     | bottomLeft                                    | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
+| transitionName | String                     | ''                                            |                                                                                            |
 
 License
 -------

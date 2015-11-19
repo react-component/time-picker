@@ -1,7 +1,16 @@
-History
-=======
+# History
 
 ---
+
+0.5.4 / 2015-11-19
+------------------
+
+`update` change value prop to defaultValue.
+
+0.5.2 / 2015-11-19
+------------------
+
+`update` renew placements config.
 
 0.5.1 / 2015-11-19
 ------------------
