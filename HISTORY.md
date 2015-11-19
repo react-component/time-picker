@@ -2,12 +2,17 @@
 
 ---
 
-0.5.4 / 2015-11-19
+0.5.6 / 2015-11-20
+------------------
+
+`fix` use another method to change time and fix the bug about value.getTime().
+
+0.5.4 / 2015-11-20
 ------------------
 
 `update` change value prop to defaultValue.
 
-0.5.2 / 2015-11-19
+0.5.2 / 2015-11-20
 ------------------
 
 `update` renew placements config.

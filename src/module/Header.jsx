@@ -57,9 +57,9 @@ const Header = React.createClass({
 
       if (value) {
         if (
-          hourOptions.indexOf(value.fields[4]) < 0 ||
-          minuteOptions.indexOf(value.fields[5]) < 0 ||
-          secondOptions.indexOf(value.fields[6]) < 0
+          hourOptions.indexOf(value.getHourOfDay()) < 0 ||
+          minuteOptions.indexOf(value.getMinutes()) < 0 ||
+          secondOptions.indexOf(value.getSeconds()) < 0
         ) {
           this.setState({
             invalid: true,
@@ -69,9 +69,9 @@ const Header = React.createClass({
 
         if (originalValue && value) {
           if (
-            originalValue.fields[4] !== value.fields[4] ||
-            originalValue.fields[5] !== value.fields[5] ||
-            originalValue.fields[6] !== value.fields[6]
+            originalValue.getHourOfDay() !== value.getHourOfDay() ||
+            originalValue.getMinutes() !== value.getMinutes() ||
+            originalValue.getSeconds() !== value.getSeconds()
           ) {
             onChange(value);
           }
