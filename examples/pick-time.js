@@ -15,8 +15,8 @@ const formatter = new DateTimeFormat('HH:mm:ss');
 const now = new GregorianCalendar(zhCn);
 now.setTime(Date.now());
 
-function onChange(v) {
-  console.log(v && formatter.format(v));
+function onChange(value) {
+  console.log(value && formatter.format(value));
 }
 
 ReactDom.render(

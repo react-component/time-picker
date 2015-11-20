@@ -2,6 +2,11 @@
 
 ---
 
+0.7.1 / 2015-11-20
+------------------
+
+`fix` change value to null when clear input content to remove the react warning.
+
 0.7.0 / 2015-11-20
 ------------------
 

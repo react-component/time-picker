@@ -75,7 +75,7 @@ const Picker = React.createClass({
   },
 
   onPanelClear() {
-    this.setValue('');
+    this.setValue(null);
     this.setOpen(false);
   },
 
