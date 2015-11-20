@@ -148,7 +148,7 @@ const Picker = React.createClass({
 
     return (
       <Trigger
-        prefixCls={`${prefixCls}-container`}
+        prefixCls={`${prefixCls}-panel`}
         popup={this.getPanelElement()}
         popupAlign={align}
         builtinPlacements={placements}
