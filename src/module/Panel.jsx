@@ -90,7 +90,7 @@ const Panel = React.createClass({
     const cls = classnames({ 'narrow': !this.showHour || !this.showSecond });
 
     return (
-      <div className={`${prefixCls}-panel ${cls}`}>
+      <div className={`${prefixCls}-panel-inner ${cls}`}>
         <Header
           prefixCls={prefixCls}
           gregorianTimePickerLocale={value.locale}

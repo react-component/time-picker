@@ -2,17 +2,22 @@
 
 ---
 
-0.5.6 / 2015-11-20
+0.7.0 / 2015-11-20
+------------------
+
+`update` change the className of panel and its container.
+
+0.5.6 / 2015-11-19
 ------------------
 
 `fix` use another method to change time and fix the bug about value.getTime().
 
-0.5.4 / 2015-11-20
+0.5.4 / 2015-11-19
 ------------------
 
 `update` change value prop to defaultValue.
 
-0.5.2 / 2015-11-20
+0.5.2 / 2015-11-19
 ------------------
 
 `update` renew placements config.
