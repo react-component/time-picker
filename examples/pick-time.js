@@ -48,8 +48,8 @@ webpackJsonp([0,1],[
 	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
 	now.setTime(Date.now());
 	
-	function onChange(v) {
-	  console.log(v && formatter.format(v));
+	function onChange(value) {
+	  console.log(value && formatter.format(value));
 	}
 	
 	_reactDom2['default'].render(_react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'], defaultValue: now, onChange: onChange }), document.getElementById('__react-content'));
@@ -22345,7 +22345,7 @@ webpackJsonp([0,1],[
 	  },
 	
 	  onPanelClear: function onPanelClear() {
-	    this.setValue('');
+	    this.setValue(null);
 	    this.setOpen(false);
 	  },
 	
