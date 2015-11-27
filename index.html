@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-time-picker@0.7.1 - React TimePicker</title>
+  <title>rc-time-picker@1.0.0-alpha1 - React TimePicker</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-time-picker@0.7.1</h1>
+  <h1>rc-time-picker@1.0.0-alpha1</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -803,15 +803,34 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td>current value</td>
 </tr>
 <tr>
+<td>gregorianCalendarLocale</td>
+<td>GregorianCalendar  locale object</td>
+<td>null</td>
+<td>if value and defaultValue not set, you should set this to your locale</td>
+</tr>
+<tr>
 <td>placeholder</td>
 <td>String</td>
 <td>&#39;&#39;</td>
 <td>time input&#39;s placeholder</td>
 </tr>
 <tr>
+<td>showHour</td>
+<td>Boolean</td>
+<td>whether show hour</td>
+<td></td>
+</tr>
+<tr>
+<td>showSecond</td>
+<td>Boolean</td>
+<td>whether show second</td>
+<td></td>
+</tr>
+<tr>
 <td>formatter</td>
+<td>String</td>
 <td>GregorianCalendarFormatter</td>
-<td>HH:mm:ss or HH:mm or mm:ss</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -837,24 +856,6 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td>Function</td>
 <td>null</td>
 <td>called when select a different value</td>
-</tr>
-<tr>
-<td>onOpen</td>
-<td>Function</td>
-<td>null</td>
-<td>called when open picker</td>
-</tr>
-<tr>
-<td>onClose</td>
-<td>Function</td>
-<td>null</td>
-<td>called when close picker</td>
-</tr>
-<tr>
-<td>inputClassName</td>
-<td>String</td>
-<td>&#39;&#39;</td>
-<td></td>
 </tr>
 <tr>
 <td>placement</td>
