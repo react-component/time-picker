@@ -10,7 +10,10 @@ import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
 import TimePicker from 'rc-time-picker';
 import TimePickerLocale from 'rc-time-picker/src/locale/zh_CN';
 
-const formatter = new DateTimeFormat('HH:mm:ss');
+var showSecond = true;
+var str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+
+const formatter = new DateTimeFormat(str);
 
 const now = new GregorianCalendar(zhCn);
 now.setTime(Date.now());
@@ -20,6 +23,12 @@ function onChange(value) {
 }
 
 ReactDom.render(
-  <TimePicker formatter={formatter} locale={TimePickerLocale} defaultValue={now} onChange={onChange}/>,
+  <TimePicker formatter={formatter} locale={TimePickerLocale}
+              showSecond={showSecond}
+              defaultValue={now}
+              onChange={onChange}/>,
   document.getElementById('__react-content')
 );
+
+
+console.log(zhCn);

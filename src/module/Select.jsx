@@ -22,6 +22,7 @@ const Select = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
     options: PropTypes.array,
+    gregorianCalendarLocale: PropTypes.object,
     selectedIndex: PropTypes.number,
     type: PropTypes.string,
     onSelect: PropTypes.func,
@@ -37,23 +38,19 @@ const Select = React.createClass({
     this.scrollToSelected(200);
   },
 
-  onSelect(event) {
-    // do nothing when select selected option
-    if (event.target.getAttribute('class') === 'selected') {
-      return;
-    }
-    // change combobox selection
+  onSelect(value) {
     const { onSelect, type } = this.props;
-    const value = parseInt(event.target.innerHTML, 10);
     onSelect(type, value);
   },
 
   getOptions() {
-    const { options, selectedIndex } = this.props;
+    const { options, selectedIndex, prefixCls } = this.props;
     return options.map((item, index) => {
-      const cls = classnames({ selected: selectedIndex === index});
-      const ref = selectedIndex === index ? 'selected' : null;
-      return <li ref={ref} className={cls} key={index} onClick={this.onSelect}>{item}</li>;
+      const selected = selectedIndex === index;
+      const cls = classnames({
+        [`${prefixCls}-select-option-selected`]: selected,
+      });
+      return <li className={cls} key={index} onClick={this.onSelect.bind(this, +item)}>{item}</li>;
     });
   },
 

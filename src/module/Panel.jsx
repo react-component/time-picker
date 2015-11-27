@@ -1,8 +1,4 @@
 import React, {PropTypes} from 'react';
-import classnames from 'classnames';
-import GregorianCalendar from 'gregorian-calendar';
-import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
-
 import CommonMixin from '../mixin/CommonMixin';
 import Header from './Header';
 import Combobox from './Combobox';
@@ -22,11 +18,16 @@ const Panel = React.createClass({
     value: PropTypes.object,
     locale: PropTypes.object,
     placeholder: PropTypes.string,
+    gregorianCalendarLocale: PropTypes.object,
     formatter: PropTypes.object,
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
     secondOptions: PropTypes.array,
     onChange: PropTypes.func,
+    onEsc: PropTypes.func,
+    allowEmpty: PropTypes.bool,
+    showHour: PropTypes.bool,
+    showSecond: PropTypes.bool,
     onClear: PropTypes.func,
   },
 
@@ -43,24 +44,9 @@ const Panel = React.createClass({
   },
 
   getInitialState() {
-    let value = this.props.value;
-    if (!value) {
-      value = new GregorianCalendar(zhCn);
-      value.setTime(Date.now());
-    }
     return {
-      value,
+      value: this.props.value,
     };
-  },
-
-  componentWillMount() {
-    const formatter = this.props.formatter;
-    const pattern = formatter.originalPattern;
-    if (pattern === 'HH:mm') {
-      this.showSecond = false;
-    } else if (pattern === 'mm:ss') {
-      this.showHour = false;
-    }
   },
 
   componentWillReceiveProps(nextProps) {
@@ -81,37 +67,34 @@ const Panel = React.createClass({
     this.props.onClear();
   },
 
-  showHour: true,
-  showSecond: true,
-
   render() {
-    const { locale, prefixCls, placeholder, hourOptions, minuteOptions, secondOptions } = this.props;
+    const { locale, prefixCls, placeholder, hourOptions, minuteOptions, secondOptions, allowEmpty, showHour, showSecond, formatter, gregorianCalendarLocale } = this.props;
     const value = this.state.value;
-    const cls = classnames({ 'narrow': !this.showHour || !this.showSecond });
-
     return (
-      <div className={`${prefixCls}-panel-inner ${cls}`}>
+      <div className={`${prefixCls}-inner`}>
         <Header
           prefixCls={prefixCls}
-          gregorianTimePickerLocale={value.locale}
+          gregorianCalendarLocale={gregorianCalendarLocale}
           locale={locale}
           value={value}
-          formatter={this.getFormatter()}
+          onEsc={this.props.onEsc}
+          formatter={formatter}
           placeholder={placeholder}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
           onChange={this.onChange}
           onClear={this.onClear}
-          showClear
+          allowEmpty={allowEmpty}
         />
         <Combobox
           prefixCls={prefixCls}
           value={value}
-          formatter={this.getFormatter()}
+          gregorianCalendarLocale={gregorianCalendarLocale}
+          formatter={formatter}
           onChange={this.onChange}
-          showHour={this.showHour}
-          showSecond={this.showSecond}
+          showHour={showHour}
+          showSecond={showSecond}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}

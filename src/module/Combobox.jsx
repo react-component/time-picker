@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Select from './Select';
+import GregorianCalendar from 'gregorian-calendar';
 
 const formatOption = (option) => {
   if (option < 10) {
@@ -15,6 +16,7 @@ const Combobox = React.createClass({
     value: PropTypes.object,
     onChange: PropTypes.func,
     showHour: PropTypes.bool,
+    gregorianCalendarLocale: PropTypes.object,
     showSecond: PropTypes.bool,
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
@@ -22,7 +24,13 @@ const Combobox = React.createClass({
   },
 
   onItemChange(type, itemValue) {
-    const { value, onChange } = this.props;
+    const { onChange } = this.props;
+    let value = this.props.value;
+    if (value) {
+      value = value.clone();
+    } else {
+      value = this.getNow().clone();
+    }
     if (type === 'hour') {
       value.setHourOfDay(itemValue);
     } else if (type === 'minute') {
@@ -78,9 +86,19 @@ const Combobox = React.createClass({
     );
   },
 
-  render() {
-    const { prefixCls, value } = this.props;
+  getNow() {
+    if (this.showNow) {
+      return this.showNow;
+    }
+    const value = new GregorianCalendar(this.props.gregorianCalendarLocale);
+    value.setTime(Date.now());
+    this.showNow = value;
+    return value;
+  },
 
+  render() {
+    const { prefixCls } = this.props;
+    const value = this.props.value || this.getNow();
     return (
       <div className={`${prefixCls}-combobox`}>
         {this.getHourSelect(value.getHourOfDay())}

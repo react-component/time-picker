@@ -4,7 +4,7 @@ const Header = React.createClass({
   propTypes: {
     formatter: PropTypes.object,
     prefixCls: PropTypes.string,
-    gregorianTimePickerLocale: PropTypes.object,
+    gregorianCalendarLocale: PropTypes.object,
     locale: PropTypes.object,
     disabledDate: PropTypes.func,
     placeholder: PropTypes.string,
@@ -14,7 +14,8 @@ const Header = React.createClass({
     secondOptions: PropTypes.array,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
-    showClear: PropTypes.bool,
+    onEsc: PropTypes.func,
+    allowEmpty: PropTypes.bool,
   },
 
   getInitialState() {
@@ -25,6 +26,12 @@ const Header = React.createClass({
     };
   },
 
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      this.refs.input.focus();
+    }, 0);
+  },
+
   componentWillReceiveProps(nextProps) {
     const value = nextProps.value;
     this.setState({
@@ -33,19 +40,23 @@ const Header = React.createClass({
     });
   },
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  },
+
   onInputChange(event) {
     const str = event.target.value;
     this.setState({
       str,
     });
     let value = null;
-    const {formatter, gregorianTimePickerLocale, hourOptions, minuteOptions, secondOptions, onChange} = this.props;
+    const {formatter, gregorianCalendarLocale, hourOptions, minuteOptions, secondOptions, onChange, allowEmpty} = this.props;
 
     if (str) {
       const originalValue = this.props.value;
       try {
         value = formatter.parse(str, {
-          locale: gregorianTimePickerLocale,
+          locale: gregorianCalendarLocale,
           obeyCount: true,
         });
       } catch (ex) {
@@ -84,13 +95,24 @@ const Header = React.createClass({
         });
         return;
       }
-    } else {
+    } else if (allowEmpty) {
       onChange(null);
+    } else {
+      this.setState({
+        invalid: true,
+      });
+      return;
     }
 
     this.setState({
       invalid: false,
     });
+  },
+
+  onKeyDown(e) {
+    if (e.keyCode === 27) {
+      this.props.onEsc();
+    }
   },
 
   onClear() {
@@ -99,18 +121,22 @@ const Header = React.createClass({
   },
 
   getClearButton() {
-    const { locale, prefixCls, showClear } = this.props;
-    if (!showClear) {
+    const { locale, prefixCls, allowEmpty } = this.props;
+    if (!allowEmpty) {
       return null;
     }
-    return <a className={`${prefixCls}-clear-btn`} role="button" title={locale.clear} onMouseDown={this.onClear} />;
+    return <a className={`${prefixCls}-clear-btn`} role="button" title={locale.clear} onMouseDown={this.onClear}/>;
   },
 
   getInput() {
     const { prefixCls, placeholder } = this.props;
     const { invalid, str } = this.state;
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
-    return <input className={`${prefixCls}-input  ${invalidClass}`} value={str} placeholder={placeholder} onChange={this.onInputChange} />;
+    return (<input className={`${prefixCls}-input  ${invalidClass}`}
+                   ref="input"
+                   onKeyDown={this.onKeyDown}
+                   value={str}
+                   placeholder={placeholder} onChange={this.onInputChange}/>);
   },
 
   render() {

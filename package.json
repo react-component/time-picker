@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "0.7.1",
+  "version": "1.0.0-alpha1",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -57,10 +57,9 @@
     "lint"
   ],
   "dependencies": {
-    "classnames": "~2.2.0",
+    "classnames": "2.x",
     "gregorian-calendar": "4.x",
     "gregorian-calendar-format": "4.x",
-    "rc-trigger": "1.x",
-    "rc-util": "2.x"
+    "rc-trigger": "1.x"
   }
 }

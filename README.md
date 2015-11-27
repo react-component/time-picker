@@ -31,16 +31,16 @@ API
 | disabled       | Boolean                    | false                                         | whether picker is disabled                                                                 |
 | open           | Boolean                    | false                                         | current open state of picker. controlled prop                                              |
 | defaultValue   | GregorianCalendar          | null                                          | default initial value                                                                      |
-| value   | GregorianCalendar                 | null                                          | current value                                                                              |
+| value          | GregorianCalendar                 | null                                          | current value                                                                              |
+| gregorianCalendarLocale   | GregorianCalendar  locale object               | null                                          | if value and defaultValue not set, you should set this to your locale                                                                            |
 | placeholder    | String                     | ''                                            | time input's placeholder                                                                   |
-| formatter      | GregorianCalendarFormatter | HH:mm:ss or HH:mm or mm:ss                    |                                                                                            |
+| showHour       | Boolean                    | whether show hour                             |                                                                                            |
+| showSecond     | Boolean                    | whether show second                           |                                                                                            |
+| formatter      | String|GregorianCalendarFormatter |                                        |                                                                                            |
 | hourOptions    | Array<String>              | hour options                                  |                                                                                            |
 | minuteOptions  | Array<String>              | minute options                                |                                                                                            |
 | secondOptions  | Array<String>              | second options                                |                                                                                            |
 | onChange       | Function                   | null                                          | called when select a different value                                                       |
-| onOpen         | Function                   | null                                          | called when open picker                                                                    |
-| onClose        | Function                   | null                                          | called when close picker                                                                   |
-| inputClassName | String                     | ''                                            |                                                                                            |
 | placement      | String                     | bottomLeft                                    | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
 | transitionName | String                     | ''                                            |                                                                                            |
 

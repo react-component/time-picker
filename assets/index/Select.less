@@ -1,4 +1,4 @@
-.@{prefixClass}-select {
+.@{prefixClass}-panel-select {
   float: left;
   overflow-y:auto;
   font-size: 12px;
@@ -38,13 +38,13 @@
     cursor: pointer;
     user-select: none;
 
-    &.selected {
-      background: #edfaff;
-      color: #2db7f5;
-    }
-
     &:hover {
       background: #edfaff;
     }
+  }
+
+  &-option-selected {
+    background: #edfaff;
+    color: #2db7f5;
   }
 }
