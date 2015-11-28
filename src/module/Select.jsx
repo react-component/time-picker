@@ -35,7 +35,7 @@ const Select = React.createClass({
 
   componentDidUpdate() {
     // smooth scroll to selected option
-    this.scrollToSelected(200);
+    this.scrollToSelected(120);
   },
 
   onSelect(value) {
