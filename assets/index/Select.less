@@ -8,6 +8,10 @@
   width: 56px;
   overflow: hidden;
 
+  &:hover {
+    overflow-y: auto;
+  }
+
   &:first-child {
     border-left: 0;
     margin-left: 0;
@@ -19,18 +23,16 @@
 
   ul {
     list-style: none;
-    box-sizing: content-box;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     width: 100%;
     max-height: 144px;
-    overflow: auto;
-    padding-right: 16px;
   }
 
   li {
     list-style: none;
-    box-sizing: content-box;
+    box-sizing: border-box;
     margin: 0;
     padding: 0 0 0 16px;
     width: 100%;

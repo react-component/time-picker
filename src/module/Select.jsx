@@ -64,7 +64,7 @@ const Select = React.createClass({
     }
     const topOption = list.children[index];
     const to = topOption.offsetTop - select.offsetTop;
-    scrollTo(list, to, duration);
+    scrollTo(select, to, duration);
   },
 
   render() {
