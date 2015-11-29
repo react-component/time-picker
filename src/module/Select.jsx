@@ -3,6 +3,10 @@ import ReactDom from 'react-dom';
 import classnames from 'classnames';
 
 const scrollTo = (element, to, duration) => {
+  const requestAnimationFrame = window.requestAnimationFrame ||
+    function requestAnimationFrameTimeout() {
+      return setTimeout(arguments[0], 10);
+    };
   // jump to target if duration zero
   if (duration <= 0) {
     element.scrollTop = to;
@@ -11,11 +15,11 @@ const scrollTo = (element, to, duration) => {
   const difference = to - element.scrollTop;
   const perTick = difference / duration * 10;
 
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     element.scrollTop = element.scrollTop + perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
-  }, 10);
+  });
 };
 
 const Select = React.createClass({
