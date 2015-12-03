@@ -7,9 +7,11 @@ function noop() {
 }
 
 function generateOptions(length) {
-  return Array.apply(null, {length: length}).map((item, index) => {
-    return index;
-  });
+  const arr = [];
+  for(let i = 0; i < length; i++){
+    arr.push(i);
+  }
+  return arr;
 }
 
 const Panel = React.createClass({
