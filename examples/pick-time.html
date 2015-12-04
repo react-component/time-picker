@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>pick-time.js - example - rc-time-picker@1.0.0-alpha1</title>
+  <title>pick-time.js - example - rc-time-picker@0.7.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,47 +257,39 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-time-picker@1.0.0-alpha1</h1>
+    <h1>rc-time-picker@0.7.2</h1>
 
     <p>React TimePicker</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="pick-time.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js">import <span class="hljs-string">'rc-time-picker/assets/index.css'</span>;
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rc-time-picker/assets/index.css'</span>;
 
-import React from <span class="hljs-string">'react'</span>;
-import ReactDom from <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
-import GregorianCalendar from <span class="hljs-string">'gregorian-calendar'</span>;
-import DateTimeFormat from <span class="hljs-string">'gregorian-calendar-format'</span>;
-import zhCn from <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
+<span class="hljs-keyword">import</span> GregorianCalendar <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar'</span>;
+<span class="hljs-keyword">import</span> DateTimeFormat <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar-format'</span>;
+<span class="hljs-keyword">import</span> zhCn <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
 
-import TimePicker from <span class="hljs-string">'rc-time-picker'</span>;
-import TimePickerLocale from <span class="hljs-string">'rc-time-picker/lib/locale/zh_CN'</span>;
+<span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker'</span>;
+<span class="hljs-keyword">import</span> TimePickerLocale <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker/lib/locale/zh_CN'</span>;
 
-<span class="hljs-keyword">var</span> showSecond = <span class="hljs-literal">true</span>;
-<span class="hljs-keyword">var</span> str = showSecond ? <span class="hljs-string">'HH:mm:ss'</span> : <span class="hljs-string">'HH:mm'</span>;
-
-<span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(str);
+<span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(<span class="hljs-string">'HH:mm:ss'</span>);
 
 <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(zhCn);
 now.setTime(<span class="hljs-built_in">Date</span>.now());
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span><span class="hljs-params">(value)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span>(<span class="hljs-params">value</span>) </span>{
   <span class="hljs-built_in">console</span>.log(value &amp;&amp; formatter.format(value));
 }
 
 ReactDom.render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span>
-              <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{showSecond}</span>
-              <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span>
-              <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>/&gt;</span>,
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span> <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>/&gt;</span>,
   document.getElementById('__react-content')
 );
-
-
-console.log(zhCn);</span></code></pre></div>
+</span></code></pre></div>
 </div>
 <a href="http://github.com/react-component/time-picker">
   <img style="position: absolute; top: 0; right: 0; border: 0;"
