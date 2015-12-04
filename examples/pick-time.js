@@ -29,6 +29,3 @@ ReactDom.render(
               onChange={onChange}/>,
   document.getElementById('__react-content')
 );
-
-
-console.log(zhCn);
