@@ -8,7 +8,7 @@ function noop() {
 
 function generateOptions(length) {
   const arr = [];
-  for(let i = 0; i < length; i++){
+  for (let i = 0; i < length; i++) {
     arr.push(i);
   }
   return arr;
