@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "1.0.0-alpha2",
+  "version": "1.0.0",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -50,7 +50,7 @@
     "rc-server": "3.x",
     "rc-tools": "4.x",
     "react": "0.14.x",
-    "react-addons-test-utils": "~0.14.0",
+    "react-addons-test-utils": "0.14.x",
     "react-dom": "0.14.x"
   },
   "pre-commit": [

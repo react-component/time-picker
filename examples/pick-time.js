@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+
 import 'rc-time-picker/assets/index.less';
 
 import React from 'react';
@@ -10,8 +12,8 @@ import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
 import TimePicker from 'rc-time-picker';
 import TimePickerLocale from 'rc-time-picker/src/locale/zh_CN';
 
-var showSecond = true;
-var str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+const showSecond = true;
+const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
 
 const formatter = new DateTimeFormat(str);
 
