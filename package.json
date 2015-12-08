@@ -49,6 +49,7 @@
     "pre-commit": "1.x",
     "rc-server": "3.x",
     "rc-tools": "4.x",
+    "rc-util": "^3.1.2",
     "react": "0.14.x",
     "react-addons-test-utils": "0.14.x",
     "react-dom": "0.14.x"
