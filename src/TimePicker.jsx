@@ -32,6 +32,7 @@ const Picker = React.createClass({
     formatter: PropTypes.any,
     showHour: PropTypes.bool,
     style: PropTypes.object,
+    className: PropTypes.string,
     showSecond: PropTypes.bool,
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
@@ -47,6 +48,7 @@ const Picker = React.createClass({
     return {
       defaultOpen: false,
       style: {},
+      className: '',
       gregorianCalendarLocale: defaultGregorianCalendarLocale,
       align: {},
       allowEmpty: true,
@@ -193,7 +195,7 @@ const Picker = React.createClass({
   },
 
   render() {
-    const { prefixCls, placeholder, placement, align, disabled, transitionName, style, showHour, showSecond, getPopupContainer } = this.props;
+    const { prefixCls, placeholder, placement, align, disabled, transitionName, style, className, showHour, showSecond, getPopupContainer } = this.props;
     const { open, value } = this.state;
     let popupClassName;
     if (!showHour || !showSecond) {
@@ -214,7 +216,7 @@ const Picker = React.createClass({
         popupVisible={open}
         onPopupVisibleChange={this.onVisibleChange}
       >
-        <span className={`${prefixCls}`} style={style}>
+        <span className={`${prefixCls} ${className}`} style={style}>
           <input className={`${prefixCls}-input`}
                  ref="picker" type="text" placeholder={placeholder}
                  readOnly

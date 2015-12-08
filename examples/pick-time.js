@@ -28,6 +28,7 @@ ReactDom.render(
   <TimePicker formatter={formatter} locale={TimePickerLocale}
               showSecond={showSecond}
               defaultValue={now}
+              className="xxx"
               onChange={onChange}/>,
   document.getElementById('__react-content')
 );

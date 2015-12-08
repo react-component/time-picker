@@ -37,7 +37,7 @@ const App = React.createClass({
               onChange={this.handleValueChange}/>
       </div>
     );
-  }
+  },
 });
 
 ReactDom.render(
