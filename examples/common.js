@@ -22542,7 +22542,7 @@
 	
 	    var popupClassName = undefined;
 	    if (!showHour || !showSecond) {
-	      popupClassName = prefixCls + '-panel-narrow}';
+	      popupClassName = prefixCls + '-panel-narrow';
 	    }
 	    return _react2['default'].createElement(
 	      _rcTrigger2['default'],
