@@ -1,12 +1,14 @@
-webpackJsonp([0],[
-/* 0 */
+webpackJsonp([1],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(229);
 
 
 /***/ },
-/* 1 */
+
+/***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint no-console:0 */
@@ -45,24 +47,39 @@ webpackJsonp([0],[
 	
 	var _rcTimePickerSrcLocaleZh_CN2 = _interopRequireDefault(_rcTimePickerSrcLocaleZh_CN);
 	
-	var showSecond = true;
-	var str = showSecond ? 'HH:mm:ss' : 'HH:mm';
-	
-	var formatter = new _gregorianCalendarFormat2['default'](str);
+	var formatter = new _gregorianCalendarFormat2['default']('HH:mm:ss');
 	
 	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
 	now.setTime(Date.now());
 	
-	function onChange(value) {
-	  console.log(value && formatter.format(value));
-	}
+	var App = _react2['default'].createClass({
+	  displayName: 'App',
 	
-	_reactDom2['default'].render(_react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
-	  showSecond: showSecond,
-	  defaultValue: now,
-	  className: 'xxx',
-	  onChange: onChange }), document.getElementById('__react-content'));
+	  getInitialState: function getInitialState() {
+	    return {
+	      value: now
+	    };
+	  },
+	  handleValueChange: function handleValueChange(value) {
+	    console.log(value && formatter.format(value));
+	    this.setState({ value: value });
+	  },
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      null,
+	      _react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
+	        defaultValue: now }),
+	      _react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
+	        value: this.state.value,
+	        onChange: this.handleValueChange })
+	    );
+	  }
+	});
+	
+	_reactDom2['default'].render(_react2['default'].createElement(App, null), document.getElementById('__react-content'));
 
 /***/ }
-]);
-//# sourceMappingURL=pick-time.js.map
+
+});
+//# sourceMappingURL=value-and-defaultValue.js.map
