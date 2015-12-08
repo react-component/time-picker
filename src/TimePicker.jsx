@@ -199,7 +199,7 @@ const Picker = React.createClass({
     const { open, value } = this.state;
     let popupClassName;
     if (!showHour || !showSecond) {
-      popupClassName = `${prefixCls}-panel-narrow}`;
+      popupClassName = `${prefixCls}-panel-narrow`;
     }
     return (
       <Trigger
