@@ -27939,7 +27939,7 @@
 	    // move to selected item
 	    var select = _reactDom2['default'].findDOMNode(this);
 	    var list = _reactDom2['default'].findDOMNode(this.refs.list);
-	    var index = this.props.selectedIndex - 1;
+	    var index = this.props.selectedIndex;
 	    if (index < 0) {
 	      index = 0;
 	    }
