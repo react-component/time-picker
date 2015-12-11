@@ -30,6 +30,7 @@ const Select = React.createClass({
     selectedIndex: PropTypes.number,
     type: PropTypes.string,
     onSelect: PropTypes.func,
+    onMouseEnter: PropTypes.func,
   },
 
   componentDidMount() {
@@ -79,7 +80,8 @@ const Select = React.createClass({
     const { prefixCls } = this.props;
 
     return (
-      <div className={`${prefixCls}-select`}>
+      <div className={`${prefixCls}-select`}
+           onMouseEnter={this.props.onMouseEnter}>
         <ul ref="list">{this.getOptions()}</ul>
       </div>
     );

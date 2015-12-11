@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import createSelection from '../util/selection';
 
 const Header = React.createClass({
   propTypes: {
@@ -16,6 +17,7 @@ const Header = React.createClass({
     onClear: PropTypes.func,
     onEsc: PropTypes.func,
     allowEmpty: PropTypes.bool,
+    currentSelectPanel: PropTypes.string,
   },
 
   getInitialState() {
@@ -27,9 +29,7 @@ const Header = React.createClass({
   },
 
   componentDidMount() {
-    this.timer = setTimeout(() => {
-      this.refs.input.focus();
-    }, 0);
+    this.timer = setTimeout(this.selectRange, 0);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -38,6 +38,10 @@ const Header = React.createClass({
       str: value && nextProps.formatter.format(value) || '',
       invalid: false,
     });
+  },
+
+  componentDidUpdate() {
+    this.timer = setTimeout(this.selectRange, 0);
   },
 
   componentWillUnmount() {
@@ -137,6 +141,27 @@ const Header = React.createClass({
                    onKeyDown={this.onKeyDown}
                    value={str}
                    placeholder={placeholder} onChange={this.onInputChange}/>);
+  },
+
+  selectRange() {
+    this.refs.input.focus();
+    if (this.props.currentSelectPanel && this.refs.input.value) {
+      let selectionRangeStart = 0;
+      let selectionRangeEnd = 0;
+      if (this.props.currentSelectPanel === 'hour') {
+        selectionRangeStart = 0;
+        selectionRangeEnd = this.refs.input.value.indexOf(':');
+      } else if (this.props.currentSelectPanel === 'minute') {
+        selectionRangeStart = this.refs.input.value.indexOf(':') + 1;
+        selectionRangeEnd = this.refs.input.value.lastIndexOf(':');
+      } else if (this.props.currentSelectPanel === 'second') {
+        selectionRangeStart = this.refs.input.value.lastIndexOf(':') + 1;
+        selectionRangeEnd = this.refs.input.value.length;
+      }
+      if (selectionRangeEnd - selectionRangeStart === 2) {
+        createSelection(this.refs.input, selectionRangeStart, selectionRangeEnd);
+      }
+    }
   },
 
   render() {

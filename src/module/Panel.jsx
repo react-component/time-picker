@@ -48,6 +48,7 @@ const Panel = React.createClass({
   getInitialState() {
     return {
       value: this.props.value,
+      selectionRange: [],
     };
   },
 
@@ -69,6 +70,10 @@ const Panel = React.createClass({
     this.props.onClear();
   },
 
+  onCurrentSelectPanelChange(currentSelectPanel) {
+    this.setState({ currentSelectPanel });
+  },
+
   render() {
     const { locale, prefixCls, placeholder, hourOptions, minuteOptions, secondOptions, allowEmpty, showHour, showSecond, formatter, gregorianCalendarLocale } = this.props;
     const value = this.state.value;
@@ -79,6 +84,7 @@ const Panel = React.createClass({
           gregorianCalendarLocale={gregorianCalendarLocale}
           locale={locale}
           value={value}
+          currentSelectPanel={this.state.currentSelectPanel}
           onEsc={this.props.onEsc}
           formatter={formatter}
           placeholder={placeholder}
@@ -100,6 +106,7 @@ const Panel = React.createClass({
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
+          onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
         />
       </div>
     );

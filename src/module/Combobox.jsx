@@ -21,6 +21,7 @@ const Combobox = React.createClass({
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
     secondOptions: PropTypes.array,
+    onCurrentSelectPanelChange: PropTypes.func,
   },
 
   onItemChange(type, itemValue) {
@@ -41,6 +42,10 @@ const Combobox = React.createClass({
     onChange(value);
   },
 
+  onEnterSelectPanel(range) {
+    this.props.onCurrentSelectPanelChange(range);
+  },
+
   getHourSelect(hour) {
     const { prefixCls, hourOptions, showHour } = this.props;
     if (!showHour) {
@@ -53,6 +58,7 @@ const Combobox = React.createClass({
         selectedIndex={hourOptions.indexOf(hour)}
         type="hour"
         onSelect={this.onItemChange}
+        onMouseEnter={this.onEnterSelectPanel.bind(this, 'hour')}
       />
     );
   },
@@ -66,11 +72,12 @@ const Combobox = React.createClass({
         selectedIndex={minuteOptions.indexOf(minute)}
         type="minute"
         onSelect={this.onItemChange}
+        onMouseEnter={this.onEnterSelectPanel.bind(this, 'minute')}
       />
     );
   },
 
-  getSectionSelect(second) {
+  getSecondSelect(second) {
     const { prefixCls, secondOptions, showSecond } = this.props;
     if (!showSecond) {
       return null;
@@ -82,6 +89,7 @@ const Combobox = React.createClass({
         selectedIndex={secondOptions.indexOf(second)}
         type="second"
         onSelect={this.onItemChange}
+        onMouseEnter={this.onEnterSelectPanel.bind(this, 'second')}
       />
     );
   },
@@ -103,7 +111,7 @@ const Combobox = React.createClass({
       <div className={`${prefixCls}-combobox`}>
         {this.getHourSelect(value.getHourOfDay())}
         {this.getMinuteSelect(value.getMinutes())}
-        {this.getSectionSelect(value.getSeconds())}
+        {this.getSecondSelect(value.getSeconds())}
       </div>
     );
   },
