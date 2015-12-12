@@ -48,8 +48,16 @@
     }
   }
 
-  &-option-selected {
+  li&-option-selected {
     background: #edfaff;
     color: #2db7f5;
+  }
+
+  li&-option-disabled {
+    color: #bfbfbf;
+    &:hover {
+      background: transparent;
+      cursor: not-allowed;
+    }
   }
 }

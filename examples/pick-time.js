@@ -24,11 +24,27 @@ function onChange(value) {
   console.log(value && formatter.format(value));
 }
 
+const options = {
+  disabledHours() {
+    return [0, 2, 21];
+  },
+  disabledMinutes(h) {
+    return h === 22 ? [0, 3, 31] : [];
+  },
+  disabledSeconds(h, m) {
+    return [];
+  },
+};
+
 ReactDom.render(
   <TimePicker formatter={formatter} locale={TimePickerLocale}
               showSecond={showSecond}
               defaultValue={now}
               className="xxx"
-              onChange={onChange}/>,
+              onChange={onChange}
+              disabledHours={[0, 2, 21]}
+              disabledMinutes={[0, 2, 21]}
+              disabledSeconds={[]}
+              hideDisabledOptions={true} />,
   document.getElementById('__react-content')
 );

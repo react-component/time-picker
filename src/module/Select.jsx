@@ -51,11 +51,15 @@ const Select = React.createClass({
   getOptions() {
     const { options, selectedIndex, prefixCls } = this.props;
     return options.map((item, index) => {
-      const selected = selectedIndex === index;
       const cls = classnames({
-        [`${prefixCls}-select-option-selected`]: selected,
+        [`${prefixCls}-select-option-selected`]: selectedIndex === index,
+        [`${prefixCls}-select-option-disabled`]: item.disabled,
       });
-      return <li className={cls} key={index} onClick={this.onSelect.bind(this, +item)}>{item}</li>;
+      let onclick = null;
+      if (!item.disabled) {
+        onclick = this.onSelect.bind(this, +item.value);
+      }
+      return <li className={cls} key={index} onClick={onclick} disabled={item.disabled}>{item.value}</li>;
     });
   },
 

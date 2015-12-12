@@ -6,10 +6,12 @@ import Combobox from './Combobox';
 function noop() {
 }
 
-function generateOptions(length) {
+function generateOptions(length, disabledOptions, hideDisabledOptions) {
   const arr = [];
-  for (let i = 0; i < length; i++) {
-    arr.push(i);
+  for (let value = 0; value < length; value++) {
+    if ((disabledOptions && disabledOptions.indexOf(value) < 0) || !hideDisabledOptions) {
+      arr.push(value);
+    }
   }
   return arr;
 }
@@ -22,9 +24,10 @@ const Panel = React.createClass({
     placeholder: PropTypes.string,
     gregorianCalendarLocale: PropTypes.object,
     formatter: PropTypes.object,
-    hourOptions: PropTypes.array,
-    minuteOptions: PropTypes.array,
-    secondOptions: PropTypes.array,
+    disabledHours: PropTypes.array,
+    disabledMinutes: PropTypes.array,
+    disabledSeconds: PropTypes.array,
+    hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
     allowEmpty: PropTypes.bool,
@@ -37,9 +40,10 @@ const Panel = React.createClass({
 
   getDefaultProps() {
     return {
-      hourOptions: generateOptions(24),
-      minuteOptions: generateOptions(60),
-      secondOptions: generateOptions(60),
+      disabledHours: null,
+      disabledMinutes: null,
+      disabledSeconds: null,
+      hideDisabledOptions: false,
       onChange: noop,
       onClear: noop,
     };
@@ -75,8 +79,12 @@ const Panel = React.createClass({
   },
 
   render() {
-    const { locale, prefixCls, placeholder, hourOptions, minuteOptions, secondOptions, allowEmpty, showHour, showSecond, formatter, gregorianCalendarLocale } = this.props;
+    const { locale, prefixCls, placeholder, disabledHours, disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond, formatter, gregorianCalendarLocale } = this.props;
     const value = this.state.value;
+    const hourOptions = generateOptions(24, disabledHours, hideDisabledOptions);
+    const minuteOptions = generateOptions(60, disabledMinutes, hideDisabledOptions);
+    const secondOptions = generateOptions(60, disabledSeconds, hideDisabledOptions);
+
     return (
       <div className={`${prefixCls}-inner`}>
         <Header
@@ -91,6 +99,9 @@ const Panel = React.createClass({
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
+          disabledHours={disabledHours}
+          disabledMinutes={disabledMinutes}
+          disabledSeconds={disabledSeconds}
           onChange={this.onChange}
           onClear={this.onClear}
           allowEmpty={allowEmpty}
@@ -106,6 +117,9 @@ const Panel = React.createClass({
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
+          disabledHours={disabledHours}
+          disabledMinutes={disabledMinutes}
+          disabledSeconds={disabledSeconds}
           onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
         />
       </div>
