@@ -88,9 +88,9 @@ const Header = React.createClass({
 
         // if time value is disabled, response warning.
         if (
-          disabledHours.indexOf(value.getHourOfDay()) >= 0 ||
-          disabledMinutes.indexOf(value.getMinutes()) >= 0 ||
-          disabledSeconds.indexOf(value.getSeconds()) >= 0
+          (disabledHours && disabledHours.indexOf(value.getHourOfDay()) >= 0) ||
+          (disabledMinutes && disabledMinutes.indexOf(value.getMinutes()) >= 0) ||
+          (disabledSeconds && disabledSeconds.indexOf(value.getSeconds()) >= 0)
         ) {
           this.setState({
             invalid: true,

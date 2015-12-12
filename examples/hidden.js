@@ -29,6 +29,9 @@ ReactDom.render(
               showSecond={showSecond}
               defaultValue={now}
               className="xxx"
-              onChange={onChange} />,
+              onChange={onChange}
+              disabledHours={[0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23]}
+              disabledMinutes={[0, 2, 4, 6, 8]}
+              hideDisabledOptions={true} />,
   document.getElementById('__react-content')
 );

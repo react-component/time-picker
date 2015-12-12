@@ -9,7 +9,7 @@ function noop() {
 function generateOptions(length, disabledOptions, hideDisabledOptions) {
   const arr = [];
   for (let value = 0; value < length; value++) {
-    if ((disabledOptions && disabledOptions.indexOf(value) < 0) || !hideDisabledOptions) {
+    if (!disabledOptions || disabledOptions.indexOf(value) < 0 || !hideDisabledOptions) {
       arr.push(value);
     }
   }

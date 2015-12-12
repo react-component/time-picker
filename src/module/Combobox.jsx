@@ -9,7 +9,7 @@ const formatOption = (option, disabledOptions) => {
   }
 
   let disabled = false;
-  if (disabledOptions.indexOf(option) >= 0) {
+  if (disabledOptions && disabledOptions.indexOf(option) >= 0) {
     disabled = true;
   }
 
