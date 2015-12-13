@@ -13,9 +13,9 @@ const Header = React.createClass({
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
     secondOptions: PropTypes.array,
-    disabledHours: PropTypes.array,
-    disabledMinutes: PropTypes.array,
-    disabledSeconds: PropTypes.array,
+    disabledHours: PropTypes.func,
+    disabledMinutes: PropTypes.func,
+    disabledSeconds: PropTypes.func,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
     onEsc: PropTypes.func,
@@ -87,10 +87,13 @@ const Header = React.createClass({
         }
 
         // if time value is disabled, response warning.
+        const disabledHourOptions = disabledHours();
+        const disabledMinuteOptions = disabledMinutes(value.getHourOfDay());
+        const disabledSecondOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
         if (
-          (disabledHours && disabledHours.indexOf(value.getHourOfDay()) >= 0) ||
-          (disabledMinutes && disabledMinutes.indexOf(value.getMinutes()) >= 0) ||
-          (disabledSeconds && disabledSeconds.indexOf(value.getSeconds()) >= 0)
+          (disabledHourOptions && disabledHourOptions.indexOf(value.getHourOfDay()) >= 0) ||
+          (disabledMinuteOptions && disabledMinuteOptions.indexOf(value.getMinutes()) >= 0) ||
+          (disabledSecondOptions && disabledSecondOptions.indexOf(value.getSeconds()) >= 0)
         ) {
           this.setState({
             invalid: true,

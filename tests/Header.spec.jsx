@@ -123,7 +123,12 @@ describe('Header', () => {
 
     it('carry disabled correctly', (done) => {
       const picker = renderPicker({
-        disabledMinutes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]
+        disabledMinutes(h) {
+          return [h];
+        },
+        disabledSeconds(h, m) {
+          return [h + m % 60];
+        },
       });
       expect(picker.state.open).not.to.be.ok();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
@@ -138,22 +143,39 @@ describe('Header', () => {
         expect(ReactDOM.findDOMNode(header).value).to.be('01:02:03');
         expect(ReactDOM.findDOMNode(input).value).to.be('01:02:03');
 
-        ReactDOM.findDOMNode(header).value = '12:15:78';
+        ReactDOM.findDOMNode(header).value = '10:09:78';
         Simulate.change(header);
         setTimeout(next, 100);
       }, (next) => {
         expect(picker.state.open).to.be(true);
         expect(ReactDOM.findDOMNode(header).className).to.contain('rc-time-picker-panel-input-invalid');
-        expect(ReactDOM.findDOMNode(header).value).to.be('12:15:78');
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:09:78');
         expect(ReactDOM.findDOMNode(input).value).to.be('01:02:03');
 
-        ReactDOM.findDOMNode(header).value = '12:10:78';
+        ReactDOM.findDOMNode(header).value = '10:10:78';
         Simulate.change(header);
         setTimeout(next, 100);
       }, (next) => {
         expect(picker.state.open).to.be(true);
-        expect(ReactDOM.findDOMNode(header).value).to.be('12:11:18');
-        expect(ReactDOM.findDOMNode(input).value).to.be('12:11:18');
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:11:18');
+        expect(ReactDOM.findDOMNode(input).value).to.be('10:11:18');
+
+        ReactDOM.findDOMNode(header).value = '10:09:19';
+        Simulate.change(header);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        expect(ReactDOM.findDOMNode(header).className).to.contain('rc-time-picker-panel-input-invalid');
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:09:19');
+        expect(ReactDOM.findDOMNode(input).value).to.be('10:11:18');
+
+        ReactDOM.findDOMNode(header).value = '10:09:20';
+        Simulate.change(header);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:09:20');
+        expect(ReactDOM.findDOMNode(input).value).to.be('10:09:20');
 
         next();
       }], () => {
@@ -163,8 +185,13 @@ describe('Header', () => {
 
     it('carry hidden correctly', (done) => {
       const picker = renderPicker({
-        disabledMinutes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22],
-        hideDisabledOptions: true
+        disabledMinutes(h) {
+          return [h];
+        },
+        disabledSeconds(h, m) {
+          return [h + m % 60];
+        },
+        hideDisabledOptions: true,
       });
       expect(picker.state.open).not.to.be.ok();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
@@ -179,22 +206,39 @@ describe('Header', () => {
         expect(ReactDOM.findDOMNode(header).value).to.be('01:02:03');
         expect(ReactDOM.findDOMNode(input).value).to.be('01:02:03');
 
-        ReactDOM.findDOMNode(header).value = '12:15:78';
+        ReactDOM.findDOMNode(header).value = '10:09:78';
         Simulate.change(header);
         setTimeout(next, 100);
       }, (next) => {
         expect(picker.state.open).to.be(true);
         expect(ReactDOM.findDOMNode(header).className).to.contain('rc-time-picker-panel-input-invalid');
-        expect(ReactDOM.findDOMNode(header).value).to.be('12:15:78');
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:09:78');
         expect(ReactDOM.findDOMNode(input).value).to.be('01:02:03');
 
-        ReactDOM.findDOMNode(header).value = '12:10:78';
+        ReactDOM.findDOMNode(header).value = '10:10:78';
         Simulate.change(header);
         setTimeout(next, 100);
       }, (next) => {
         expect(picker.state.open).to.be(true);
-        expect(ReactDOM.findDOMNode(header).value).to.be('12:11:18');
-        expect(ReactDOM.findDOMNode(input).value).to.be('12:11:18');
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:11:18');
+        expect(ReactDOM.findDOMNode(input).value).to.be('10:11:18');
+
+        ReactDOM.findDOMNode(header).value = '10:09:19';
+        Simulate.change(header);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        expect(ReactDOM.findDOMNode(header).className).to.contain('rc-time-picker-panel-input-invalid');
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:09:19');
+        expect(ReactDOM.findDOMNode(input).value).to.be('10:11:18');
+
+        ReactDOM.findDOMNode(header).value = '10:09:20';
+        Simulate.change(header);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        expect(ReactDOM.findDOMNode(header).value).to.be('10:09:20');
+        expect(ReactDOM.findDOMNode(input).value).to.be('10:09:20');
 
         next();
       }], () => {

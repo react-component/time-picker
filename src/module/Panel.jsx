@@ -24,9 +24,9 @@ const Panel = React.createClass({
     placeholder: PropTypes.string,
     gregorianCalendarLocale: PropTypes.object,
     formatter: PropTypes.object,
-    disabledHours: PropTypes.array,
-    disabledMinutes: PropTypes.array,
-    disabledSeconds: PropTypes.array,
+    disabledHours: PropTypes.func,
+    disabledMinutes: PropTypes.func,
+    disabledSeconds: PropTypes.func,
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
@@ -40,10 +40,6 @@ const Panel = React.createClass({
 
   getDefaultProps() {
     return {
-      disabledHours: null,
-      disabledMinutes: null,
-      disabledSeconds: null,
-      hideDisabledOptions: false,
       onChange: noop,
       onClear: noop,
     };
@@ -81,9 +77,12 @@ const Panel = React.createClass({
   render() {
     const { locale, prefixCls, placeholder, disabledHours, disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond, formatter, gregorianCalendarLocale } = this.props;
     const value = this.state.value;
-    const hourOptions = generateOptions(24, disabledHours, hideDisabledOptions);
-    const minuteOptions = generateOptions(60, disabledMinutes, hideDisabledOptions);
-    const secondOptions = generateOptions(60, disabledSeconds, hideDisabledOptions);
+    const disabledHourOptions = disabledHours();
+    const disabledMinuteOptions = disabledMinutes(value.getHourOfDay());
+    const disabledSecondOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
+    const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions);
+    const minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions);
+    const secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
 
     return (
       <div className={`${prefixCls}-inner`}>

@@ -31,9 +31,9 @@ const Combobox = React.createClass({
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
     secondOptions: PropTypes.array,
-    disabledHours: PropTypes.array,
-    disabledMinutes: PropTypes.array,
-    disabledSeconds: PropTypes.array,
+    disabledHours: PropTypes.func,
+    disabledMinutes: PropTypes.func,
+    disabledSeconds: PropTypes.func,
     onCurrentSelectPanelChange: PropTypes.func,
   },
 
@@ -64,10 +64,12 @@ const Combobox = React.createClass({
     if (!showHour) {
       return null;
     }
+    const disabledOptions = disabledHours();
+
     return (
       <Select
         prefixCls={prefixCls}
-        options={hourOptions.map(option => formatOption(option, disabledHours))}
+        options={hourOptions.map(option => formatOption(option, disabledOptions))}
         selectedIndex={hourOptions.indexOf(hour)}
         type="hour"
         onSelect={this.onItemChange}
@@ -77,11 +79,13 @@ const Combobox = React.createClass({
   },
 
   getMinuteSelect(minute) {
-    const { prefixCls, minuteOptions, disabledMinutes } = this.props;
+    const { prefixCls, minuteOptions, disabledMinutes, value } = this.props;
+    const disabledOptions = disabledMinutes(value.getHourOfDay());
+
     return (
       <Select
         prefixCls={prefixCls}
-        options={minuteOptions.map(option => formatOption(option, disabledMinutes))}
+        options={minuteOptions.map(option => formatOption(option, disabledOptions))}
         selectedIndex={minuteOptions.indexOf(minute)}
         type="minute"
         onSelect={this.onItemChange}
@@ -91,14 +95,16 @@ const Combobox = React.createClass({
   },
 
   getSecondSelect(second) {
-    const { prefixCls, secondOptions, disabledSeconds, showSecond } = this.props;
+    const { prefixCls, secondOptions, disabledSeconds, showSecond, value } = this.props;
     if (!showSecond) {
       return null;
     }
+    const disabledOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
+
     return (
       <Select
         prefixCls={prefixCls}
-        options={secondOptions.map(option => formatOption(option, disabledSeconds))}
+        options={secondOptions.map(option => formatOption(option, disabledOptions))}
         selectedIndex={secondOptions.indexOf(second)}
         type="second"
         onSelect={this.onItemChange}
