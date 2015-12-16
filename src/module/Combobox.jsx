@@ -79,7 +79,8 @@ const Combobox = React.createClass({
   },
 
   getMinuteSelect(minute) {
-    const { prefixCls, minuteOptions, disabledMinutes, value } = this.props;
+    const { prefixCls, minuteOptions, disabledMinutes } = this.props;
+    const value = this.props.value || this.getNow();
     const disabledOptions = disabledMinutes(value.getHourOfDay());
 
     return (
@@ -95,10 +96,11 @@ const Combobox = React.createClass({
   },
 
   getSecondSelect(second) {
-    const { prefixCls, secondOptions, disabledSeconds, showSecond, value } = this.props;
+    const { prefixCls, secondOptions, disabledSeconds, showSecond } = this.props;
     if (!showSecond) {
       return null;
     }
+    const value = this.props.value || this.getNow();
     const disabledOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
 
     return (
