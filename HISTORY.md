@@ -2,16 +2,22 @@
 
 ---
 
+1.0.0-alpha7 / 2015-12-12
+------------------
+
+`new` add options `disabledHours`, `disabledMinutes`, `disabledSeconds` and `hideDisabledOptions`.
+`remove` remove options `hourOptions`, `minuteOptions` and `secondOptions`.
+
 1.0.0-alpha2 / 2015-12-03
 ------------------
 
-`fix` IE8 compatible.
+`fixed` IE8 compatible.
 `new` add test users.
 
 0.7.1 / 2015-11-20
 ------------------
 
-`fix` change value to null when clear input content to remove the react warning.
+`fixed` change value to null when clear input content to remove the react warning.
 
 0.7.0 / 2015-11-20
 ------------------
@@ -21,7 +27,7 @@
 0.5.6 / 2015-11-19
 ------------------
 
-`fix` use another method to change time and fix the bug about value.getTime().
+`fixed` use another method to change time and fix the bug about value.getTime().
 
 0.5.4 / 2015-11-19
 ------------------
@@ -54,7 +60,7 @@
 0.3.3 / 2015-11-17
 ------------------
 
-`fix` fix some bugs.
+`fixed` fix some bugs.
 
 0.3.0 / 2015-11-17
 ------------------

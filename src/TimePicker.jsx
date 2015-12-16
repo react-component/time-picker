@@ -34,9 +34,10 @@ const Picker = React.createClass({
     style: PropTypes.object,
     className: PropTypes.string,
     showSecond: PropTypes.bool,
-    hourOptions: PropTypes.array,
-    minuteOptions: PropTypes.array,
-    secondOptions: PropTypes.array,
+    disabledHours: PropTypes.func,
+    disabledMinutes: PropTypes.func,
+    disabledSeconds: PropTypes.func,
+    hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
@@ -54,6 +55,10 @@ const Picker = React.createClass({
       allowEmpty: true,
       showHour: true,
       showSecond: true,
+      disabledHours: noop,
+      disabledMinutes: noop,
+      disabledSeconds: noop,
+      hideDisabledOptions: false,
       placement: 'bottomLeft',
       onChange: noop,
       onOpen: noop,
@@ -145,7 +150,7 @@ const Picker = React.createClass({
   },
 
   getPanelElement() {
-    const { prefixCls, defaultValue, locale, placeholder, hourOptions, minuteOptions, secondOptions, allowEmpty, showHour, showSecond, gregorianCalendarLocale, value } = this.props;
+    const { prefixCls, defaultValue, locale, placeholder, disabledHours, disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond, gregorianCalendarLocale, value } = this.props;
     let calendarLocale;
     if (value) {
       calendarLocale = value.locale;
@@ -170,9 +175,10 @@ const Picker = React.createClass({
         allowEmpty={allowEmpty}
         formatter={this.getFormatter()}
         placeholder={placeholder}
-        hourOptions={hourOptions}
-        minuteOptions={minuteOptions}
-        secondOptions={secondOptions}
+        disabledHours={disabledHours}
+        disabledMinutes={disabledMinutes}
+        disabledSeconds={disabledSeconds}
+        hideDisabledOptions={hideDisabledOptions}
       />
     );
   },

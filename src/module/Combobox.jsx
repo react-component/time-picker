@@ -2,11 +2,21 @@ import React, {PropTypes} from 'react';
 import Select from './Select';
 import GregorianCalendar from 'gregorian-calendar';
 
-const formatOption = (option) => {
+const formatOption = (option, disabledOptions) => {
+  let value = `${option}`;
   if (option < 10) {
-    return `0${option}`;
+    value = `0${option}`;
   }
-  return `${option}`;
+
+  let disabled = false;
+  if (disabledOptions && disabledOptions.indexOf(option) >= 0) {
+    disabled = true;
+  }
+
+  return {
+    value,
+    disabled,
+  };
 };
 
 const Combobox = React.createClass({
@@ -21,6 +31,9 @@ const Combobox = React.createClass({
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
     secondOptions: PropTypes.array,
+    disabledHours: PropTypes.func,
+    disabledMinutes: PropTypes.func,
+    disabledSeconds: PropTypes.func,
     onCurrentSelectPanelChange: PropTypes.func,
   },
 
@@ -47,14 +60,16 @@ const Combobox = React.createClass({
   },
 
   getHourSelect(hour) {
-    const { prefixCls, hourOptions, showHour } = this.props;
+    const { prefixCls, hourOptions, disabledHours, showHour } = this.props;
     if (!showHour) {
       return null;
     }
+    const disabledOptions = disabledHours();
+
     return (
       <Select
         prefixCls={prefixCls}
-        options={hourOptions.map(option => formatOption(option))}
+        options={hourOptions.map(option => formatOption(option, disabledOptions))}
         selectedIndex={hourOptions.indexOf(hour)}
         type="hour"
         onSelect={this.onItemChange}
@@ -64,11 +79,13 @@ const Combobox = React.createClass({
   },
 
   getMinuteSelect(minute) {
-    const { prefixCls, minuteOptions } = this.props;
+    const { prefixCls, minuteOptions, disabledMinutes, value } = this.props;
+    const disabledOptions = disabledMinutes(value.getHourOfDay());
+
     return (
       <Select
         prefixCls={prefixCls}
-        options={minuteOptions.map(option => formatOption(option))}
+        options={minuteOptions.map(option => formatOption(option, disabledOptions))}
         selectedIndex={minuteOptions.indexOf(minute)}
         type="minute"
         onSelect={this.onItemChange}
@@ -78,14 +95,16 @@ const Combobox = React.createClass({
   },
 
   getSecondSelect(second) {
-    const { prefixCls, secondOptions, showSecond } = this.props;
+    const { prefixCls, secondOptions, disabledSeconds, showSecond, value } = this.props;
     if (!showSecond) {
       return null;
     }
+    const disabledOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
+
     return (
       <Select
         prefixCls={prefixCls}
-        options={secondOptions.map(option => formatOption(option))}
+        options={secondOptions.map(option => formatOption(option, disabledOptions))}
         selectedIndex={secondOptions.indexOf(second)}
         type="second"
         onSelect={this.onItemChange}
