@@ -61,9 +61,9 @@ API
 | showHour                | Boolean                           | whether show hour                             |                                                                                            |
 | showSecond              | Boolean                           | whether show second                           |                                                                                            |
 | formatter               | String|GregorianCalendarFormatter |                                               |                                                                                            |
-| disabledHours           | Array<Number>                     | disabled hour options                         |                                                                                            |
-| disabledMinutes         | Array<Number>                     | disabled minute options                       |                                                                                            |
-| disabledSeconds         | Array<Number>                     | disabled second options                       |                                                                                            |
+| disabledHours           | Function                          | disabled hour options                         |                                                                                            |
+| disabledMinutes         | Function                          | disabled minute options                       |                                                                                            |
+| disabledSeconds         | Function                          | disabled second options                       |                                                                                            |
 | hideDisabledOptions     | Boolean                           | whether hide disabled options                 |                                                                                            |
 | onChange                | Function                          | null                                          | called when select a different value                                                       |
 | placement               | String                            | bottomLeft                                    | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
