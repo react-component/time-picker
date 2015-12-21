@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		2:0
+/******/ 		4:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"pick-time","1":"value-and-defaultValue"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"disabled","1":"hidden","2":"pick-time","3":"value-and-defaultValue"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -22297,7 +22297,7 @@
 	
 	var _modulePanel2 = _interopRequireDefault(_modulePanel);
 	
-	var _utilPlacements = __webpack_require__(225);
+	var _utilPlacements = __webpack_require__(226);
 	
 	var _utilPlacements2 = _interopRequireDefault(_utilPlacements);
 	
@@ -22305,7 +22305,7 @@
 	
 	var _mixinCommonMixin2 = _interopRequireDefault(_mixinCommonMixin);
 	
-	var _utilIndex = __webpack_require__(226);
+	var _utilIndex = __webpack_require__(227);
 	
 	var _gregorianCalendarLibLocaleEn_US = __webpack_require__(164);
 	
@@ -22340,9 +22340,10 @@
 	    style: _react.PropTypes.object,
 	    className: _react.PropTypes.string,
 	    showSecond: _react.PropTypes.bool,
-	    hourOptions: _react.PropTypes.array,
-	    minuteOptions: _react.PropTypes.array,
-	    secondOptions: _react.PropTypes.array,
+	    disabledHours: _react.PropTypes.func,
+	    disabledMinutes: _react.PropTypes.func,
+	    disabledSeconds: _react.PropTypes.func,
+	    hideDisabledOptions: _react.PropTypes.bool,
 	    onChange: _react.PropTypes.func,
 	    onOpen: _react.PropTypes.func,
 	    onClose: _react.PropTypes.func
@@ -22360,6 +22361,10 @@
 	      allowEmpty: true,
 	      showHour: true,
 	      showSecond: true,
+	      disabledHours: noop,
+	      disabledMinutes: noop,
+	      disabledSeconds: noop,
+	      hideDisabledOptions: false,
 	      placement: 'bottomLeft',
 	      onChange: noop,
 	      onOpen: noop,
@@ -22465,9 +22470,10 @@
 	    var defaultValue = _props2.defaultValue;
 	    var locale = _props2.locale;
 	    var placeholder = _props2.placeholder;
-	    var hourOptions = _props2.hourOptions;
-	    var minuteOptions = _props2.minuteOptions;
-	    var secondOptions = _props2.secondOptions;
+	    var disabledHours = _props2.disabledHours;
+	    var disabledMinutes = _props2.disabledMinutes;
+	    var disabledSeconds = _props2.disabledSeconds;
+	    var hideDisabledOptions = _props2.hideDisabledOptions;
 	    var allowEmpty = _props2.allowEmpty;
 	    var showHour = _props2.showHour;
 	    var showSecond = _props2.showSecond;
@@ -22497,9 +22503,10 @@
 	      allowEmpty: allowEmpty,
 	      formatter: this.getFormatter(),
 	      placeholder: placeholder,
-	      hourOptions: hourOptions,
-	      minuteOptions: minuteOptions,
-	      secondOptions: secondOptions
+	      disabledHours: disabledHours,
+	      disabledMinutes: disabledMinutes,
+	      disabledSeconds: disabledSeconds,
+	      hideDisabledOptions: hideDisabledOptions
 	    });
 	  },
 	
@@ -27332,16 +27339,18 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Combobox = __webpack_require__(223);
+	var _Combobox = __webpack_require__(224);
 	
 	var _Combobox2 = _interopRequireDefault(_Combobox);
 	
 	function noop() {}
 	
-	function generateOptions(length) {
+	function generateOptions(length, disabledOptions, hideDisabledOptions) {
 	  var arr = [];
-	  for (var i = 0; i < length; i++) {
-	    arr.push(i);
+	  for (var value = 0; value < length; value++) {
+	    if (!disabledOptions || disabledOptions.indexOf(value) < 0 || !hideDisabledOptions) {
+	      arr.push(value);
+	    }
 	  }
 	  return arr;
 	}
@@ -27356,9 +27365,10 @@
 	    placeholder: _react.PropTypes.string,
 	    gregorianCalendarLocale: _react.PropTypes.object,
 	    formatter: _react.PropTypes.object,
-	    hourOptions: _react.PropTypes.array,
-	    minuteOptions: _react.PropTypes.array,
-	    secondOptions: _react.PropTypes.array,
+	    disabledHours: _react.PropTypes.func,
+	    disabledMinutes: _react.PropTypes.func,
+	    disabledSeconds: _react.PropTypes.func,
+	    hideDisabledOptions: _react.PropTypes.bool,
 	    onChange: _react.PropTypes.func,
 	    onEsc: _react.PropTypes.func,
 	    allowEmpty: _react.PropTypes.bool,
@@ -27371,9 +27381,6 @@
 	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      hourOptions: generateOptions(24),
-	      minuteOptions: generateOptions(60),
-	      secondOptions: generateOptions(60),
 	      onChange: noop,
 	      onClear: noop
 	    };
@@ -27381,7 +27388,8 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      value: this.props.value
+	      value: this.props.value,
+	      selectionRange: []
 	    };
 	  },
 	
@@ -27403,14 +27411,19 @@
 	    this.props.onClear();
 	  },
 	
+	  onCurrentSelectPanelChange: function onCurrentSelectPanelChange(currentSelectPanel) {
+	    this.setState({ currentSelectPanel: currentSelectPanel });
+	  },
+	
 	  render: function render() {
 	    var _props = this.props;
 	    var locale = _props.locale;
 	    var prefixCls = _props.prefixCls;
 	    var placeholder = _props.placeholder;
-	    var hourOptions = _props.hourOptions;
-	    var minuteOptions = _props.minuteOptions;
-	    var secondOptions = _props.secondOptions;
+	    var disabledHours = _props.disabledHours;
+	    var disabledMinutes = _props.disabledMinutes;
+	    var disabledSeconds = _props.disabledSeconds;
+	    var hideDisabledOptions = _props.hideDisabledOptions;
 	    var allowEmpty = _props.allowEmpty;
 	    var showHour = _props.showHour;
 	    var showSecond = _props.showSecond;
@@ -27418,6 +27431,13 @@
 	    var gregorianCalendarLocale = _props.gregorianCalendarLocale;
 	
 	    var value = this.state.value;
+	    var disabledHourOptions = disabledHours();
+	    var disabledMinuteOptions = disabledMinutes(value ? value.getHourOfDay() : null);
+	    var disabledSecondOptions = disabledSeconds(value ? value.getHourOfDay() : null, value ? value.getMinutes() : null);
+	    var hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions);
+	    var minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions);
+	    var secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
+	
 	    return _react2['default'].createElement(
 	      'div',
 	      { className: prefixCls + '-inner' },
@@ -27426,12 +27446,16 @@
 	        gregorianCalendarLocale: gregorianCalendarLocale,
 	        locale: locale,
 	        value: value,
+	        currentSelectPanel: this.state.currentSelectPanel,
 	        onEsc: this.props.onEsc,
 	        formatter: formatter,
 	        placeholder: placeholder,
 	        hourOptions: hourOptions,
 	        minuteOptions: minuteOptions,
 	        secondOptions: secondOptions,
+	        disabledHours: disabledHours,
+	        disabledMinutes: disabledMinutes,
+	        disabledSeconds: disabledSeconds,
 	        onChange: this.onChange,
 	        onClear: this.onClear,
 	        allowEmpty: allowEmpty
@@ -27446,7 +27470,11 @@
 	        showSecond: showSecond,
 	        hourOptions: hourOptions,
 	        minuteOptions: minuteOptions,
-	        secondOptions: secondOptions
+	        secondOptions: secondOptions,
+	        disabledHours: disabledHours,
+	        disabledMinutes: disabledMinutes,
+	        disabledSeconds: disabledSeconds,
+	        onCurrentSelectPanelChange: this.onCurrentSelectPanelChange
 	      })
 	    );
 	  }
@@ -27526,6 +27554,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _utilSelection = __webpack_require__(223);
+	
+	var _utilSelection2 = _interopRequireDefault(_utilSelection);
+	
 	var Header = _react2['default'].createClass({
 	  displayName: 'Header',
 	
@@ -27540,10 +27572,14 @@
 	    hourOptions: _react.PropTypes.array,
 	    minuteOptions: _react.PropTypes.array,
 	    secondOptions: _react.PropTypes.array,
+	    disabledHours: _react.PropTypes.func,
+	    disabledMinutes: _react.PropTypes.func,
+	    disabledSeconds: _react.PropTypes.func,
 	    onChange: _react.PropTypes.func,
 	    onClear: _react.PropTypes.func,
 	    onEsc: _react.PropTypes.func,
-	    allowEmpty: _react.PropTypes.bool
+	    allowEmpty: _react.PropTypes.bool,
+	    currentSelectPanel: _react.PropTypes.string
 	  },
 	
 	  getInitialState: function getInitialState() {
@@ -27555,11 +27591,7 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-	
-	    this.timer = setTimeout(function () {
-	      _this.refs.input.focus();
-	    }, 0);
+	    this.timer = setTimeout(this.selectRange, 0);
 	  },
 	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -27568,6 +27600,10 @@
 	      str: value && nextProps.formatter.format(value) || '',
 	      invalid: false
 	    });
+	  },
+	
+	  componentDidUpdate: function componentDidUpdate() {
+	    this.timer = setTimeout(this.selectRange, 0);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
@@ -27586,6 +27622,9 @@
 	    var hourOptions = _props.hourOptions;
 	    var minuteOptions = _props.minuteOptions;
 	    var secondOptions = _props.secondOptions;
+	    var disabledHours = _props.disabledHours;
+	    var disabledMinutes = _props.disabledMinutes;
+	    var disabledSeconds = _props.disabledSeconds;
 	    var onChange = _props.onChange;
 	    var allowEmpty = _props.allowEmpty;
 	
@@ -27604,7 +27643,19 @@
 	      }
 	
 	      if (value) {
+	        // if time value not allowed, response warning.
 	        if (hourOptions.indexOf(value.getHourOfDay()) < 0 || minuteOptions.indexOf(value.getMinutes()) < 0 || secondOptions.indexOf(value.getSeconds()) < 0) {
+	          this.setState({
+	            invalid: true
+	          });
+	          return;
+	        }
+	
+	        // if time value is disabled, response warning.
+	        var disabledHourOptions = disabledHours();
+	        var disabledMinuteOptions = disabledMinutes(value.getHourOfDay());
+	        var disabledSecondOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
+	        if (disabledHourOptions && disabledHourOptions.indexOf(value.getHourOfDay()) >= 0 || disabledMinuteOptions && disabledMinuteOptions.indexOf(value.getMinutes()) >= 0 || disabledSecondOptions && disabledSecondOptions.indexOf(value.getSeconds()) >= 0) {
 	          this.setState({
 	            invalid: true
 	          });
@@ -27677,6 +27728,27 @@
 	      placeholder: placeholder, onChange: this.onInputChange });
 	  },
 	
+	  selectRange: function selectRange() {
+	    this.refs.input.focus();
+	    if (this.props.currentSelectPanel && this.refs.input.value) {
+	      var selectionRangeStart = 0;
+	      var selectionRangeEnd = 0;
+	      if (this.props.currentSelectPanel === 'hour') {
+	        selectionRangeStart = 0;
+	        selectionRangeEnd = this.refs.input.value.indexOf(':');
+	      } else if (this.props.currentSelectPanel === 'minute') {
+	        selectionRangeStart = this.refs.input.value.indexOf(':') + 1;
+	        selectionRangeEnd = this.refs.input.value.lastIndexOf(':');
+	      } else if (this.props.currentSelectPanel === 'second') {
+	        selectionRangeStart = this.refs.input.value.lastIndexOf(':') + 1;
+	        selectionRangeEnd = this.refs.input.value.length;
+	      }
+	      if (selectionRangeEnd - selectionRangeStart === 2) {
+	        (0, _utilSelection2['default'])(this.refs.input, selectionRangeStart, selectionRangeEnd);
+	      }
+	    }
+	  },
+	
 	  render: function render() {
 	    var prefixCls = this.props.prefixCls;
 	
@@ -27694,6 +27766,37 @@
 
 /***/ },
 /* 223 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = createSelection;
+	
+	function createSelection(field, start, end) {
+	  if (field.createTextRange) {
+	    var selRange = field.createTextRange();
+	    selRange.collapse(true);
+	    selRange.moveStart('character', start);
+	    selRange.moveEnd('character', end);
+	    selRange.select();
+	    field.focus();
+	  } else if (field.setSelectionRange) {
+	    field.focus();
+	    field.setSelectionRange(start, end);
+	  } else if (typeof field.selectionStart !== 'undefined') {
+	    field.selectionStart = start;
+	    field.selectionEnd = end;
+	    field.focus();
+	  }
+	}
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27708,7 +27811,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Select = __webpack_require__(224);
+	var _Select = __webpack_require__(225);
 	
 	var _Select2 = _interopRequireDefault(_Select);
 	
@@ -27716,11 +27819,21 @@
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var formatOption = function formatOption(option) {
+	var formatOption = function formatOption(option, disabledOptions) {
+	  var value = '' + option;
 	  if (option < 10) {
-	    return '0' + option;
+	    value = '0' + option;
 	  }
-	  return '' + option;
+	
+	  var disabled = false;
+	  if (disabledOptions && disabledOptions.indexOf(option) >= 0) {
+	    disabled = true;
+	  }
+	
+	  return {
+	    value: value,
+	    disabled: disabled
+	  };
 	};
 	
 	var Combobox = _react2['default'].createClass({
@@ -27736,7 +27849,11 @@
 	    showSecond: _react.PropTypes.bool,
 	    hourOptions: _react.PropTypes.array,
 	    minuteOptions: _react.PropTypes.array,
-	    secondOptions: _react.PropTypes.array
+	    secondOptions: _react.PropTypes.array,
+	    disabledHours: _react.PropTypes.func,
+	    disabledMinutes: _react.PropTypes.func,
+	    disabledSeconds: _react.PropTypes.func,
+	    onCurrentSelectPanelChange: _react.PropTypes.func
 	  },
 	
 	  onItemChange: function onItemChange(type, itemValue) {
@@ -27758,23 +27875,31 @@
 	    onChange(value);
 	  },
 	
+	  onEnterSelectPanel: function onEnterSelectPanel(range) {
+	    this.props.onCurrentSelectPanelChange(range);
+	  },
+	
 	  getHourSelect: function getHourSelect(hour) {
 	    var _props = this.props;
 	    var prefixCls = _props.prefixCls;
 	    var hourOptions = _props.hourOptions;
+	    var disabledHours = _props.disabledHours;
 	    var showHour = _props.showHour;
 	
 	    if (!showHour) {
 	      return null;
 	    }
+	    var disabledOptions = disabledHours();
+	
 	    return _react2['default'].createElement(_Select2['default'], {
 	      prefixCls: prefixCls,
 	      options: hourOptions.map(function (option) {
-	        return formatOption(option);
+	        return formatOption(option, disabledOptions);
 	      }),
 	      selectedIndex: hourOptions.indexOf(hour),
 	      type: 'hour',
-	      onSelect: this.onItemChange
+	      onSelect: this.onItemChange,
+	      onMouseEnter: this.onEnterSelectPanel.bind(this, 'hour')
 	    });
 	  },
 	
@@ -27782,35 +27907,45 @@
 	    var _props2 = this.props;
 	    var prefixCls = _props2.prefixCls;
 	    var minuteOptions = _props2.minuteOptions;
+	    var disabledMinutes = _props2.disabledMinutes;
+	
+	    var value = this.props.value || this.getNow();
+	    var disabledOptions = disabledMinutes(value.getHourOfDay());
 	
 	    return _react2['default'].createElement(_Select2['default'], {
 	      prefixCls: prefixCls,
 	      options: minuteOptions.map(function (option) {
-	        return formatOption(option);
+	        return formatOption(option, disabledOptions);
 	      }),
 	      selectedIndex: minuteOptions.indexOf(minute),
 	      type: 'minute',
-	      onSelect: this.onItemChange
+	      onSelect: this.onItemChange,
+	      onMouseEnter: this.onEnterSelectPanel.bind(this, 'minute')
 	    });
 	  },
 	
-	  getSectionSelect: function getSectionSelect(second) {
+	  getSecondSelect: function getSecondSelect(second) {
 	    var _props3 = this.props;
 	    var prefixCls = _props3.prefixCls;
 	    var secondOptions = _props3.secondOptions;
+	    var disabledSeconds = _props3.disabledSeconds;
 	    var showSecond = _props3.showSecond;
 	
 	    if (!showSecond) {
 	      return null;
 	    }
+	    var value = this.props.value || this.getNow();
+	    var disabledOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
+	
 	    return _react2['default'].createElement(_Select2['default'], {
 	      prefixCls: prefixCls,
 	      options: secondOptions.map(function (option) {
-	        return formatOption(option);
+	        return formatOption(option, disabledOptions);
 	      }),
 	      selectedIndex: secondOptions.indexOf(second),
 	      type: 'second',
-	      onSelect: this.onItemChange
+	      onSelect: this.onItemChange,
+	      onMouseEnter: this.onEnterSelectPanel.bind(this, 'second')
 	    });
 	  },
 	
@@ -27833,7 +27968,7 @@
 	      { className: prefixCls + '-combobox' },
 	      this.getHourSelect(value.getHourOfDay()),
 	      this.getMinuteSelect(value.getMinutes()),
-	      this.getSectionSelect(value.getSeconds())
+	      this.getSecondSelect(value.getSeconds())
 	    );
 	  }
 	});
@@ -27842,7 +27977,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27895,7 +28030,8 @@
 	    gregorianCalendarLocale: _react.PropTypes.object,
 	    selectedIndex: _react.PropTypes.number,
 	    type: _react.PropTypes.string,
-	    onSelect: _react.PropTypes.func
+	    onSelect: _react.PropTypes.func,
+	    onMouseEnter: _react.PropTypes.func
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -27903,9 +28039,11 @@
 	    this.scrollToSelected(0);
 	  },
 	
-	  componentDidUpdate: function componentDidUpdate() {
+	  componentDidUpdate: function componentDidUpdate(prevProps) {
 	    // smooth scroll to selected option
-	    this.scrollToSelected(120);
+	    if (prevProps.selectedIndex !== this.props.selectedIndex) {
+	      this.scrollToSelected(120);
+	    }
 	  },
 	
 	  onSelect: function onSelect(value) {
@@ -27925,12 +28063,17 @@
 	    var prefixCls = _props2.prefixCls;
 	
 	    return options.map(function (item, index) {
-	      var selected = selectedIndex === index;
-	      var cls = (0, _classnames3['default'])(_defineProperty({}, prefixCls + '-select-option-selected', selected));
+	      var _classnames;
+	
+	      var cls = (0, _classnames3['default'])((_classnames = {}, _defineProperty(_classnames, prefixCls + '-select-option-selected', selectedIndex === index), _defineProperty(_classnames, prefixCls + '-select-option-disabled', item.disabled), _classnames));
+	      var onclick = null;
+	      if (!item.disabled) {
+	        onclick = _this.onSelect.bind(_this, +item.value);
+	      }
 	      return _react2['default'].createElement(
 	        'li',
-	        { className: cls, key: index, onClick: _this.onSelect.bind(_this, +item) },
-	        item
+	        { className: cls, key: index, onClick: onclick, disabled: item.disabled },
+	        item.value
 	      );
 	    });
 	  },
@@ -27944,7 +28087,7 @@
 	      index = 0;
 	    }
 	    var topOption = list.children[index];
-	    var to = topOption.offsetTop - select.offsetTop;
+	    var to = topOption.offsetTop;
 	    scrollTo(select, to, duration);
 	  },
 	
@@ -27957,7 +28100,8 @@
 	
 	    return _react2['default'].createElement(
 	      'div',
-	      { className: prefixCls + '-select' },
+	      { className: prefixCls + '-select',
+	        onMouseEnter: this.props.onMouseEnter },
 	      _react2['default'].createElement(
 	        'ul',
 	        { ref: 'list' },
@@ -27971,7 +28115,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28017,7 +28161,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28041,7 +28185,7 @@
 	}
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28052,7 +28196,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(228);
+	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(229);
 	
 	var _gregorianCalendarFormatLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleZh_CN);
 	
@@ -28063,7 +28207,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';

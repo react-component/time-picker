@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>value-and-defaultValue.js - example - rc-time-picker@1.0.0</title>
+  <title>disabled.js - example - rc-time-picker@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
-  <script src="value-and-defaultValue.js?nowrap"></script>
+  <script src="disabled.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0 */</span>
 
 import <span class="hljs-string">'rc-time-picker/assets/index.css'</span>;
@@ -278,36 +278,56 @@ import zhCn from <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'
 import TimePicker from <span class="hljs-string">'rc-time-picker'</span>;
 import TimePickerLocale from <span class="hljs-string">'rc-time-picker/lib/locale/zh_CN'</span>;
 
-<span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(<span class="hljs-string">'HH:mm:ss'</span>);
+<span class="hljs-keyword">const</span> showSecond = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">const</span> str = showSecond ? <span class="hljs-string">'HH:mm:ss'</span> : <span class="hljs-string">'HH:mm'</span>;
+
+<span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(str);
 
 <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(zhCn);
 now.setTime(<span class="hljs-built_in">Date</span>.now());
 
-<span class="hljs-keyword">const</span> App = React.createClass({
-  getInitialState() {
-    <span class="hljs-keyword">return</span> {
-      value: now,
-    };
-  },
-  handleValueChange(value) {
-    <span class="hljs-built_in">console</span>.log(value &amp;&amp; formatter.format(value));
-    <span class="hljs-keyword">this</span>.setState({ value });
-  },
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span>
-              <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span>
-              <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
-              <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.handleValueChange}</span>/&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    );
-  },
-});
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateOptions</span><span class="hljs-params">(length, excludedOptions)</span> </span>{
+  <span class="hljs-keyword">const</span> arr = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span>; value &lt; length; value++) {
+    <span class="hljs-keyword">if</span> (excludedOptions.indexOf(value) &lt; <span class="hljs-number">0</span>) {
+      arr.push(value);
+    }
+  }
+  <span class="hljs-keyword">return</span> arr;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span><span class="hljs-params">(value)</span> </span>{
+  <span class="hljs-built_in">console</span>.log(value &amp;&amp; formatter.format(value));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">disabledHours</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">return</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">22</span>, <span class="hljs-number">23</span>];
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">disabledMinutes</span><span class="hljs-params">(h)</span> </span>{
+  <span class="hljs-keyword">switch</span> (h) {
+  <span class="hljs-keyword">case</span> <span class="hljs-number">9</span>:
+    <span class="hljs-keyword">return</span> generateOptions(<span class="hljs-number">60</span>, [<span class="hljs-number">30</span>]);
+  <span class="hljs-keyword">case</span> <span class="hljs-number">21</span>:
+    <span class="hljs-keyword">return</span> generateOptions(<span class="hljs-number">60</span>, [<span class="hljs-number">0</span>]);
+  <span class="hljs-keyword">default</span>:
+    <span class="hljs-keyword">return</span> generateOptions(<span class="hljs-number">60</span>, [<span class="hljs-number">0</span>, <span class="hljs-number">30</span>]);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">disabledSeconds</span><span class="hljs-params">(h, m)</span> </span>{
+  <span class="hljs-keyword">return</span> [h + m % <span class="hljs-number">60</span>];
+}
 
 ReactDom.render(
-  <span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>,
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span>
+              <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{showSecond}</span>
+              <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span>
+              <span class="hljs-attribute">className</span>=<span class="hljs-value">"xxx"</span>
+              <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
+              <span class="hljs-attribute">disabledHours</span>=<span class="hljs-value">{disabledHours}</span>
+              <span class="hljs-attribute">disabledMinutes</span>=<span class="hljs-value">{disabledMinutes}</span>
+              <span class="hljs-attribute">disabledSeconds</span>=<span class="hljs-value">{disabledSeconds}</span> /&gt;</span>,
   document.getElementById('__react-content')
 );
 </span></code></pre></div>

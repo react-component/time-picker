@@ -1,14 +1,12 @@
-webpackJsonp([2],{
-
-/***/ 0:
+webpackJsonp([0],[
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(231);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
-
-/***/ 231:
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint no-console:0 */
@@ -55,18 +53,48 @@ webpackJsonp([2],{
 	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
 	now.setTime(Date.now());
 	
+	function generateOptions(length, excludedOptions) {
+	  var arr = [];
+	  for (var value = 0; value < length; value++) {
+	    if (excludedOptions.indexOf(value) < 0) {
+	      arr.push(value);
+	    }
+	  }
+	  return arr;
+	}
+	
 	function onChange(value) {
 	  console.log(value && formatter.format(value));
 	}
 	
+	function disabledHours() {
+	  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23];
+	}
+	
+	function disabledMinutes(h) {
+	  switch (h) {
+	    case 9:
+	      return generateOptions(60, [30]);
+	    case 21:
+	      return generateOptions(60, [0]);
+	    default:
+	      return generateOptions(60, [0, 30]);
+	  }
+	}
+	
+	function disabledSeconds(h, m) {
+	  return [h + m % 60];
+	}
+	
 	_reactDom2['default'].render(_react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
-	  style: { width: 100 },
 	  showSecond: showSecond,
 	  defaultValue: now,
 	  className: 'xxx',
-	  onChange: onChange }), document.getElementById('__react-content'));
+	  onChange: onChange,
+	  disabledHours: disabledHours,
+	  disabledMinutes: disabledMinutes,
+	  disabledSeconds: disabledSeconds }), document.getElementById('__react-content'));
 
 /***/ }
-
-});
-//# sourceMappingURL=pick-time.js.map
+]);
+//# sourceMappingURL=disabled.js.map

@@ -1,14 +1,14 @@
-webpackJsonp([2],{
+webpackJsonp([1],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(231);
+	module.exports = __webpack_require__(230);
 
 
 /***/ },
 
-/***/ 231:
+/***/ 230:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint no-console:0 */
@@ -60,13 +60,19 @@ webpackJsonp([2],{
 	}
 	
 	_reactDom2['default'].render(_react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
-	  style: { width: 100 },
 	  showSecond: showSecond,
 	  defaultValue: now,
 	  className: 'xxx',
-	  onChange: onChange }), document.getElementById('__react-content'));
+	  onChange: onChange,
+	  disabledHours: function () {
+	    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23];
+	  },
+	  disabledMinutes: function () {
+	    return [0, 2, 4, 6, 8];
+	  },
+	  hideDisabledOptions: true }), document.getElementById('__react-content'));
 
 /***/ }
 
 });
-//# sourceMappingURL=pick-time.js.map
+//# sourceMappingURL=hidden.js.map
