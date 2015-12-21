@@ -28,7 +28,7 @@
   },
   "licenses": "MIT",
   "config": {
-    "port": 8001
+    "port": 8011
   },
   "scripts": {
     "build": "rc-tools run build",

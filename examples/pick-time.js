@@ -26,6 +26,7 @@ function onChange(value) {
 
 ReactDom.render(
   <TimePicker formatter={formatter} locale={TimePickerLocale}
+              style={{width: 100}}
               showSecond={showSecond}
               defaultValue={now}
               className="xxx"
