@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "1.0.0-alpha9",
+  "version": "1.0.0",
   "description": "React TimePicker",
   "keywords": [
     "react",

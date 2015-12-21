@@ -38,9 +38,11 @@ const Select = React.createClass({
     this.scrollToSelected(0);
   },
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     // smooth scroll to selected option
-    this.scrollToSelected(120);
+    if (prevProps.selectedIndex !== this.props.selectedIndex) {
+      this.scrollToSelected(120);
+    }
   },
 
   onSelect(value) {
