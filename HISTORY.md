@@ -2,6 +2,11 @@
 
 ---
 
+1.1.0 / 2016-01-14
+---------------------------
+
+remove gregorianCalendarLocale prop, move to locale.calendar
+
 1.0.0 / 2015-12-21
 -------------------------
 

@@ -56,7 +56,6 @@ API
 | open                    | Boolean                           | false                                         | current open state of picker. controlled prop                                              |
 | defaultValue            | GregorianCalendar                 | null                                          | default initial value                                                                      |
 | value                   | GregorianCalendar                 | null                                          | current value                                                                              |
-| gregorianCalendarLocale | GregorianCalendar  locale object  | null                                          | if value and defaultValue not set, you should set this to your locale                      |
 | placeholder             | String                            | ''                                            | time input's placeholder                                                                   |
 | showHour                | Boolean                           | whether show hour                             |                                                                                            |
 | showSecond              | Boolean                           | whether show second                           |                                                                                            |

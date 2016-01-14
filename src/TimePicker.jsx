@@ -4,7 +4,6 @@ import Panel from './module/Panel';
 import placements from './util/placements';
 import CommonMixin from './mixin/CommonMixin';
 import {getFormatter} from './util/index';
-import defaultGregorianCalendarLocale from 'gregorian-calendar/lib/locale/en_US';
 
 function noop() {
 }
@@ -27,7 +26,6 @@ const Picker = React.createClass({
     placement: PropTypes.any,
     transitionName: PropTypes.string,
     getPopupContainer: PropTypes.func,
-    gregorianCalendarLocale: PropTypes.object,
     placeholder: PropTypes.string,
     formatter: PropTypes.any,
     showHour: PropTypes.bool,
@@ -50,7 +48,6 @@ const Picker = React.createClass({
       defaultOpen: false,
       style: {},
       className: '',
-      gregorianCalendarLocale: defaultGregorianCalendarLocale,
       align: {},
       allowEmpty: true,
       showHour: true,
@@ -77,7 +74,7 @@ const Picker = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     const { value, open } = nextProps;
-    if (value !== undefined) {
+    if ('value' in nextProps) {
       this.setState({
         value,
       });
@@ -150,22 +147,15 @@ const Picker = React.createClass({
   },
 
   getPanelElement() {
-    const { prefixCls, defaultValue, locale, placeholder, disabledHours, disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond, gregorianCalendarLocale, value } = this.props;
-    let calendarLocale;
-    if (value) {
-      calendarLocale = value.locale;
-    } else if (defaultValue) {
-      calendarLocale = defaultValue.locale;
-    } else {
-      calendarLocale = gregorianCalendarLocale;
-    }
+    const { prefixCls, defaultValue, locale, placeholder, disabledHours,
+      disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond } = this.props;
     return (
       <Panel
         prefixCls={`${prefixCls}-panel`}
         ref={this.savePanelRef}
         value={this.state.value}
         onChange={this.onPanelChange}
-        gregorianCalendarLocale={calendarLocale}
+        gregorianCalendarLocale={locale.calendar}
         onClear={this.onPanelClear}
         defaultValue={defaultValue}
         showHour={showHour}

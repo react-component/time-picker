@@ -7,14 +7,12 @@ import ReactDom from 'react-dom';
 
 import GregorianCalendar from 'gregorian-calendar';
 import DateTimeFormat from 'gregorian-calendar-format';
-import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
-
 import TimePicker from 'rc-time-picker';
 import TimePickerLocale from 'rc-time-picker/src/locale/zh_CN';
 
 const formatter = new DateTimeFormat('HH:mm:ss');
 
-const now = new GregorianCalendar(zhCn);
+const now = new GregorianCalendar(TimePickerLocale.calendar);
 now.setTime(Date.now());
 
 const App = React.createClass({
@@ -27,6 +25,11 @@ const App = React.createClass({
     console.log(value && formatter.format(value));
     this.setState({ value });
   },
+  clear() {
+    this.setState({
+      value: undefined,
+    });
+  },
   render() {
     return (
       <div>
@@ -35,6 +38,7 @@ const App = React.createClass({
         <TimePicker formatter={formatter} locale={TimePickerLocale}
               value={this.state.value}
               onChange={this.handleValueChange}/>
+        <button onClick={this.clear}>clear</button>
       </div>
     );
   },
