@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>disabled.js - example - rc-time-picker@1.0.0</title>
+  <title>disabled.js - example - rc-time-picker@1.1.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-time-picker@1.0.0</h1>
+    <h1>rc-time-picker@1.1.0</h1>
 
     <p>React TimePicker</p>
   </div>
@@ -273,7 +273,6 @@ import ReactDom from <span class="hljs-string">'react-dom'</span>;
 
 import GregorianCalendar from <span class="hljs-string">'gregorian-calendar'</span>;
 import DateTimeFormat from <span class="hljs-string">'gregorian-calendar-format'</span>;
-import zhCn from <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
 
 import TimePicker from <span class="hljs-string">'rc-time-picker'</span>;
 import TimePickerLocale from <span class="hljs-string">'rc-time-picker/lib/locale/zh_CN'</span>;
@@ -283,7 +282,7 @@ import TimePickerLocale from <span class="hljs-string">'rc-time-picker/lib/local
 
 <span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(str);
 
-<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(zhCn);
+<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(TimePickerLocale.calendar);
 now.setTime(<span class="hljs-built_in">Date</span>.now());
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateOptions</span><span class="hljs-params">(length, excludedOptions)</span> </span>{

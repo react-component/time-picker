@@ -33,15 +33,11 @@ webpackJsonp([0],[
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(168);
-	
-	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
-	
-	var _rcTimePicker = __webpack_require__(169);
+	var _rcTimePicker = __webpack_require__(168);
 	
 	var _rcTimePicker2 = _interopRequireDefault(_rcTimePicker);
 	
-	var _rcTimePickerSrcLocaleZh_CN = __webpack_require__(228);
+	var _rcTimePickerSrcLocaleZh_CN = __webpack_require__(227);
 	
 	var _rcTimePickerSrcLocaleZh_CN2 = _interopRequireDefault(_rcTimePickerSrcLocaleZh_CN);
 	
@@ -50,7 +46,7 @@ webpackJsonp([0],[
 	
 	var formatter = new _gregorianCalendarFormat2['default'](str);
 	
-	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
+	var now = new _gregorianCalendar2['default'](_rcTimePickerSrcLocaleZh_CN2['default'].calendar);
 	now.setTime(Date.now());
 	
 	function generateOptions(length, excludedOptions) {

@@ -35,21 +35,17 @@ webpackJsonp([3],{
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(168);
-	
-	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
-	
-	var _rcTimePicker = __webpack_require__(169);
+	var _rcTimePicker = __webpack_require__(168);
 	
 	var _rcTimePicker2 = _interopRequireDefault(_rcTimePicker);
 	
-	var _rcTimePickerSrcLocaleZh_CN = __webpack_require__(228);
+	var _rcTimePickerSrcLocaleZh_CN = __webpack_require__(227);
 	
 	var _rcTimePickerSrcLocaleZh_CN2 = _interopRequireDefault(_rcTimePickerSrcLocaleZh_CN);
 	
 	var formatter = new _gregorianCalendarFormat2['default']('HH:mm:ss');
 	
-	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
+	var now = new _gregorianCalendar2['default'](_rcTimePickerSrcLocaleZh_CN2['default'].calendar);
 	now.setTime(Date.now());
 	
 	var App = _react2['default'].createClass({
@@ -64,6 +60,11 @@ webpackJsonp([3],{
 	    console.log(value && formatter.format(value));
 	    this.setState({ value: value });
 	  },
+	  clear: function clear() {
+	    this.setState({
+	      value: undefined
+	    });
+	  },
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'div',
@@ -72,7 +73,12 @@ webpackJsonp([3],{
 	        defaultValue: now }),
 	      _react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
 	        value: this.state.value,
-	        onChange: this.handleValueChange })
+	        onChange: this.handleValueChange }),
+	      _react2['default'].createElement(
+	        'button',
+	        { onClick: this.clear },
+	        'clear'
+	      )
 	    );
 	  }
 	});

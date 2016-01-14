@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>value-and-defaultValue.js - example - rc-time-picker@1.0.0</title>
+  <title>value-and-defaultValue.js - example - rc-time-picker@1.1.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-time-picker@1.0.0</h1>
+    <h1>rc-time-picker@1.1.0</h1>
 
     <p>React TimePicker</p>
   </div>
@@ -273,14 +273,12 @@ import ReactDom from <span class="hljs-string">'react-dom'</span>;
 
 import GregorianCalendar from <span class="hljs-string">'gregorian-calendar'</span>;
 import DateTimeFormat from <span class="hljs-string">'gregorian-calendar-format'</span>;
-import zhCn from <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
-
 import TimePicker from <span class="hljs-string">'rc-time-picker'</span>;
 import TimePickerLocale from <span class="hljs-string">'rc-time-picker/lib/locale/zh_CN'</span>;
 
 <span class="hljs-keyword">const</span> formatter = <span class="hljs-keyword">new</span> DateTimeFormat(<span class="hljs-string">'HH:mm:ss'</span>);
 
-<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(zhCn);
+<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> GregorianCalendar(TimePickerLocale.calendar);
 now.setTime(<span class="hljs-built_in">Date</span>.now());
 
 <span class="hljs-keyword">const</span> App = React.createClass({
@@ -293,6 +291,11 @@ now.setTime(<span class="hljs-built_in">Date</span>.now());
     <span class="hljs-built_in">console</span>.log(value &amp;&amp; formatter.format(value));
     <span class="hljs-keyword">this</span>.setState({ value });
   },
+  clear() {
+    <span class="hljs-keyword">this</span>.setState({
+      value: <span class="hljs-literal">undefined</span>,
+    });
+  },
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
@@ -301,6 +304,7 @@ now.setTime(<span class="hljs-built_in">Date</span>.now());
         <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">formatter</span>=<span class="hljs-value">{formatter}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{TimePickerLocale}</span>
               <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
               <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.handleValueChange}</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clear}</span>&gt;</span>clear<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
   },
