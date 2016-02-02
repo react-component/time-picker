@@ -39,12 +39,12 @@ function disabledHours() {
 
 function disabledMinutes(h) {
   switch (h) {
-  case 9:
-    return generateOptions(60, [30]);
-  case 21:
-    return generateOptions(60, [0]);
-  default:
-    return generateOptions(60, [0, 30]);
+    case 9:
+      return generateOptions(60, [30]);
+    case 21:
+      return generateOptions(60, [0]);
+    default:
+      return generateOptions(60, [0, 30]);
   }
 }
 
@@ -60,6 +60,6 @@ ReactDom.render(
               onChange={onChange}
               disabledHours={disabledHours}
               disabledMinutes={disabledMinutes}
-              disabledSeconds={disabledSeconds} />,
+              disabledSeconds={disabledSeconds}/>,
   document.getElementById('__react-content')
 );
