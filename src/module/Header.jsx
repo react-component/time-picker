@@ -107,7 +107,12 @@ const Header = React.createClass({
             originalValue.getMinutes() !== value.getMinutes() ||
             originalValue.getSeconds() !== value.getSeconds()
           ) {
-            onChange(value);
+            // keep other fields for rc-calendar
+            const changedValue = originalValue.clone();
+            changedValue.setHourOfDay(value.getHourOfDay());
+            changedValue.setMinutes(value.getMinutes());
+            changedValue.setSeconds(value.getSeconds());
+            onChange(changedValue);
           }
         } else if (originalValue !== value) {
           onChange(value);
