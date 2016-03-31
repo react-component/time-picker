@@ -22536,11 +22536,13 @@
 	      _react2['default'].createElement(
 	        'span',
 	        { className: prefixCls + ' ' + className, style: style },
-	        _react2['default'].createElement('input', { className: prefixCls + '-input',
+	        _react2['default'].createElement('input', {
+	          className: prefixCls + '-input',
 	          ref: 'picker', type: 'text', placeholder: placeholder,
 	          readOnly: true,
 	          onKeyDown: this.onKeyDown,
-	          disabled: disabled, value: value && this.getFormatter().format(value) }),
+	          disabled: disabled, value: value && this.getFormatter().format(value) || ''
+	        }),
 	        _react2['default'].createElement('span', { className: prefixCls + '-icon' })
 	      )
 	    );
@@ -27697,11 +27699,13 @@
 	    var str = _state.str;
 	
 	    var invalidClass = invalid ? prefixCls + '-input-invalid' : '';
-	    return _react2['default'].createElement('input', { className: prefixCls + '-input  ' + invalidClass,
+	    return _react2['default'].createElement('input', {
+	      className: prefixCls + '-input  ' + invalidClass,
 	      ref: 'input',
 	      onKeyDown: this.onKeyDown,
 	      value: str,
-	      placeholder: placeholder, onChange: this.onInputChange });
+	      placeholder: placeholder, onChange: this.onInputChange
+	    });
 	  },
 	
 	  selectRange: function selectRange() {
