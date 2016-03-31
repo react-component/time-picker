@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import createSelection from '../util/selection';
 
 const Header = React.createClass({
@@ -57,7 +57,7 @@ const Header = React.createClass({
       str,
     });
     let value = null;
-    const {formatter, gregorianCalendarLocale, hourOptions, minuteOptions, secondOptions, disabledHours, disabledMinutes, disabledSeconds, onChange, allowEmpty} = this.props;
+    const { formatter, gregorianCalendarLocale, hourOptions, minuteOptions, secondOptions, disabledHours, disabledMinutes, disabledSeconds, onChange, allowEmpty } = this.props;
 
     if (str) {
       const originalValue = this.props.value;
@@ -144,7 +144,7 @@ const Header = React.createClass({
   },
 
   onClear() {
-    this.setState({str: ''});
+    this.setState({ str: '' });
     this.props.onClear();
   },
 
@@ -160,11 +160,13 @@ const Header = React.createClass({
     const { prefixCls, placeholder } = this.props;
     const { invalid, str } = this.state;
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
-    return (<input className={`${prefixCls}-input  ${invalidClass}`}
-                   ref="input"
-                   onKeyDown={this.onKeyDown}
-                   value={str}
-                   placeholder={placeholder} onChange={this.onInputChange}/>);
+    return (<input
+      className={`${prefixCls}-input  ${invalidClass}`}
+      ref="input"
+      onKeyDown={this.onKeyDown}
+      value={str}
+      placeholder={placeholder} onChange={this.onInputChange}
+    />);
   },
 
   selectRange() {

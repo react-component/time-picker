@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Trigger from 'rc-trigger';
 import Panel from './module/Panel';
 import placements from './util/placements';
 import CommonMixin from './mixin/CommonMixin';
-import {getFormatter} from './util/index';
+import { getFormatter } from './util/index';
 
 function noop() {
 }
@@ -80,7 +80,7 @@ const Picker = React.createClass({
       });
     }
     if (open !== undefined) {
-      this.setState({open});
+      this.setState({ open });
     }
   },
 
@@ -147,8 +147,11 @@ const Picker = React.createClass({
   },
 
   getPanelElement() {
-    const { prefixCls, defaultValue, locale, placeholder, disabledHours,
-      disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond } = this.props;
+    const {
+      prefixCls, defaultValue, locale, placeholder, disabledHours,
+      disabledMinutes, disabledSeconds, hideDisabledOptions,
+      allowEmpty, showHour, showSecond,
+    } = this.props;
     return (
       <Panel
         prefixCls={`${prefixCls}-panel`}
@@ -174,7 +177,7 @@ const Picker = React.createClass({
   },
 
   setOpen(open, callback) {
-    const {onOpen, onClose} = this.props;
+    const { onOpen, onClose } = this.props;
     if (this.state.open !== open) {
       this.setState({
         open,
@@ -213,11 +216,13 @@ const Picker = React.createClass({
         onPopupVisibleChange={this.onVisibleChange}
       >
         <span className={`${prefixCls} ${className}`} style={style}>
-          <input className={`${prefixCls}-input`}
-                 ref="picker" type="text" placeholder={placeholder}
-                 readOnly
-                 onKeyDown={this.onKeyDown}
-                 disabled={disabled} value={value && this.getFormatter().format(value)}/>
+          <input
+            className={`${prefixCls}-input`}
+            ref="picker" type="text" placeholder={placeholder}
+            readOnly
+            onKeyDown={this.onKeyDown}
+            disabled={disabled} value={value && this.getFormatter().format(value) || ''}
+          />
           <span className={`${prefixCls}-icon`}/>
         </span>
       </Trigger>
