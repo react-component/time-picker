@@ -170,7 +170,7 @@ const Header = React.createClass({
   },
 
   selectRange() {
-    this.refs.input.focus();
+    this.refs.input.select();
     if (this.props.currentSelectPanel && this.refs.input.value) {
       let selectionRangeStart = 0;
       let selectionRangeEnd = 0;
