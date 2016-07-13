@@ -40,6 +40,7 @@ const Panel = React.createClass({
 
   getDefaultProps() {
     return {
+      prefixCls: 'rc-time-picker-panel',
       onChange: noop,
       onClear: noop,
     };

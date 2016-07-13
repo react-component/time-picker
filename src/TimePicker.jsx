@@ -45,6 +45,7 @@ const Picker = React.createClass({
 
   getDefaultProps() {
     return {
+      prefixCls: 'rc-time-picker',
       defaultOpen: false,
       style: {},
       className: '',
