@@ -27710,7 +27710,7 @@
 	  },
 	
 	  selectRange: function selectRange() {
-	    this.refs.input.focus();
+	    this.refs.input.select();
 	    if (this.props.currentSelectPanel && this.refs.input.value) {
 	      var selectionRangeStart = 0;
 	      var selectionRangeEnd = 0;
