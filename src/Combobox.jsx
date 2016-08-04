@@ -1,6 +1,5 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Select from './Select';
-import GregorianCalendar from 'gregorian-calendar';
 
 const formatOption = (option, disabledOptions) => {
   let value = `${option}`;
@@ -21,12 +20,12 @@ const formatOption = (option, disabledOptions) => {
 
 const Combobox = React.createClass({
   propTypes: {
-    formatter: PropTypes.object,
+    format: PropTypes.string,
+    defaultOpenValue: PropTypes.object,
     prefixCls: PropTypes.string,
     value: PropTypes.object,
     onChange: PropTypes.func,
     showHour: PropTypes.bool,
-    gregorianCalendarLocale: PropTypes.object,
     showSecond: PropTypes.bool,
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
@@ -38,19 +37,14 @@ const Combobox = React.createClass({
   },
 
   onItemChange(type, itemValue) {
-    const { onChange } = this.props;
-    let value = this.props.value;
-    if (value) {
-      value = value.clone();
-    } else {
-      value = this.getNow().clone();
-    }
+    const { onChange, defaultOpenValue } = this.props;
+    const value = (this.props.value || defaultOpenValue).clone();
     if (type === 'hour') {
-      value.setHourOfDay(itemValue);
+      value.hour(itemValue);
     } else if (type === 'minute') {
-      value.setMinutes(itemValue);
+      value.minute(itemValue);
     } else {
-      value.setSeconds(itemValue);
+      value.second(itemValue);
     }
     onChange(value);
   },
@@ -79,9 +73,9 @@ const Combobox = React.createClass({
   },
 
   getMinuteSelect(minute) {
-    const { prefixCls, minuteOptions, disabledMinutes } = this.props;
-    const value = this.props.value || this.getNow();
-    const disabledOptions = disabledMinutes(value.getHourOfDay());
+    const { prefixCls, minuteOptions, disabledMinutes, defaultOpenValue } = this.props;
+    const value = this.props.value || defaultOpenValue;
+    const disabledOptions = disabledMinutes(value.hour());
 
     return (
       <Select
@@ -96,12 +90,12 @@ const Combobox = React.createClass({
   },
 
   getSecondSelect(second) {
-    const { prefixCls, secondOptions, disabledSeconds, showSecond } = this.props;
+    const { prefixCls, secondOptions, disabledSeconds, showSecond, defaultOpenValue } = this.props;
     if (!showSecond) {
       return null;
     }
-    const value = this.props.value || this.getNow();
-    const disabledOptions = disabledSeconds(value.getHourOfDay(), value.getMinutes());
+    const value = this.props.value || defaultOpenValue;
+    const disabledOptions = disabledSeconds(value.hour(), value.minute());
 
     return (
       <Select
@@ -115,24 +109,14 @@ const Combobox = React.createClass({
     );
   },
 
-  getNow() {
-    if (this.showNow) {
-      return this.showNow;
-    }
-    const value = new GregorianCalendar(this.props.gregorianCalendarLocale);
-    value.setTime(Date.now());
-    this.showNow = value;
-    return value;
-  },
-
   render() {
-    const { prefixCls } = this.props;
-    const value = this.props.value || this.getNow();
+    const { prefixCls, defaultOpenValue } = this.props;
+    const value = this.props.value || defaultOpenValue;
     return (
       <div className={`${prefixCls}-combobox`}>
-        {this.getHourSelect(value.getHourOfDay())}
-        {this.getMinuteSelect(value.getMinutes())}
-        {this.getSecondSelect(value.getSeconds())}
+        {this.getHourSelect(value.hour())}
+        {this.getMinuteSelect(value.minute())}
+        {this.getSecondSelect(value.second())}
       </div>
     );
   },

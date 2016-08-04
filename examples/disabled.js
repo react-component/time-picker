@@ -5,19 +5,14 @@ import 'rc-time-picker/assets/index.less';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import GregorianCalendar from 'gregorian-calendar';
-import DateTimeFormat from 'gregorian-calendar-format';
+import moment from 'moment';
 
 import TimePicker from 'rc-time-picker';
-import TimePickerLocale from 'rc-time-picker/src/locale/zh_CN';
 
 const showSecond = true;
 const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
 
-const formatter = new DateTimeFormat(str);
-
-const now = new GregorianCalendar(TimePickerLocale.calendar);
-now.setTime(Date.now());
+const now = moment().hour(14).minute(30);
 
 function generateOptions(length, excludedOptions) {
   const arr = [];
@@ -30,7 +25,7 @@ function generateOptions(length, excludedOptions) {
 }
 
 function onChange(value) {
-  console.log(value && formatter.format(value));
+  console.log(value && value.format(str));
 }
 
 function disabledHours() {
@@ -53,13 +48,14 @@ function disabledSeconds(h, m) {
 }
 
 ReactDom.render(
-  <TimePicker formatter={formatter} locale={TimePickerLocale}
-              showSecond={showSecond}
-              defaultValue={now}
-              className="xxx"
-              onChange={onChange}
-              disabledHours={disabledHours}
-              disabledMinutes={disabledMinutes}
-              disabledSeconds={disabledSeconds}/>,
+  <TimePicker
+    showSecond={showSecond}
+    defaultValue={now}
+    className="xxx"
+    onChange={onChange}
+    disabledHours={disabledHours}
+    disabledMinutes={disabledMinutes}
+    disabledSeconds={disabledSeconds}
+  />,
   document.getElementById('__react-content')
 );

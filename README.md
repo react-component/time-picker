@@ -51,15 +51,17 @@ API
 | Name                    | Type                              | Default                                       | Description                                                                                |
 |-------------------------|-----------------------------------|-----------------------------------------------|--------------------------------------------------------------------------------------------|
 | prefixCls               | String                            |                                               | prefixCls of this component                                                                |
-| locale                  | Object                            | import from 'rc-time-picker/lib/locale/en_US' |                                                                                            |
+| clearText               | String                            | 'clear'                                       |                                                                                            |
 | disabled                | Boolean                           | false                                         | whether picker is disabled                                                                 |
+| clearText               | String                            | clear                                         | clear text                                                                                 |
 | open                    | Boolean                           | false                                         | current open state of picker. controlled prop                                              |
-| defaultValue            | GregorianCalendar                 | null                                          | default initial value                                                                      |
-| value                   | GregorianCalendar                 | null                                          | current value                                                                              |
+| defaultValue            | moment                            | null                                          | default initial value                                                                      |
+| defaultOpenValue        | moment                            | moment()                                      | default open panel value, used to set utcOffset,locale if value/defaultValue absent        |
+| value                   | moment                            | null                                          | current value                                                                              |
 | placeholder             | String                            | ''                                            | time input's placeholder                                                                   |
 | showHour                | Boolean                           | whether show hour                             |                                                                                            |
 | showSecond              | Boolean                           | whether show second                           |                                                                                            |
-| formatter               | String|GregorianCalendarFormatter |                                               |                                                                                            |
+| format                  | String                            |                                               |                                                                                            |
 | disabledHours           | Function                          | disabled hour options                         |                                                                                            |
 | disabledMinutes         | Function                          | disabled minute options                       |                                                                                            |
 | disabledSeconds         | Function                          | disabled second options                       |                                                                                            |
@@ -67,6 +69,22 @@ API
 | onChange                | Function                          | null                                          | called when select a different value                                                       |
 | placement               | String                            | bottomLeft                                    | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
 | transitionName          | String                            | ''                                            |                                                                                            |
+
+
+## Test Case
+
+```
+npm test
+npm run chrome-test
+```
+
+## Coverage
+
+```
+npm run coverage
+```
+
+open coverage/ dir
 
 License
 -------
