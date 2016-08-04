@@ -3,19 +3,15 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(230);
+	module.exports = __webpack_require__(238);
 
 
 /***/ },
 
-/***/ 230:
+/***/ 238:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint no-console:0 */
-	
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	__webpack_require__(2);
 	
@@ -23,50 +19,43 @@ webpackJsonp([1],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(160);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _gregorianCalendar = __webpack_require__(161);
+	var _moment = __webpack_require__(177);
 	
-	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
+	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _gregorianCalendarFormat = __webpack_require__(165);
-	
-	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
-	
-	var _rcTimePicker = __webpack_require__(168);
+	var _rcTimePicker = __webpack_require__(178);
 	
 	var _rcTimePicker2 = _interopRequireDefault(_rcTimePicker);
 	
-	var _rcTimePickerSrcLocaleZh_CN = __webpack_require__(227);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _rcTimePickerSrcLocaleZh_CN2 = _interopRequireDefault(_rcTimePickerSrcLocaleZh_CN);
+	var showSecond = true; /* eslint no-console:0 */
 	
-	var showSecond = true;
 	var str = showSecond ? 'HH:mm:ss' : 'HH:mm';
 	
-	var formatter = new _gregorianCalendarFormat2['default'](str);
-	
-	var now = new _gregorianCalendar2['default'](_rcTimePickerSrcLocaleZh_CN2['default'].calendar);
-	now.setTime(Date.now());
-	
 	function onChange(value) {
-	  console.log(value && formatter.format(value));
+	  console.log(value && value.format(str));
 	}
 	
-	_reactDom2['default'].render(_react2['default'].createElement(_rcTimePicker2['default'], { formatter: formatter, locale: _rcTimePickerSrcLocaleZh_CN2['default'],
-	  showSecond: showSecond,
-	  defaultValue: now,
+	_reactDom2.default.render(_react2.default.createElement(_rcTimePicker2.default, {
+	  format: str,
+	  showSecond: showSecond
+	  // use to control utfOffset, locale, default open value
+	  , defaultOpenValue: (0, _moment2.default)(),
 	  className: 'xxx',
 	  onChange: onChange,
-	  disabledHours: function () {
+	  disabledHours: function disabledHours() {
 	    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23];
 	  },
-	  disabledMinutes: function () {
+	  disabledMinutes: function disabledMinutes() {
 	    return [0, 2, 4, 6, 8];
 	  },
-	  hideDisabledOptions: true }), document.getElementById('__react-content'));
+	  hideDisabledOptions: true
+	}), document.getElementById('__react-content'));
 
 /***/ }
 
