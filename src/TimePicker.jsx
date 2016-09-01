@@ -39,6 +39,7 @@ const Picker = React.createClass({
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    autoComplete: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -61,6 +62,7 @@ const Picker = React.createClass({
       onChange: noop,
       onOpen: noop,
       onClose: noop,
+      autoComplete: 'yes',
     };
   },
 
@@ -182,7 +184,7 @@ const Picker = React.createClass({
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, showHour,
-      showSecond, getPopupContainer,
+      showSecond, getPopupContainer, autoComplete,
     } = this.props;
     const { open, value } = this.state;
     let popupClassName;
@@ -211,6 +213,7 @@ const Picker = React.createClass({
             readOnly
             onKeyDown={this.onKeyDown}
             disabled={disabled} value={value && value.format(this.getFormat()) || ''}
+            autoComplete={autoComplete}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>

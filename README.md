@@ -69,6 +69,7 @@ API
 | onChange                | Function                          | null                                          | called when select a different value                                                       |
 | placement               | String                            | bottomLeft                                    | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
 | transitionName          | String                            | ''                                            |                                                                                            |
+| autoComplete            | String                            | 'yes'                                         | one of ['yes', 'no']                                                                       |
 
 
 ## Test Case
