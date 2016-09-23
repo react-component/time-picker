@@ -29786,6 +29786,9 @@
 	      prefixCls: 'rc-time-picker-panel',
 	      onChange: noop,
 	      onClear: noop,
+	      disabledHours: noop,
+	      disabledMinutes: noop,
+	      disabledSeconds: noop,
 	      defaultOpenValue: (0, _moment2.default)()
 	    };
 	  },
