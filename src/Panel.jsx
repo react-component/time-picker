@@ -41,6 +41,9 @@ const Panel = React.createClass({
       prefixCls: 'rc-time-picker-panel',
       onChange: noop,
       onClear: noop,
+      disabledHours: noop,
+      disabledMinutes: noop,
+      disabledSeconds: noop,
       defaultOpenValue: moment(),
     };
   },
