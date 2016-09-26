@@ -97,7 +97,7 @@ const Panel = React.createClass({
     const secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
 
     return (
-      <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: className })}>
+      <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: !!className })}>
         <Header
           clearText={clearText}
           prefixCls={prefixCls}
