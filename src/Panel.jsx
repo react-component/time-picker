@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Header from './Header';
 import Combobox from './Combobox';
 import moment from 'moment';
+import classNames from 'classnames';
 
 function noop() {
 }
@@ -20,6 +21,7 @@ const Panel = React.createClass({
   propTypes: {
     clearText: PropTypes.string,
     prefixCls: PropTypes.string,
+    className: PropTypes.string,
     defaultOpenValue: PropTypes.object,
     value: PropTypes.object,
     placeholder: PropTypes.string,
@@ -79,7 +81,7 @@ const Panel = React.createClass({
 
   render() {
     const {
-      prefixCls, placeholder, disabledHours, disabledMinutes,
+      prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond,
       format, defaultOpenValue, clearText, onEsc,
     } = this.props;
@@ -95,7 +97,7 @@ const Panel = React.createClass({
     const secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
 
     return (
-      <div className={`${prefixCls}-inner`}>
+      <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: className })}>
         <Header
           clearText={clearText}
           prefixCls={prefixCls}
