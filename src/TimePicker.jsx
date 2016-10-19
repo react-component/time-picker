@@ -39,6 +39,7 @@ const Picker = React.createClass({
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    addon: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -61,6 +62,7 @@ const Picker = React.createClass({
       onChange: noop,
       onOpen: noop,
       onClose: noop,
+      addon: noop,
     };
   },
 
@@ -137,6 +139,7 @@ const Picker = React.createClass({
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
       allowEmpty, showHour, showSecond, defaultOpenValue, clearText,
+      addon,
     } = this.props;
     return (
       <Panel
@@ -157,6 +160,7 @@ const Picker = React.createClass({
         disabledMinutes={disabledMinutes}
         disabledSeconds={disabledSeconds}
         hideDisabledOptions={hideDisabledOptions}
+        addon={addon}
       />
     );
   },
