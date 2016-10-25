@@ -151,14 +151,16 @@ const Header = React.createClass({
     const { prefixCls, placeholder } = this.props;
     const { invalid, str } = this.state;
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
-    return (<input
-      className={`${prefixCls}-input  ${invalidClass}`}
-      ref="input"
-      onKeyDown={this.onKeyDown}
-      value={str}
-      placeholder={placeholder}
-      onChange={this.onInputChange}
-    />);
+    return (
+      <input
+        className={`${prefixCls}-input  ${invalidClass}`}
+        ref="input"
+        onKeyDown={this.onKeyDown}
+        value={str}
+        placeholder={placeholder}
+        onChange={this.onInputChange}
+      />
+    );
   },
 
   render() {
