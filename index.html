@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-time-picker@2.0.2 - React TimePicker</title>
+  <title>rc-time-picker@2.1.0 - React TimePicker</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-time-picker@2.0.2</h1>
+  <h1>rc-time-picker@2.1.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -879,6 +879,12 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <td>Function</td>
 <td>null</td>
 <td>called when select a different value</td>
+</tr>
+<tr>
+<td>addon</td>
+<td>Function</td>
+<td>nothing</td>
+<td>called from timepicker panel to render some addon to its bottom, like an OK button. Receives panel instance as parameter, to be able to close it like <code>panel.close()</code>.</td>
 </tr>
 <tr>
 <td>placement</td>

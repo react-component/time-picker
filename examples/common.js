@@ -25782,7 +25782,8 @@
 	    hideDisabledOptions: _react.PropTypes.bool,
 	    onChange: _react.PropTypes.func,
 	    onOpen: _react.PropTypes.func,
-	    onClose: _react.PropTypes.func
+	    onClose: _react.PropTypes.func,
+	    addon: _react.PropTypes.func
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
@@ -25804,7 +25805,8 @@
 	      placement: 'bottomLeft',
 	      onChange: noop,
 	      onOpen: noop,
-	      onClose: noop
+	      onClose: noop,
+	      addon: noop
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -25888,6 +25890,7 @@
 	    var showSecond = _props2.showSecond;
 	    var defaultOpenValue = _props2.defaultOpenValue;
 	    var clearText = _props2.clearText;
+	    var addon = _props2.addon;
 	
 	    return _react2.default.createElement(_Panel2.default, {
 	      clearText: clearText,
@@ -25906,7 +25909,8 @@
 	      disabledHours: disabledHours,
 	      disabledMinutes: disabledMinutes,
 	      disabledSeconds: disabledSeconds,
-	      hideDisabledOptions: hideDisabledOptions
+	      hideDisabledOptions: hideDisabledOptions,
+	      addon: addon
 	    });
 	  },
 	  setOpen: function setOpen(open, callback) {
@@ -29787,7 +29791,8 @@
 	    allowEmpty: _react.PropTypes.bool,
 	    showHour: _react.PropTypes.bool,
 	    showSecond: _react.PropTypes.bool,
-	    onClear: _react.PropTypes.func
+	    onClear: _react.PropTypes.func,
+	    addon: _react.PropTypes.func
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
@@ -29798,7 +29803,8 @@
 	      disabledHours: noop,
 	      disabledMinutes: noop,
 	      disabledSeconds: noop,
-	      defaultOpenValue: (0, _moment2.default)()
+	      defaultOpenValue: (0, _moment2.default)(),
+	      addon: noop
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -29825,6 +29831,9 @@
 	  onCurrentSelectPanelChange: function onCurrentSelectPanelChange(currentSelectPanel) {
 	    this.setState({ currentSelectPanel: currentSelectPanel });
 	  },
+	  close: function close() {
+	    this.props.onEsc();
+	  },
 	  render: function render() {
 	    var _classNames;
 	
@@ -29843,6 +29852,7 @@
 	    var defaultOpenValue = _props.defaultOpenValue;
 	    var clearText = _props.clearText;
 	    var onEsc = _props.onEsc;
+	    var addon = _props.addon;
 	    var _state = this.state;
 	    var value = _state.value;
 	    var currentSelectPanel = _state.currentSelectPanel;
@@ -29891,7 +29901,8 @@
 	        disabledMinutes: disabledMinutes,
 	        disabledSeconds: disabledSeconds,
 	        onCurrentSelectPanelChange: this.onCurrentSelectPanelChange
-	      })
+	      }),
+	      addon(this)
 	    );
 	  }
 	});
