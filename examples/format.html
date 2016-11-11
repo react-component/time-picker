@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>value-and-defaultValue.js - example - rc-time-picker@2.2.0</title>
+  <title>format.js - example - rc-time-picker@2.2.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -269,42 +269,23 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0 */</span>
-
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-time-picker/assets/index.css'</span>;
-
+    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'rc-time-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
 <span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker'</span>;
 
 <span class="hljs-keyword">const</span> App = React.createClass({
-  getInitialState() {
-    <span class="hljs-keyword">return</span> {
-      value: moment(),
-    };
-  },
-  handleValueChange(value) {
-    <span class="hljs-built_in">console</span>.log(value &amp;&amp; value.format(<span class="hljs-string">'HH:mm:ss'</span>));
-    <span class="hljs-keyword">this</span>.setState({ value });
-  },
-  clear() {
-    <span class="hljs-keyword">this</span>.setState({
-      value: <span class="hljs-literal">undefined</span>,
-    });
-  },
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span>
-          <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{this.state.value}</span>
-          <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.handleValueChange}</span>
-        /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span>
-          <span class="hljs-attribute">value</span>=<span class="hljs-value">{this.state.value}</span>
-          <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.handleValueChange}</span>
-        /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clear}</span>&gt;</span>clear<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment()}</span> <span class="hljs-attribute">showHour</span>=<span class="hljs-value">{false}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment()}</span> <span class="hljs-attribute">showMinute</span>=<span class="hljs-value">{false}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment()}</span> <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{false}</span> /&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment()}</span> <span class="hljs-attribute">showMinute</span>=<span class="hljs-value">{false}</span> <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{false}</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment()}</span> <span class="hljs-attribute">showHour</span>=<span class="hljs-value">{false}</span> <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{false}</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment()}</span> <span class="hljs-attribute">showHour</span>=<span class="hljs-value">{false}</span> <span class="hljs-attribute">showMinute</span>=<span class="hljs-value">{false}</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;
   },
@@ -324,7 +305,7 @@ ReactDom.render(
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="common.js?nowrap"></script>
-  <script src="value-and-defaultValue.js?nowrap"></script>
+  <script src="format.js?nowrap"></script>
 </body>
 
 </html>

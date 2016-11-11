@@ -1,14 +1,14 @@
-webpackJsonp([4],{
+webpackJsonp([1],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(263);
+	module.exports = __webpack_require__(260);
 
 
 /***/ },
 
-/***/ 263:
+/***/ 260:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35,44 +35,23 @@ webpackJsonp([4],{
 	
 	var App = _react2.default.createClass({
 	  displayName: 'App',
-	  getInitialState: function getInitialState() {
-	    return {
-	      value: (0, _moment2.default)()
-	    };
-	  },
-	  handleValueChange: function handleValueChange(value) {
-	    console.log(value && value.format('HH:mm:ss'));
-	    this.setState({ value: value });
-	  },
-	  clear: function clear() {
-	    this.setState({
-	      value: undefined
-	    });
-	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement(_rcTimePicker2.default, {
-	        defaultValue: this.state.value,
-	        onChange: this.handleValueChange
-	      }),
-	      _react2.default.createElement(_rcTimePicker2.default, {
-	        value: this.state.value,
-	        onChange: this.handleValueChange
-	      }),
-	      _react2.default.createElement(
-	        'button',
-	        { onClick: this.clear },
-	        'clear'
-	      )
+	      _react2.default.createElement(_rcTimePicker2.default, { defaultValue: (0, _moment2.default)(), showHour: false }),
+	      _react2.default.createElement(_rcTimePicker2.default, { defaultValue: (0, _moment2.default)(), showMinute: false }),
+	      _react2.default.createElement(_rcTimePicker2.default, { defaultValue: (0, _moment2.default)(), showSecond: false }),
+	      _react2.default.createElement(_rcTimePicker2.default, { defaultValue: (0, _moment2.default)(), showMinute: false, showSecond: false }),
+	      _react2.default.createElement(_rcTimePicker2.default, { defaultValue: (0, _moment2.default)(), showHour: false, showSecond: false }),
+	      _react2.default.createElement(_rcTimePicker2.default, { defaultValue: (0, _moment2.default)(), showHour: false, showMinute: false })
 	    );
 	  }
-	}); /* eslint no-console:0 */
+	});
 	
 	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));
 
 /***/ }
 
 });
-//# sourceMappingURL=value-and-defaultValue.js.map
+//# sourceMappingURL=format.js.map
