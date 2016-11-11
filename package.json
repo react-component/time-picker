@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "1.1.5",
+  "version": "2.1.0",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -33,34 +33,34 @@
   "scripts": {
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
-    "start": "rc-server",
-    "pub": "rc-tools run pub",
+    "start": "rc-tools run server",
+    "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
-    "browser-test": "rc-tools run browser-test",
-    "browser-test-cover": "rc-tools run browser-test-cover"
+    "test": "rc-tools run test",
+    "chrome-test": "rc-tools run chrome-test",
+    "coverage": "rc-tools run coverage"
   },
   "devDependencies": {
     "async": "~0.9.0",
     "bootstrap": "~3.3.2",
     "expect.js": "~0.3.1",
-    "jquery": "~1.11.3",
+    "jquery": "1.x",
     "pre-commit": "1.x",
-    "rc-server": "3.x",
-    "rc-tools": "4.x",
+    "rc-tools": "5.x",
     "rc-util": "^3.1.2",
-    "react": "0.14.x",
-    "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x"
+    "react": "15.x",
+    "react-addons-test-utils": "15.x",
+    "react-dom": "15.x"
   },
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
+    "babel-runtime": "6.x",
     "classnames": "2.x",
-    "gregorian-calendar": "4.x",
-    "gregorian-calendar-format": "4.x",
+    "moment": "2.x",
     "rc-trigger": "1.x"
   }
 }

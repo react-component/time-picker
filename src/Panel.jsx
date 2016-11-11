@@ -1,7 +1,8 @@
-import React, {PropTypes} from 'react';
-import CommonMixin from '../mixin/CommonMixin';
+import React, { PropTypes } from 'react';
 import Header from './Header';
 import Combobox from './Combobox';
+import moment from 'moment';
+import classNames from 'classnames';
 
 function noop() {
 }
@@ -18,12 +19,13 @@ function generateOptions(length, disabledOptions, hideDisabledOptions) {
 
 const Panel = React.createClass({
   propTypes: {
+    clearText: PropTypes.string,
     prefixCls: PropTypes.string,
+    className: PropTypes.string,
+    defaultOpenValue: PropTypes.object,
     value: PropTypes.object,
-    locale: PropTypes.object,
     placeholder: PropTypes.string,
-    gregorianCalendarLocale: PropTypes.object,
-    formatter: PropTypes.object,
+    format: PropTypes.string,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -34,14 +36,19 @@ const Panel = React.createClass({
     showHour: PropTypes.bool,
     showSecond: PropTypes.bool,
     onClear: PropTypes.func,
+    addon: PropTypes.func,
   },
-
-  mixins: [CommonMixin],
 
   getDefaultProps() {
     return {
+      prefixCls: 'rc-time-picker-panel',
       onChange: noop,
       onClear: noop,
+      disabledHours: noop,
+      disabledMinutes: noop,
+      disabledSeconds: noop,
+      defaultOpenValue: moment(),
+      addon: noop,
     };
   },
 
@@ -74,26 +81,37 @@ const Panel = React.createClass({
     this.setState({ currentSelectPanel });
   },
 
+  close() {
+    this.props.onEsc();
+  },
+
   render() {
-    const { locale, prefixCls, placeholder, disabledHours, disabledMinutes, disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond, formatter, gregorianCalendarLocale } = this.props;
-    const value = this.state.value;
+    const {
+      prefixCls, className, placeholder, disabledHours, disabledMinutes,
+      disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond,
+      format, defaultOpenValue, clearText, onEsc, addon,
+    } = this.props;
+    const {
+      value, currentSelectPanel,
+    } = this.state;
     const disabledHourOptions = disabledHours();
-    const disabledMinuteOptions = disabledMinutes(value ? value.getHourOfDay() : null);
-    const disabledSecondOptions = disabledSeconds(value ? value.getHourOfDay() : null, value ? value.getMinutes() : null);
+    const disabledMinuteOptions = disabledMinutes(value ? value.hour() : null);
+    const disabledSecondOptions = disabledSeconds(value ? value.hour() : null,
+      value ? value.minute() : null);
     const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions);
     const minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions);
     const secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
 
     return (
-      <div className={`${prefixCls}-inner`}>
+      <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: !!className })}>
         <Header
+          clearText={clearText}
           prefixCls={prefixCls}
-          gregorianCalendarLocale={gregorianCalendarLocale}
-          locale={locale}
+          defaultOpenValue={defaultOpenValue}
           value={value}
-          currentSelectPanel={this.state.currentSelectPanel}
-          onEsc={this.props.onEsc}
-          formatter={formatter}
+          currentSelectPanel={currentSelectPanel}
+          onEsc={onEsc}
+          format={format}
           placeholder={placeholder}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
@@ -108,8 +126,8 @@ const Panel = React.createClass({
         <Combobox
           prefixCls={prefixCls}
           value={value}
-          gregorianCalendarLocale={gregorianCalendarLocale}
-          formatter={formatter}
+          defaultOpenValue={defaultOpenValue}
+          format={format}
           onChange={this.onChange}
           showHour={showHour}
           showSecond={showSecond}
@@ -121,6 +139,7 @@ const Panel = React.createClass({
           disabledSeconds={disabledSeconds}
           onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
         />
+        {addon(this)}
       </div>
     );
   },

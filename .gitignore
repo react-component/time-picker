@@ -24,4 +24,4 @@ dist
 *.css
 build
 lib
-
+coverage

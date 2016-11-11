@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import Trigger from 'rc-trigger';
-import Panel from './module/Panel';
-import placements from './util/placements';
-import CommonMixin from './mixin/CommonMixin';
-import { getFormatter } from './util/index';
+import Panel from './Panel';
+import placements from './placements';
+import moment from 'moment';
 
 function noop() {
 }
@@ -15,8 +14,9 @@ function refFn(field, component) {
 const Picker = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
-    locale: PropTypes.object,
+    clearText: PropTypes.string,
     value: PropTypes.object,
+    defaultOpenValue: PropTypes.object,
     disabled: PropTypes.bool,
     allowEmpty: PropTypes.bool,
     defaultValue: PropTypes.object,
@@ -27,7 +27,7 @@ const Picker = React.createClass({
     transitionName: PropTypes.string,
     getPopupContainer: PropTypes.func,
     placeholder: PropTypes.string,
-    formatter: PropTypes.any,
+    format: PropTypes.string,
     showHour: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
@@ -39,16 +39,18 @@ const Picker = React.createClass({
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    addon: PropTypes.func,
   },
-
-  mixins: [CommonMixin],
 
   getDefaultProps() {
     return {
+      clearText: 'clear',
+      prefixCls: 'rc-time-picker',
       defaultOpen: false,
       style: {},
       className: '',
       align: {},
+      defaultOpenValue: moment(),
       allowEmpty: true,
       showHour: true,
       showSecond: true,
@@ -60,6 +62,7 @@ const Picker = React.createClass({
       onChange: noop,
       onOpen: noop,
       onClose: noop,
+      addon: noop,
     };
   },
 
@@ -117,61 +120,47 @@ const Picker = React.createClass({
     this.props.onChange(value);
   },
 
-  getFormatter() {
-    const formatter = this.props.formatter;
-    const locale = this.props.locale;
-    if (formatter) {
-      if (formatter === this.lastFormatter) {
-        return this.normalFormatter;
-      }
-      this.normalFormatter = getFormatter(formatter, locale);
-      this.lastFormatter = formatter;
-      return this.normalFormatter;
+  getFormat() {
+    const format = this.props.format;
+    if (format) {
+      return format;
     }
     if (!this.props.showSecond) {
-      if (!this.notShowSecondFormatter) {
-        this.notShowSecondFormatter = getFormatter('HH:mm', locale);
-      }
-      return this.notShowSecondFormatter;
+      return 'HH:mm';
     }
     if (!this.props.showHour) {
-      if (!this.notShowHourFormatter) {
-        this.notShowHourFormatter = getFormatter('mm:ss', locale);
-      }
-      return this.notShowHourFormatter;
+      return 'mm:ss';
     }
-    if (!this.normalFormatter) {
-      this.normalFormatter = getFormatter('HH:mm:ss', locale);
-    }
-    return this.normalFormatter;
+    return 'HH:mm:ss';
   },
 
   getPanelElement() {
     const {
-      prefixCls, defaultValue, locale, placeholder, disabledHours,
+      prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
-      allowEmpty, showHour, showSecond,
+      allowEmpty, showHour, showSecond, defaultOpenValue, clearText,
+      addon,
     } = this.props;
     return (
       <Panel
+        clearText={clearText}
         prefixCls={`${prefixCls}-panel`}
         ref={this.savePanelRef}
         value={this.state.value}
         onChange={this.onPanelChange}
-        gregorianCalendarLocale={locale.calendar}
         onClear={this.onPanelClear}
-        defaultValue={defaultValue}
+        defaultOpenValue={defaultOpenValue}
         showHour={showHour}
         onEsc={this.onEsc}
         showSecond={showSecond}
-        locale={locale}
         allowEmpty={allowEmpty}
-        formatter={this.getFormatter()}
+        format={this.getFormat()}
         placeholder={placeholder}
         disabledHours={disabledHours}
         disabledMinutes={disabledMinutes}
         disabledSeconds={disabledSeconds}
         hideDisabledOptions={hideDisabledOptions}
+        addon={addon}
       />
     );
   },
@@ -194,7 +183,11 @@ const Picker = React.createClass({
   },
 
   render() {
-    const { prefixCls, placeholder, placement, align, disabled, transitionName, style, className, showHour, showSecond, getPopupContainer } = this.props;
+    const {
+      prefixCls, placeholder, placement, align,
+      disabled, transitionName, style, className, showHour,
+      showSecond, getPopupContainer,
+    } = this.props;
     const { open, value } = this.state;
     let popupClassName;
     if (!showHour || !showSecond) {
@@ -221,7 +214,7 @@ const Picker = React.createClass({
             ref="picker" type="text" placeholder={placeholder}
             readOnly
             onKeyDown={this.onKeyDown}
-            disabled={disabled} value={value && this.getFormatter().format(value) || ''}
+            disabled={disabled} value={value && value.format(this.getFormat()) || ''}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>

@@ -4,25 +4,17 @@ import 'rc-time-picker/assets/index.less';
 
 import React from 'react';
 import ReactDom from 'react-dom';
-
-import GregorianCalendar from 'gregorian-calendar';
-import DateTimeFormat from 'gregorian-calendar-format';
+import moment from 'moment';
 import TimePicker from 'rc-time-picker';
-import TimePickerLocale from 'rc-time-picker/src/locale/zh_CN';
-
-const formatter = new DateTimeFormat('HH:mm:ss');
-
-const now = new GregorianCalendar(TimePickerLocale.calendar);
-now.setTime(Date.now());
 
 const App = React.createClass({
   getInitialState() {
     return {
-      value: now,
+      value: moment(),
     };
   },
   handleValueChange(value) {
-    console.log(value && formatter.format(value));
+    console.log(value && value.format('HH:mm:ss'));
     this.setState({ value });
   },
   clear() {
@@ -33,11 +25,14 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <TimePicker formatter={formatter} locale={TimePickerLocale}
-              defaultValue={now} />
-        <TimePicker formatter={formatter} locale={TimePickerLocale}
-              value={this.state.value}
-              onChange={this.handleValueChange}/>
+        <TimePicker
+          defaultValue={this.state.value}
+          onChange={this.handleValueChange}
+        />
+        <TimePicker
+          value={this.state.value}
+          onChange={this.handleValueChange}
+        />
         <button onClick={this.clear}>clear</button>
       </div>
     );

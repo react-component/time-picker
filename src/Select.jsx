@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDom from 'react-dom';
 import classnames from 'classnames';
 
@@ -26,7 +26,6 @@ const Select = React.createClass({
   propTypes: {
     prefixCls: PropTypes.string,
     options: PropTypes.array,
-    gregorianCalendarLocale: PropTypes.object,
     selectedIndex: PropTypes.number,
     type: PropTypes.string,
     onSelect: PropTypes.func,
@@ -61,7 +60,14 @@ const Select = React.createClass({
       if (!item.disabled) {
         onclick = this.onSelect.bind(this, +item.value);
       }
-      return <li className={cls} key={index} onClick={onclick} disabled={item.disabled}>{item.value}</li>;
+      return (<li
+        className={cls}
+        key={index}
+        onClick={onclick}
+        disabled={item.disabled}
+      >
+        {item.value}
+      </li>);
     });
   },
 
@@ -89,8 +95,10 @@ const Select = React.createClass({
     const { prefixCls } = this.props;
 
     return (
-      <div className={`${prefixCls}-select`}
-           onMouseEnter={this.props.onMouseEnter}>
+      <div
+        className={`${prefixCls}-select`}
+        onMouseEnter={this.props.onMouseEnter}
+      >
         <ul ref="list">{this.getOptions()}</ul>
       </div>
     );
