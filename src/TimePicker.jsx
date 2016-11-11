@@ -29,9 +29,9 @@ const Picker = React.createClass({
     placeholder: PropTypes.string,
     format: PropTypes.string,
     showHour: PropTypes.bool,
+    showSecond: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
-    showSecond: PropTypes.bool,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -151,8 +151,8 @@ const Picker = React.createClass({
         onClear={this.onPanelClear}
         defaultOpenValue={defaultOpenValue}
         showHour={showHour}
-        onEsc={this.onEsc}
         showSecond={showSecond}
+        onEsc={this.onEsc}
         allowEmpty={allowEmpty}
         format={this.getFormat()}
         placeholder={placeholder}
