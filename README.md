@@ -60,6 +60,7 @@ API
 | value                   | moment                            | null                                          | current value                                                                              |
 | placeholder             | String                            | ''                                            | time input's placeholder                                                                   |
 | showHour                | Boolean                           | whether show hour                             |                                                                                            |
+| showMinute                | Boolean                         | whether show minute                             |                                                                                            |
 | showSecond              | Boolean                           | whether show second                           |                                                                                            |
 | format                  | String                            |                                               |                                                                                            |
 | disabledHours           | Function                          | disabled hour options                         |                                                                                            |

@@ -34,6 +34,7 @@ const Panel = React.createClass({
     onEsc: PropTypes.func,
     allowEmpty: PropTypes.bool,
     showHour: PropTypes.bool,
+    showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
     onClear: PropTypes.func,
     addon: PropTypes.func,
@@ -88,7 +89,7 @@ const Panel = React.createClass({
   render() {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
-      disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showSecond,
+      disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
       format, defaultOpenValue, clearText, onEsc, addon,
     } = this.props;
     const {
@@ -130,6 +131,7 @@ const Panel = React.createClass({
           format={format}
           onChange={this.onChange}
           showHour={showHour}
+          showMinute={showMinute}
           showSecond={showSecond}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}

@@ -26,6 +26,7 @@ const Combobox = React.createClass({
     value: PropTypes.object,
     onChange: PropTypes.func,
     showHour: PropTypes.bool,
+    showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
@@ -73,7 +74,10 @@ const Combobox = React.createClass({
   },
 
   getMinuteSelect(minute) {
-    const { prefixCls, minuteOptions, disabledMinutes, defaultOpenValue } = this.props;
+    const { prefixCls, minuteOptions, disabledMinutes, defaultOpenValue, showMinute } = this.props;
+    if (!showMinute) {
+      return null;
+    }
     const value = this.props.value || defaultOpenValue;
     const disabledOptions = disabledMinutes(value.hour());
 

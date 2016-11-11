@@ -29,9 +29,10 @@ const Picker = React.createClass({
     placeholder: PropTypes.string,
     format: PropTypes.string,
     showHour: PropTypes.bool,
+    showMinute: PropTypes.bool,
+    showSecond: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
-    showSecond: PropTypes.bool,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -53,6 +54,7 @@ const Picker = React.createClass({
       defaultOpenValue: moment(),
       allowEmpty: true,
       showHour: true,
+      showMinute: true,
       showSecond: true,
       disabledHours: noop,
       disabledMinutes: noop,
@@ -121,24 +123,22 @@ const Picker = React.createClass({
   },
 
   getFormat() {
-    const format = this.props.format;
+    const { format, showHour, showMinute, showSecond } = this.props;
     if (format) {
       return format;
     }
-    if (!this.props.showSecond) {
-      return 'HH:mm';
-    }
-    if (!this.props.showHour) {
-      return 'mm:ss';
-    }
-    return 'HH:mm:ss';
+    return [
+      showHour ? 'HH' : '',
+      showMinute ? 'mm' : '',
+      showSecond ? 'ss' : '',
+    ].filter(item => !!item).join(':');
   },
 
   getPanelElement() {
     const {
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
-      allowEmpty, showHour, showSecond, defaultOpenValue, clearText,
+      allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
       addon,
     } = this.props;
     return (
@@ -151,8 +151,9 @@ const Picker = React.createClass({
         onClear={this.onPanelClear}
         defaultOpenValue={defaultOpenValue}
         showHour={showHour}
-        onEsc={this.onEsc}
+        showMinute={showMinute}
         showSecond={showSecond}
+        onEsc={this.onEsc}
         allowEmpty={allowEmpty}
         format={this.getFormat()}
         placeholder={placeholder}
