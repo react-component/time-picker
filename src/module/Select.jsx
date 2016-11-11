@@ -69,6 +69,9 @@ const Select = React.createClass({
     // move to selected item
     const select = ReactDom.findDOMNode(this);
     const list = ReactDom.findDOMNode(this.refs.list);
+    if (!list) {
+      return;
+    }
     let index = this.props.selectedIndex;
     if (index < 0) {
       index = 0;
