@@ -41,6 +41,7 @@ const Picker = React.createClass({
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     addon: PropTypes.func,
+    inputName: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -187,7 +188,7 @@ const Picker = React.createClass({
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, showHour,
-      showMinute, showSecond, getPopupContainer,
+      showMinute, showSecond, getPopupContainer, inputName,
     } = this.props;
     const { open, value } = this.state;
     let popupClassName;
@@ -213,6 +214,7 @@ const Picker = React.createClass({
           <input
             className={`${prefixCls}-input`}
             ref="picker" type="text" placeholder={placeholder}
+            name={inputName}
             readOnly
             onKeyDown={this.onKeyDown}
             disabled={disabled} value={value && value.format(this.getFormat()) || ''}
