@@ -190,8 +190,7 @@ const Picker = React.createClass({
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, showHour,
-      showMinute, showSecond, getPopupContainer, name,
-      showSecond, getPopupContainer, autoComplete,
+      showMinute, showSecond, getPopupContainer, name, autoComplete,
     } = this.props;
     const { open, value } = this.state;
     let popupClassName;
