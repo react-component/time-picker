@@ -71,6 +71,7 @@ API
 | addon                   | Function                          | nothing                                       | called from timepicker panel to render some addon to its bottom, like an OK button. Receives panel instance as parameter, to be able to close it like `panel.close()`.|
 | placement               | String                            | bottomLeft                                    | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
 | transitionName          | String                            | ''                                            |                                                                                            |
+| name                    | String                            | nothing                                       | sets the name of the generated input                                                       |
 
 
 ## Test Case
