@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>hidden.js - example - rc-time-picker@2.2.2</title>
+  <title>open.js - example - rc-time-picker@2.2.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -275,30 +275,34 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-
-<span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
-
 <span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker'</span>;
 
-<span class="hljs-keyword">const</span> showSecond = <span class="hljs-literal">true</span>;
-<span class="hljs-keyword">const</span> str = showSecond ? <span class="hljs-string">'HH:mm:ss'</span> : <span class="hljs-string">'HH:mm'</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onChange</span>(<span class="hljs-params">value</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(value &amp;&amp; value.format(str));
-}
+<span class="hljs-keyword">const</span> App = React.createClass({
+  getInitialState() {
+    <span class="hljs-keyword">return</span> {
+      open: <span class="hljs-literal">false</span>,
+    };
+  },
+  setOpen({ open }) {
+    <span class="hljs-keyword">this</span>.setState({ open });
+  },
+  toggleOpen() {
+    <span class="hljs-keyword">this</span>.setState({
+      open: !<span class="hljs-keyword">this</span>.state.open,
+    });
+  },
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.toggleOpen}</span>&gt;</span>Toggle open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span> <span class="hljs-attribute">open</span>=<span class="hljs-value">{this.state.open}</span> <span class="hljs-attribute">onOpen</span>=<span class="hljs-value">{this.setOpen}</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.setOpen}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )</span>;
+  },
+});
 
 ReactDom.render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span>
-    <span class="hljs-attribute">format</span>=<span class="hljs-value">{str}</span>
-    <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{showSecond}</span>
-    // <span class="hljs-attribute">use</span> <span class="hljs-attribute">to</span> <span class="hljs-attribute">control</span> <span class="hljs-attribute">utfOffset</span>, <span class="hljs-attribute">locale</span>, <span class="hljs-attribute">default</span> <span class="hljs-attribute">open</span> <span class="hljs-attribute">value</span>
-    <span class="hljs-attribute">defaultOpenValue</span>=<span class="hljs-value">{moment()}</span>
-    <span class="hljs-attribute">className</span>=<span class="hljs-value">"xxx"</span>
-    <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
-    <span class="hljs-attribute">disabledHours</span>=<span class="hljs-value">{()</span> =&gt;</span> [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23]}
-    disabledMinutes={() =&gt; [0, 2, 4, 6, 8]}
-    hideDisabledOptions
-  /&gt;,
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>,
   document.getElementById('__react-content')
 );
 </span></code></pre></div>
@@ -311,7 +315,7 @@ ReactDom.render(
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="common.js?nowrap"></script>
-  <script src="hidden.js?nowrap"></script>
+  <script src="open.js?nowrap"></script>
 </body>
 
 </html>
