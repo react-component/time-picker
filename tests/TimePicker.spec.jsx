@@ -111,6 +111,33 @@ describe('TimePicker', () => {
         done();
       });
     });
+
+    it('support name', () => {
+      const picker = renderPicker({
+        name: 'time-picker-form-name',
+      });
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      expect(input.name).to.be('time-picker-form-name');
+    });
+
+    it('support focus', () => {
+      const picker = renderPicker({
+        name: 'time-picker-form-name',
+      });
+      expect(picker.focus).to.be.a('function');
+    });
+
+    it('should be controlled by open', () => {
+      const picker = renderPicker({
+        open: false,
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      Simulate.click(input);
+      expect(picker.state.open).not.to.be.ok();
+    });
   });
 
   describe('render panel to body (without seconds)', () => {

@@ -12,13 +12,13 @@ const App = React.createClass({
       open: false,
     };
   },
+  setOpen({ open }) {
+    this.setState({ open });
+  },
   toggleOpen() {
     this.setState({
       open: !this.state.open,
     });
-  },
-  setOpen({ open }) {
-    this.setState({ open });
   },
   render() {
     return (
