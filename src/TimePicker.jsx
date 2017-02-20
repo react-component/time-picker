@@ -70,6 +70,7 @@ const Picker = React.createClass({
   },
 
   getInitialState() {
+    this.saveInputRef = refFn.bind(this, 'picker');
     this.savePanelRef = refFn.bind(this, 'panelInstance');
     const { defaultOpen, defaultValue, open = defaultOpen, value = defaultValue } = this.props;
     return {
@@ -105,7 +106,7 @@ const Picker = React.createClass({
 
   onEsc() {
     this.setOpen(false);
-    this.refs.picker.focus();
+    this.picker.focus();
   },
 
   onKeyDown(e) {
@@ -213,7 +214,9 @@ const Picker = React.createClass({
         <span className={`${prefixCls} ${className}`} style={style}>
           <input
             className={`${prefixCls}-input`}
-            ref="picker" type="text" placeholder={placeholder}
+            ref={this.saveInputRef}
+            type="text"
+            placeholder={placeholder}
             name={name}
             readOnly
             onKeyDown={this.onKeyDown}
