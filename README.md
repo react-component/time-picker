@@ -73,7 +73,6 @@ API
 | transitionName          | String                            | ''                                            |                                                                                            |
 | name                    | String                            | nothing                                       | sets the name of the generated input                                                       |
 
-
 ## Test Case
 
 ```
