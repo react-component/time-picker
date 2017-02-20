@@ -169,19 +169,16 @@ const Picker = React.createClass({
     );
   },
 
-  setOpen(open, callback) {
+  setOpen(open) {
     const { onOpen, onClose } = this.props;
     if (this.state.open !== open) {
-      this.setState({
-        open,
-      }, callback);
-      const event = {
-        open,
-      };
+      if (!('open' in this.props)) {
+        this.setState({ open });
+      }
       if (open) {
-        onOpen(event);
+        onOpen({ open });
       } else {
-        onClose(event);
+        onClose({ open });
       }
     }
   },
