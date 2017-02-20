@@ -106,7 +106,7 @@ const Picker = React.createClass({
 
   onEsc() {
     this.setOpen(false);
-    this.picker.focus();
+    this.focus();
   },
 
   onKeyDown(e) {
@@ -183,6 +183,10 @@ const Picker = React.createClass({
         onClose(event);
       }
     }
+  },
+
+  focus() {
+    this.picker.focus();
   },
 
   render() {
