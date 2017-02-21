@@ -6,7 +6,7 @@ import TestUtils from 'react-addons-test-utils';
 const Simulate = TestUtils.Simulate;
 import expect from 'expect.js';
 import async from 'async';
-import { KeyCode } from 'rc-util';
+import KeyCode from 'rc-util/lib/KeyCode';
 import moment from 'moment';
 
 describe('Header', () => {

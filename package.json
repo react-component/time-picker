@@ -49,7 +49,7 @@
     "jquery": "1.x",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
-    "rc-util": "^4.0.0",
+    "rc-util": "^4.0.2",
     "react": "15.x",
     "react-addons-test-utils": "15.x",
     "react-dom": "15.x"
