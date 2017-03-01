@@ -35,17 +35,42 @@ const Combobox = React.createClass({
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
     onCurrentSelectPanelChange: PropTypes.func,
+    show12Hours: PropTypes.bool,
   },
 
   onItemChange(type, itemValue) {
-    const { onChange, defaultOpenValue } = this.props;
+    const { onChange, defaultOpenValue, show12Hours } = this.props;
     const value = (this.props.value || defaultOpenValue).clone();
+
     if (type === 'hour') {
-      value.hour(itemValue);
+      if (show12Hours) {
+        if (value.hour() > 12 || !value.hour()) {
+          value.hour(+itemValue + 12);
+        } else {
+          value.hour(+itemValue);
+        }
+      } else {
+        value.hour(+itemValue);
+      }
     } else if (type === 'minute') {
-      value.minute(itemValue);
+      value.minute(+itemValue);
+    } else if (type === 'ampm') {
+      if (show12Hours) {
+        if (itemValue === 'PM' && value.hour() <= 12) {
+          value.hour(value.hour() + 12);
+        }
+
+        if (itemValue === 'AM') {
+          if (!value.hour()) {
+            value.hour(12);
+          } else
+          if (value.hour() > 12) {
+            value.hour(value.hour() - 12);
+          }
+        }
+      }
     } else {
-      value.second(itemValue);
+      value.second(+itemValue);
     }
     onChange(value);
   },
@@ -55,17 +80,34 @@ const Combobox = React.createClass({
   },
 
   getHourSelect(hour) {
-    const { prefixCls, hourOptions, disabledHours, showHour } = this.props;
+    const { prefixCls, hourOptions, disabledHours, showHour, show12Hours } = this.props;
     if (!showHour) {
       return null;
     }
     const disabledOptions = disabledHours();
+    let hourAdj;
+    if (show12Hours) {
+      if (hour > 12) {
+        hourAdj = hour - 12;
+      } else {
+        hourAdj = hour || 12;
+      }
+    } else {
+      hourAdj = hour;
+    }
+
+    let hourOptionsAdj;
+    if (show12Hours) {
+      hourOptionsAdj = hourOptions.filter(h => h <= 12 && h > 0);
+    } else {
+      hourOptionsAdj = hourOptions;
+    }
 
     return (
       <Select
         prefixCls={prefixCls}
-        options={hourOptions.map(option => formatOption(option, disabledOptions))}
-        selectedIndex={hourOptions.indexOf(hour)}
+        options={hourOptionsAdj.map(option => formatOption(option, disabledOptions))}
+        selectedIndex={hourOptionsAdj.indexOf(hourAdj)}
         type="hour"
         onSelect={this.onItemChange}
         onMouseEnter={this.onEnterSelectPanel.bind(this, 'hour')}
@@ -113,6 +155,27 @@ const Combobox = React.createClass({
     );
   },
 
+  getAMPMSelect() {
+    const { prefixCls, show12Hours, defaultOpenValue } = this.props;
+    if (!show12Hours) {
+      return null;
+    }
+    const value = this.props.value || defaultOpenValue;
+    const AMPMOptions = [{ value: 'AM' }, { value: 'PM' }];
+    const selected = (!value.hour() || value.hour() > 12) ? 1 : 0;
+
+    return (
+      <Select
+        prefixCls={prefixCls}
+        options={AMPMOptions}
+        selectedIndex={selected}
+        type="ampm"
+        onSelect={this.onItemChange}
+        onMouseEnter={this.onEnterSelectPanel.bind(this, 'ampm')}
+      />
+    );
+  },
+
   render() {
     const { prefixCls, defaultOpenValue } = this.props;
     const value = this.props.value || defaultOpenValue;
@@ -121,6 +184,7 @@ const Combobox = React.createClass({
         {this.getHourSelect(value.hour())}
         {this.getMinuteSelect(value.minute())}
         {this.getSecondSelect(value.second())}
+        {this.getAMPMSelect(value.hour())}
       </div>
     );
   },
