@@ -66,6 +66,7 @@ API
 | disabledHours           | Function                          | disabled hour options                         |                                                                                            |
 | disabledMinutes         | Function                          | disabled minute options                       |                                                                                            |
 | disabledSeconds         | Function                          | disabled second options                       |                                                                                            |
+| show12Hours             | Boolean                           | 12 hours display mode                         |                                                                                            |
 | hideDisabledOptions     | Boolean                           | whether hide disabled options                 |                                                                                            |
 | onChange                | Function                          | null                                          | called when select a different value                                                       |
 | addon                   | Function                          | nothing                                       | called from timepicker panel to render some addon to its bottom, like an OK button. Receives panel instance as parameter, to be able to close it like `panel.close()`.|
