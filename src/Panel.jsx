@@ -37,7 +37,7 @@ const Panel = React.createClass({
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
     onClear: PropTypes.func,
-    show12Hours: PropTypes.bool,
+    use12Hours: PropTypes.bool,
     addon: PropTypes.func,
   },
 
@@ -50,7 +50,7 @@ const Panel = React.createClass({
       disabledMinutes: noop,
       disabledSeconds: noop,
       defaultOpenValue: moment(),
-      show12Hours: false,
+      use12Hours: false,
       addon: noop,
     };
   },
@@ -92,7 +92,7 @@ const Panel = React.createClass({
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, show12Hours,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -142,7 +142,7 @@ const Panel = React.createClass({
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
           onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
-          show12Hours={show12Hours}
+          use12Hours={use12Hours}
         />
         {addon(this)}
       </div>

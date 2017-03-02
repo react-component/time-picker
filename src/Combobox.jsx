@@ -35,15 +35,15 @@ const Combobox = React.createClass({
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
     onCurrentSelectPanelChange: PropTypes.func,
-    show12Hours: PropTypes.bool,
+    use12Hours: PropTypes.bool,
   },
 
   onItemChange(type, itemValue) {
-    const { onChange, defaultOpenValue, show12Hours } = this.props;
+    const { onChange, defaultOpenValue, use12Hours } = this.props;
     const value = (this.props.value || defaultOpenValue).clone();
 
     if (type === 'hour') {
-      if (show12Hours) {
+      if (use12Hours) {
         if (value.hour() > 12 || !value.hour()) {
           value.hour(+itemValue + 12);
         } else {
@@ -55,7 +55,7 @@ const Combobox = React.createClass({
     } else if (type === 'minute') {
       value.minute(+itemValue);
     } else if (type === 'ampm') {
-      if (show12Hours) {
+      if (use12Hours) {
         if (itemValue === 'PM' && value.hour() <= 12) {
           value.hour(value.hour() + 12);
         }
@@ -80,13 +80,13 @@ const Combobox = React.createClass({
   },
 
   getHourSelect(hour) {
-    const { prefixCls, hourOptions, disabledHours, showHour, show12Hours } = this.props;
+    const { prefixCls, hourOptions, disabledHours, showHour, use12Hours } = this.props;
     if (!showHour) {
       return null;
     }
     const disabledOptions = disabledHours();
     let hourAdj;
-    if (show12Hours) {
+    if (use12Hours) {
       if (hour > 12) {
         hourAdj = hour - 12;
       } else {
@@ -97,7 +97,7 @@ const Combobox = React.createClass({
     }
 
     let hourOptionsAdj;
-    if (show12Hours) {
+    if (use12Hours) {
       hourOptionsAdj = hourOptions.filter(h => h <= 12 && h > 0);
     } else {
       hourOptionsAdj = hourOptions;
@@ -156,8 +156,8 @@ const Combobox = React.createClass({
   },
 
   getAMPMSelect() {
-    const { prefixCls, show12Hours, defaultOpenValue } = this.props;
-    if (!show12Hours) {
+    const { prefixCls, use12Hours, defaultOpenValue } = this.props;
+    if (!use12Hours) {
       return null;
     }
     const value = this.props.value || defaultOpenValue;
