@@ -56,15 +56,12 @@ const Combobox = React.createClass({
       value.minute(+itemValue);
     } else if (type === 'ampm') {
       if (use12Hours) {
-        if (itemValue === 'PM' && value.hour() <= 12) {
-          value.hour(value.hour() + 12);
+        if (itemValue === 'PM' && value.hour() < 12) {
+          value.hour((value.hour() % 12) + 12);
         }
 
         if (itemValue === 'AM') {
-          if (!value.hour()) {
-            value.hour(12);
-          } else
-          if (value.hour() > 12) {
+          if (value.hour() >= 12) {
             value.hour(value.hour() - 12);
           }
         }

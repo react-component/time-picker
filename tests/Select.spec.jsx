@@ -446,7 +446,7 @@ describe('Select', () => {
         Simulate.click(selector.getElementsByTagName('li')[0]);
         setTimeout(next, 200);
       }, (next) => {
-        expect((input).value).to.be('12:00 pm');
+        expect((input).value).to.be('12:00 am');
         next();
       }], () => {
         done();
