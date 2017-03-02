@@ -315,4 +315,72 @@ describe('Select', () => {
       });
     });
   });
+
+
+  describe('select in 12 hours mode', () => {
+    it('renders correctly', (done) => {
+      const picker = renderPicker({
+        use12Hours: true,
+        defaultValue: moment().hour(14).minute(0).second(0),
+        showSecond: false,
+        format: undefined,
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      let selector;
+      async.series([(next) => {
+        expect(picker.state.open).to.be(false);
+
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        selector = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-select');
+        expect((input).value).to.be('2:00 pm');
+
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(selector.length).to.be(3);
+
+        next();
+      }], () => {
+        done();
+      });
+    });
+
+
+    it('renders 12am correctly', (done) => {
+      const picker = renderPicker({
+        use12Hours: true,
+        defaultValue: moment().hour(0).minute(0).second(0),
+        showSecond: false,
+        format: undefined,
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      let selector;
+      async.series([(next) => {
+        expect(picker.state.open).to.be(false);
+
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        selector = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-select');
+        expect((input).value).to.be('12:00 am');
+
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(selector.length).to.be(3);
+
+        next();
+      }], () => {
+        done();
+      });
+    });
+  });
 });

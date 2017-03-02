@@ -128,10 +128,21 @@ const Picker = React.createClass({
   },
 
   getFormat() {
-    const { format, showHour, showMinute, showSecond } = this.props;
+    const { format, showHour, showMinute, showSecond, use12Hours } = this.props;
     if (format) {
       return format;
     }
+
+    if (use12Hours) {
+      const fmtString = ([
+        showHour ? 'h' : '',
+        showMinute ? 'mm' : '',
+        showSecond ? 'ss' : '',
+      ].filter(item => !!item).join(':'));
+
+      return fmtString.concat(' a');
+    }
+
     return [
       showHour ? 'HH' : '',
       showMinute ? 'mm' : '',
