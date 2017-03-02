@@ -438,7 +438,13 @@ describe('Select', () => {
         expect((input).value).to.be('12:00 am');
         const option = selector.getElementsByTagName('li')[1];
         Simulate.click(option);
-        setTimeout(next, 100);
+        setTimeout(next, 200);
+      }, (next) => {
+        expect((input).value).to.be('12:00 pm');
+        next();
+      }, (next) => {
+        Simulate.click(selector.getElementsByTagName('li')[0]);
+        setTimeout(next, 200);
       }, (next) => {
         expect((input).value).to.be('12:00 pm');
         next();
