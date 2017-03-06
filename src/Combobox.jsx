@@ -145,11 +145,15 @@ const Combobox = React.createClass({
   },
 
   getAMPMSelect() {
-    const { prefixCls, use12Hours } = this.props;
+    const { prefixCls, use12Hours, format } = this.props;
     if (!use12Hours) {
       return null;
     }
-    const AMPMOptions = [{ value: 'AM' }, { value: 'PM' }];
+
+    const AMPMOptions = ['am', 'pm'] // If format has A char, then we should uppercase AM/PM
+                          .map(c => format.match(/\sA/) ? c.toUpperCase() : c)
+                          .map(c => ({ value: c }));
+
     const selected = this.isAM() ? 0 : 1;
 
     return (

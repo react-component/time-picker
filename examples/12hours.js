@@ -10,7 +10,7 @@ import moment from 'moment';
 import TimePicker from 'rc-time-picker';
 
 const showSecond = false;
-const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+const str = showSecond ? 'h:mm a' : 'h:mm a';
 
 const now = moment().hour(0).minute(0);
 
@@ -24,6 +24,7 @@ ReactDom.render(
     defaultValue={now}
     className="xxx"
     onChange={onChange}
+    format={str}
     use12Hours
   />,
   document.getElementById('__react-content')
