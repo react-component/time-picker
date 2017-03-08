@@ -58,7 +58,7 @@ const Select = React.createClass({
       });
       let onclick = null;
       if (!item.disabled) {
-        onclick = this.onSelect.bind(this, +item.value);
+        onclick = this.onSelect.bind(this, item.value);
       }
       return (<li
         className={cls}

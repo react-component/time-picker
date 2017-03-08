@@ -43,6 +43,7 @@ const Picker = React.createClass({
     addon: PropTypes.func,
     name: PropTypes.string,
     autoComplete: PropTypes.string,
+    use12Hours: PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -67,6 +68,7 @@ const Picker = React.createClass({
       onOpen: noop,
       onClose: noop,
       addon: noop,
+      use12Hours: false,
     };
   },
 
@@ -126,10 +128,21 @@ const Picker = React.createClass({
   },
 
   getFormat() {
-    const { format, showHour, showMinute, showSecond } = this.props;
+    const { format, showHour, showMinute, showSecond, use12Hours } = this.props;
     if (format) {
       return format;
     }
+
+    if (use12Hours) {
+      const fmtString = ([
+        showHour ? 'h' : '',
+        showMinute ? 'mm' : '',
+        showSecond ? 'ss' : '',
+      ].filter(item => !!item).join(':'));
+
+      return fmtString.concat(' a');
+    }
+
     return [
       showHour ? 'HH' : '',
       showMinute ? 'mm' : '',
@@ -142,7 +155,7 @@ const Picker = React.createClass({
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
-      addon,
+      addon, use12Hours,
     } = this.props;
     return (
       <Panel
@@ -164,6 +177,7 @@ const Picker = React.createClass({
         disabledMinutes={disabledMinutes}
         disabledSeconds={disabledSeconds}
         hideDisabledOptions={hideDisabledOptions}
+        use12Hours={use12Hours}
         addon={addon}
       />
     );
