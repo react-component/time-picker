@@ -1,14 +1,12 @@
-webpackJsonp([5],{
-
-/***/ 0:
+webpackJsonp([0],[
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(270);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
-
-/***/ 270:
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33,23 +31,23 @@ webpackJsonp([5],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var showSecond = true; /* eslint no-console:0 */
+	var format = 'h:mm a'; /* eslint no-console:0 */
 	
-	var str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+	var now = (0, _moment2.default)().hour(0).minute(0);
 	
 	function onChange(value) {
-	  console.log(value && value.format(str));
+	  console.log(value && value.format(format));
 	}
 	
 	_reactDom2.default.render(_react2.default.createElement(_rcTimePicker2.default, {
-	  style: { width: 100 },
-	  showSecond: showSecond,
-	  defaultValue: (0, _moment2.default)(),
+	  showSecond: false,
+	  defaultValue: now,
 	  className: 'xxx',
-	  onChange: onChange
+	  onChange: onChange,
+	  format: format,
+	  use12Hours: true
 	}), document.getElementById('__react-content'));
 
 /***/ }
-
-});
-//# sourceMappingURL=pick-time.js.map
+]);
+//# sourceMappingURL=12hours.js.map

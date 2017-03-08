@@ -51,7 +51,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		6:0
+/******/ 		7:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -97,7 +97,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"disabled","1":"format","2":"hidden","3":"open","4":"pick-time","5":"value-and-defaultValue"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"12hours","1":"disabled","2":"format","3":"hidden","4":"open","5":"pick-time","6":"value-and-defaultValue"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -725,7 +725,7 @@
 
 /***/ },
 /* 8 */
-[271, 9],
+[272, 9],
 /* 9 */
 /***/ function(module, exports) {
 
@@ -6437,7 +6437,7 @@
 
 /***/ },
 /* 52 */
-[271, 37],
+[272, 37],
 /* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25533,7 +25533,8 @@
 	    onClose: _react.PropTypes.func,
 	    addon: _react.PropTypes.func,
 	    name: _react.PropTypes.string,
-	    autoComplete: _react.PropTypes.string
+	    autoComplete: _react.PropTypes.string,
+	    use12Hours: _react.PropTypes.bool
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
@@ -25557,7 +25558,8 @@
 	      onChange: noop,
 	      onOpen: noop,
 	      onClose: noop,
-	      addon: noop
+	      addon: noop,
+	      use12Hours: false
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -25621,11 +25623,21 @@
 	        format = _props2.format,
 	        showHour = _props2.showHour,
 	        showMinute = _props2.showMinute,
-	        showSecond = _props2.showSecond;
+	        showSecond = _props2.showSecond,
+	        use12Hours = _props2.use12Hours;
 	
 	    if (format) {
 	      return format;
 	    }
+	
+	    if (use12Hours) {
+	      var fmtString = [showHour ? 'h' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : ''].filter(function (item) {
+	        return !!item;
+	      }).join(':');
+	
+	      return fmtString.concat(' a');
+	    }
+	
 	    return [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : ''].filter(function (item) {
 	      return !!item;
 	    }).join(':');
@@ -25644,7 +25656,8 @@
 	        showSecond = _props3.showSecond,
 	        defaultOpenValue = _props3.defaultOpenValue,
 	        clearText = _props3.clearText,
-	        addon = _props3.addon;
+	        addon = _props3.addon,
+	        use12Hours = _props3.use12Hours;
 	
 	    return _react2.default.createElement(_Panel2.default, {
 	      clearText: clearText,
@@ -25665,6 +25678,7 @@
 	      disabledMinutes: disabledMinutes,
 	      disabledSeconds: disabledSeconds,
 	      hideDisabledOptions: hideDisabledOptions,
+	      use12Hours: use12Hours,
 	      addon: addon
 	    });
 	  },
@@ -30313,6 +30327,7 @@
 	    showMinute: _react.PropTypes.bool,
 	    showSecond: _react.PropTypes.bool,
 	    onClear: _react.PropTypes.func,
+	    use12Hours: _react.PropTypes.bool,
 	    addon: _react.PropTypes.func
 	  },
 	
@@ -30325,6 +30340,7 @@
 	      disabledMinutes: noop,
 	      disabledSeconds: noop,
 	      defaultOpenValue: (0, _moment2.default)(),
+	      use12Hours: false,
 	      addon: noop
 	    };
 	  },
@@ -30374,7 +30390,8 @@
 	        defaultOpenValue = _props.defaultOpenValue,
 	        clearText = _props.clearText,
 	        onEsc = _props.onEsc,
-	        addon = _props.addon;
+	        addon = _props.addon,
+	        use12Hours = _props.use12Hours;
 	    var _state = this.state,
 	        value = _state.value,
 	        currentSelectPanel = _state.currentSelectPanel;
@@ -30423,7 +30440,8 @@
 	        disabledHours: disabledHours,
 	        disabledMinutes: disabledMinutes,
 	        disabledSeconds: disabledSeconds,
-	        onCurrentSelectPanelChange: this.onCurrentSelectPanelChange
+	        onCurrentSelectPanelChange: this.onCurrentSelectPanelChange,
+	        use12Hours: use12Hours
 	      }),
 	      addon(this)
 	    );
@@ -30737,21 +30755,45 @@
 	    disabledHours: _react.PropTypes.func,
 	    disabledMinutes: _react.PropTypes.func,
 	    disabledSeconds: _react.PropTypes.func,
-	    onCurrentSelectPanelChange: _react.PropTypes.func
+	    onCurrentSelectPanelChange: _react.PropTypes.func,
+	    use12Hours: _react.PropTypes.bool
 	  },
 	
 	  onItemChange: function onItemChange(type, itemValue) {
 	    var _props = this.props,
 	        onChange = _props.onChange,
-	        defaultOpenValue = _props.defaultOpenValue;
+	        defaultOpenValue = _props.defaultOpenValue,
+	        use12Hours = _props.use12Hours;
 	
 	    var value = (this.props.value || defaultOpenValue).clone();
+	
 	    if (type === 'hour') {
-	      value.hour(itemValue);
+	      if (use12Hours) {
+	        if (this.isAM()) {
+	          value.hour(+itemValue % 12);
+	        } else {
+	          value.hour(+itemValue % 12 + 12);
+	        }
+	      } else {
+	        value.hour(+itemValue);
+	      }
 	    } else if (type === 'minute') {
-	      value.minute(itemValue);
+	      value.minute(+itemValue);
+	    } else if (type === 'ampm') {
+	      var ampm = itemValue.toUpperCase();
+	      if (use12Hours) {
+	        if (ampm === 'PM' && value.hour() < 12) {
+	          value.hour(value.hour() % 12 + 12);
+	        }
+	
+	        if (ampm === 'AM') {
+	          if (value.hour() >= 12) {
+	            value.hour(value.hour() - 12);
+	          }
+	        }
+	      }
 	    } else {
-	      value.second(itemValue);
+	      value.second(+itemValue);
 	    }
 	    onChange(value);
 	  },
@@ -30763,19 +30805,31 @@
 	        prefixCls = _props2.prefixCls,
 	        hourOptions = _props2.hourOptions,
 	        disabledHours = _props2.disabledHours,
-	        showHour = _props2.showHour;
+	        showHour = _props2.showHour,
+	        use12Hours = _props2.use12Hours;
 	
 	    if (!showHour) {
 	      return null;
 	    }
 	    var disabledOptions = disabledHours();
+	    var hourOptionsAdj = void 0;
+	    var hourAdj = void 0;
+	    if (use12Hours) {
+	      hourOptionsAdj = [12].concat(hourOptions.filter(function (h) {
+	        return h < 12 && h > 0;
+	      }));
+	      hourAdj = hour % 12 || 12;
+	    } else {
+	      hourOptionsAdj = hourOptions;
+	      hourAdj = hour;
+	    }
 	
 	    return _react2.default.createElement(_Select2.default, {
 	      prefixCls: prefixCls,
-	      options: hourOptions.map(function (option) {
+	      options: hourOptionsAdj.map(function (option) {
 	        return formatOption(option, disabledOptions);
 	      }),
-	      selectedIndex: hourOptions.indexOf(hour),
+	      selectedIndex: hourOptionsAdj.indexOf(hourAdj),
 	      type: 'hour',
 	      onSelect: this.onItemChange,
 	      onMouseEnter: this.onEnterSelectPanel.bind(this, 'hour')
@@ -30831,10 +30885,43 @@
 	      onMouseEnter: this.onEnterSelectPanel.bind(this, 'second')
 	    });
 	  },
-	  render: function render() {
+	  getAMPMSelect: function getAMPMSelect() {
 	    var _props5 = this.props,
 	        prefixCls = _props5.prefixCls,
-	        defaultOpenValue = _props5.defaultOpenValue;
+	        use12Hours = _props5.use12Hours,
+	        format = _props5.format;
+	
+	    if (!use12Hours) {
+	      return null;
+	    }
+	
+	    var AMPMOptions = ['am', 'pm'] // If format has A char, then we should uppercase AM/PM
+	    .map(function (c) {
+	      return format.match(/\sA/) ? c.toUpperCase() : c;
+	    }).map(function (c) {
+	      return { value: c };
+	    });
+	
+	    var selected = this.isAM() ? 0 : 1;
+	
+	    return _react2.default.createElement(_Select2.default, {
+	      prefixCls: prefixCls,
+	      options: AMPMOptions,
+	      selectedIndex: selected,
+	      type: 'ampm',
+	      onSelect: this.onItemChange,
+	      onMouseEnter: this.onEnterSelectPanel.bind(this, 'ampm')
+	    });
+	  },
+	  isAM: function isAM() {
+	    var value = this.props.value;
+	
+	    return value.hour() >= 0 && value.hour() < 12;
+	  },
+	  render: function render() {
+	    var _props6 = this.props,
+	        prefixCls = _props6.prefixCls,
+	        defaultOpenValue = _props6.defaultOpenValue;
 	
 	    var value = this.props.value || defaultOpenValue;
 	    return _react2.default.createElement(
@@ -30842,7 +30929,8 @@
 	      { className: prefixCls + '-combobox' },
 	      this.getHourSelect(value.hour()),
 	      this.getMinuteSelect(value.minute()),
-	      this.getSecondSelect(value.second())
+	      this.getSecondSelect(value.second()),
+	      this.getAMPMSelect(value.hour())
 	    );
 	  }
 	});
@@ -30940,7 +31028,7 @@
 	      var cls = (0, _classnames3.default)((_classnames = {}, (0, _defineProperty3.default)(_classnames, prefixCls + '-select-option-selected', selectedIndex === index), (0, _defineProperty3.default)(_classnames, prefixCls + '-select-option-disabled', item.disabled), _classnames));
 	      var onclick = null;
 	      if (!item.disabled) {
-	        onclick = _this.onSelect.bind(_this, +item.value);
+	        onclick = _this.onSelect.bind(_this, item.value);
 	      }
 	      return _react2.default.createElement(
 	        'li',
@@ -31101,7 +31189,8 @@
 /* 268 */,
 /* 269 */,
 /* 270 */,
-/* 271 */
+/* 271 */,
+/* 272 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
