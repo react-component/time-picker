@@ -170,7 +170,7 @@ const Combobox = React.createClass({
   },
 
   isAM() {
-    const { value } = this.props;
+    const value = (this.props.value || this.props.defaultOpenValue);
     return value.hour() >= 0 && value.hour() < 12;
   },
 
