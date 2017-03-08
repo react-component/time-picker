@@ -452,5 +452,43 @@ describe('Select', () => {
         done();
       });
     });
+
+    it('renders uppercase AM correctly', (done) => {
+      const picker = renderPicker({
+        use12Hours: true,
+        defaultValue: moment().hour(0).minute(0).second(0),
+        showSecond: false,
+        format: 'h:mm A',
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      let selector;
+      async.series([(next) => {
+        expect(picker.state.open).to.be(false);
+
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        selector = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-select')[2];
+        expect((input).value).to.be('12:00 AM');
+        const option = selector.getElementsByTagName('li')[1];
+        Simulate.click(option);
+        setTimeout(next, 200);
+      }, (next) => {
+        expect((input).value).to.be('12:00 PM');
+        next();
+      }, (next) => {
+        Simulate.click(selector.getElementsByTagName('li')[0]);
+        setTimeout(next, 200);
+      }, (next) => {
+        expect((input).value).to.be('12:00 AM');
+        next();
+      }], () => {
+        done();
+      });
+    });
   });
 });
