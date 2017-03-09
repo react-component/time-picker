@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-time-picker@2.3.0 - React TimePicker</title>
+  <title>rc-time-picker@2.3.1 - React TimePicker</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-time-picker@2.3.0</h1>
+  <h1>rc-time-picker@2.3.1</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -787,14 +787,14 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <tr>
 <td>prefixCls</td>
 <td>String</td>
-<td></td>
+<td>&#39;rc-time-picker&#39;</td>
 <td>prefixCls of this component</td>
 </tr>
 <tr>
 <td>clearText</td>
 <td>String</td>
 <td>&#39;clear&#39;</td>
-<td></td>
+<td>clear tooltip of icon</td>
 </tr>
 <tr>
 <td>disabled</td>
@@ -841,56 +841,57 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <tr>
 <td>showHour</td>
 <td>Boolean</td>
+<td>true</td>
 <td>whether show hour</td>
 <td></td>
 </tr>
 <tr>
 <td>showMinute</td>
 <td>Boolean</td>
+<td>true</td>
 <td>whether show minute</td>
-<td></td>
 </tr>
 <tr>
 <td>showSecond</td>
 <td>Boolean</td>
+<td>true</td>
 <td>whether show second</td>
-<td></td>
 </tr>
 <tr>
 <td>format</td>
 <td>String</td>
-<td></td>
-<td></td>
+<td>-</td>
+<td>moment format</td>
 </tr>
 <tr>
 <td>disabledHours</td>
 <td>Function</td>
+<td>-</td>
 <td>disabled hour options</td>
-<td></td>
 </tr>
 <tr>
 <td>disabledMinutes</td>
 <td>Function</td>
+<td>-</td>
 <td>disabled minute options</td>
-<td></td>
 </tr>
 <tr>
 <td>disabledSeconds</td>
 <td>Function</td>
+<td>-</td>
 <td>disabled second options</td>
-<td></td>
 </tr>
 <tr>
 <td>use12Hours</td>
 <td>Boolean</td>
+<td>false</td>
 <td>12 hours display mode</td>
-<td></td>
 </tr>
 <tr>
 <td>hideDisabledOptions</td>
 <td>Boolean</td>
+<td>false</td>
 <td>whether hide disabled options</td>
-<td></td>
 </tr>
 <tr>
 <td>onChange</td>
@@ -901,7 +902,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
 <tr>
 <td>addon</td>
 <td>Function</td>
-<td>nothing</td>
+<td>-</td>
 <td>called from timepicker panel to render some addon to its bottom, like an OK button. Receives panel instance as parameter, to be able to close it like <code>panel.close()</code>.</td>
 </tr>
 <tr>

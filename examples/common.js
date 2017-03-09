@@ -30914,8 +30914,7 @@
 	    });
 	  },
 	  isAM: function isAM() {
-	    var value = this.props.value;
-	
+	    var value = this.props.value || this.props.defaultOpenValue;
 	    return value.hour() >= 0 && value.hour() < 12;
 	  },
 	  render: function render() {
