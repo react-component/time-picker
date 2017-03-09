@@ -32,6 +32,12 @@ const Select = React.createClass({
     onMouseEnter: PropTypes.func,
   },
 
+  getInitialState() {
+    return {
+      active: false,
+    };
+  },
+
   componentDidMount() {
     // jump to selected option
     this.scrollToSelected(0);
@@ -87,17 +93,31 @@ const Select = React.createClass({
     scrollTo(select, to, duration);
   },
 
+  handleMouseEnter(e) {
+    this.setState({ active: true });
+    this.props.onMouseEnter(e);
+  },
+
+  handleMouseLeave() {
+    this.setState({ active: false });
+  },
+
   render() {
     if (this.props.options.length === 0) {
       return null;
     }
 
     const { prefixCls } = this.props;
+    const cls = classnames({
+      [`${prefixCls}-select`]: 1,
+      [`${prefixCls}-select-active`]: this.state.active,
+    });
 
     return (
       <div
-        className={`${prefixCls}-select`}
-        onMouseEnter={this.props.onMouseEnter}
+        className={cls}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
       >
         <ul ref="list">{this.getOptions()}</ul>
       </div>
