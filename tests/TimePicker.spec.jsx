@@ -174,4 +174,38 @@ describe('TimePicker', () => {
       });
     });
   });
+
+  describe('render panel to body 12pm mode', () => {
+    it('popup correctly', (done) => {
+      let change;
+      const picker = renderPickerWithoutSeconds({
+        use12Hours: true,
+        value: null,
+        onChange(v) {
+          change = v;
+        },
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      expect((input).value).to.be('');
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-inner')[0]).to.be.ok();
+        expect(picker.state.open).to.be(true);
+        const hour = TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[1];
+        Simulate.click(hour);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(change).to.be.ok();
+        expect(picker.state.open).to.be.ok();
+        next();
+      }], () => {
+        done();
+      });
+    });
+  });
 });
