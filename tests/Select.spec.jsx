@@ -33,6 +33,34 @@ describe('Select', () => {
     document.body.removeChild(container);
   });
 
+  describe('select panel', () => {
+    it('select panel reacts to mouseenter and mouseleave correctly', (done) => {
+      const picker = renderPicker();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        const re = /(^|\s+)rc-time-picker-panel-select-active(\s+|$)/;
+        const selector = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-select')[0];
+
+        expect(re.test(selector.className)).to.be(false);
+
+        Simulate.mouseEnter(selector);
+        expect(re.test(selector.className)).to.be(true);
+
+        Simulate.mouseLeave(selector);
+        expect(re.test(selector.className)).to.be(false);
+
+        next();
+      }], () => {
+        done();
+      });
+    });
+  });
+
   describe('select number', () => {
     it('select number correctly', (done) => {
       const picker = renderPicker();
