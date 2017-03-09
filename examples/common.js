@@ -30959,9 +30959,9 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames2 = __webpack_require__(264);
+	var _classnames3 = __webpack_require__(264);
 	
-	var _classnames3 = _interopRequireDefault(_classnames2);
+	var _classnames4 = _interopRequireDefault(_classnames3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30996,6 +30996,11 @@
 	    onMouseEnter: _react.PropTypes.func
 	  },
 	
+	  getInitialState: function getInitialState() {
+	    return {
+	      active: false
+	    };
+	  },
 	  componentDidMount: function componentDidMount() {
 	    // jump to selected option
 	    this.scrollToSelected(0);
@@ -31024,7 +31029,7 @@
 	    return options.map(function (item, index) {
 	      var _classnames;
 	
-	      var cls = (0, _classnames3.default)((_classnames = {}, (0, _defineProperty3.default)(_classnames, prefixCls + '-select-option-selected', selectedIndex === index), (0, _defineProperty3.default)(_classnames, prefixCls + '-select-option-disabled', item.disabled), _classnames));
+	      var cls = (0, _classnames4.default)((_classnames = {}, (0, _defineProperty3.default)(_classnames, prefixCls + '-select-option-selected', selectedIndex === index), (0, _defineProperty3.default)(_classnames, prefixCls + '-select-option-disabled', item.disabled), _classnames));
 	      var onclick = null;
 	      if (!item.disabled) {
 	        onclick = _this.onSelect.bind(_this, item.value);
@@ -31056,19 +31061,30 @@
 	    var to = topOption.offsetTop;
 	    scrollTo(select, to, duration);
 	  },
+	  handleMouseEnter: function handleMouseEnter(e) {
+	    this.setState({ active: true });
+	    this.props.onMouseEnter(e);
+	  },
+	  handleMouseLeave: function handleMouseLeave() {
+	    this.setState({ active: false });
+	  },
 	  render: function render() {
+	    var _classnames2;
+	
 	    if (this.props.options.length === 0) {
 	      return null;
 	    }
 	
 	    var prefixCls = this.props.prefixCls;
 	
+	    var cls = (0, _classnames4.default)((_classnames2 = {}, (0, _defineProperty3.default)(_classnames2, prefixCls + '-select', 1), (0, _defineProperty3.default)(_classnames2, prefixCls + '-select-active', this.state.active), _classnames2));
 	
 	    return _react2.default.createElement(
 	      'div',
 	      {
-	        className: prefixCls + '-select',
-	        onMouseEnter: this.props.onMouseEnter
+	        className: cls,
+	        onMouseEnter: this.handleMouseEnter,
+	        onMouseLeave: this.handleMouseLeave
 	      },
 	      _react2.default.createElement(
 	        'ul',
