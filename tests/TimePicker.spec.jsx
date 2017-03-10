@@ -208,4 +208,51 @@ describe('TimePicker', () => {
       });
     });
   });
+
+  describe('render panel to body (with time slots)', () => {
+    it('popup correctly', (done) => {
+      let change;
+      const picker = renderPicker({
+        slotHours: 2,
+        slotMinutes: 15,
+        slotSeconds: 30,
+        value: null,
+        onChange(v) {
+          change = v;
+        },
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      expect((input).value).to.be('');
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-inner')[0]).to.be.ok();
+        expect(picker.state.open).to.be(true);
+        const hour = TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[1];
+        const selects = TestUtils.scryRenderedDOMComponentsWithClass(
+            picker.panelInstance, 'rc-time-picker-panel-select'
+        );
+        expect(selects.length).to.be(3);
+        const expectedHourOptions = 12;
+        const expectedMinuteOptions = 4;
+        const expectedSecondOptions = 2;
+        const options = TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li');
+        expect(options.length).to.be(
+            (expectedHourOptions + expectedMinuteOptions + expectedSecondOptions)
+        );
+        Simulate.click(hour);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(change).to.be.ok();
+        expect(picker.state.open).to.be.ok();
+        next();
+      }], () => {
+        done();
+      });
+    });
+  });
 });
