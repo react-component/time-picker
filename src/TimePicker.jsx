@@ -206,10 +206,11 @@ const Picker = React.createClass({
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, showHour,
       showMinute, showSecond, getPopupContainer, name, autoComplete,
+      use12Hours,
     } = this.props;
     const { open, value } = this.state;
     let popupClassName;
-    if (!showHour || !showMinute || !showSecond) {
+    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
       popupClassName = `${prefixCls}-panel-narrow`;
     }
     return (
