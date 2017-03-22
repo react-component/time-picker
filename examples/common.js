@@ -25716,13 +25716,14 @@
 	        showSecond = _props5.showSecond,
 	        getPopupContainer = _props5.getPopupContainer,
 	        name = _props5.name,
-	        autoComplete = _props5.autoComplete;
+	        autoComplete = _props5.autoComplete,
+	        use12Hours = _props5.use12Hours;
 	    var _state = this.state,
 	        open = _state.open,
 	        value = _state.value;
 	
 	    var popupClassName = void 0;
-	    if (!showHour || !showMinute || !showSecond) {
+	    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
 	      popupClassName = prefixCls + '-panel-narrow';
 	    }
 	    return _react2.default.createElement(
