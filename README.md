@@ -53,7 +53,7 @@ API
 | prefixCls               | String                            | 'rc-time-picker' | prefixCls of this component |
 | clearText               | String                            | 'clear' | clear tooltip of icon |
 | disabled                | Boolean                           | false   | whether picker is disabled |
-| clearText               | String                            | clear | clear text |
+| allowEmpty              | Boolean                           | true | allow clearing text |
 | open                    | Boolean                           | false | current open state of picker. controlled prop |
 | defaultValue            | moment                            | null | default initial value |
 | defaultOpenValue        | moment                            | moment() | default open panel value, used to set utcOffset,locale if value/defaultValue absent |
