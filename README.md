@@ -62,6 +62,9 @@ API
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
+| slotHours               | Number                            | 1 | display hours in slots |
+| slotMinutes             | Number                            | 1 | display minutes in slots |
+| slotSeconds             | Number                            | 1 | display seconds in slots |
 | format                  | String                            | - | moment format |
 | disabledHours           | Function                          | - | disabled hour options |
 | disabledMinutes         | Function                          | - | disabled minute options |

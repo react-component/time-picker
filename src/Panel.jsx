@@ -7,9 +7,11 @@ import classNames from 'classnames';
 function noop() {
 }
 
-function generateOptions(length, disabledOptions, hideDisabledOptions) {
+function generateOptions(length, slotLength, disabledOptions, hideDisabledOptions) {
   const arr = [];
-  for (let value = 0; value < length; value++) {
+  slotLength = parseInt(slotLength, 10);
+  slotLength = slotLength > 0 && slotLength < length ? slotLength : 1;
+  for (let value = 0; value < length; value += slotLength) {
     if (!disabledOptions || disabledOptions.indexOf(value) < 0 || !hideDisabledOptions) {
       arr.push(value);
     }
@@ -29,6 +31,9 @@ const Panel = React.createClass({
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
+    slotHours: PropTypes.number,
+    slotMinutes: PropTypes.number,
+    slotSeconds: PropTypes.number,
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
@@ -49,6 +54,9 @@ const Panel = React.createClass({
       disabledHours: noop,
       disabledMinutes: noop,
       disabledSeconds: noop,
+      slotHours: 1,
+      slotMinutes: 1,
+      slotSeconds: 1,
       defaultOpenValue: moment(),
       use12Hours: false,
       addon: noop,
@@ -92,7 +100,8 @@ const Panel = React.createClass({
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, slotHours,
+      slotMinutes, slotSeconds,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -101,9 +110,15 @@ const Panel = React.createClass({
     const disabledMinuteOptions = disabledMinutes(value ? value.hour() : null);
     const disabledSecondOptions = disabledSeconds(value ? value.hour() : null,
       value ? value.minute() : null);
-    const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions);
-    const minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions);
-    const secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
+    const hourOptions = generateOptions(
+        24, slotHours, disabledHourOptions, hideDisabledOptions
+    );
+    const minuteOptions = generateOptions(
+        60, slotMinutes, disabledMinuteOptions, hideDisabledOptions
+    );
+    const secondOptions = generateOptions(
+        60, slotSeconds, disabledSecondOptions, hideDisabledOptions
+    );
 
     return (
       <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: !!className })}>

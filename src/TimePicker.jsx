@@ -31,6 +31,9 @@ const Picker = React.createClass({
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
+    slotHours: PropTypes.number,
+    slotMinutes: PropTypes.number,
+    slotSeconds: PropTypes.number,
     style: PropTypes.object,
     className: PropTypes.string,
     disabledHours: PropTypes.func,
@@ -59,6 +62,9 @@ const Picker = React.createClass({
       showHour: true,
       showMinute: true,
       showSecond: true,
+      slotHours: 1,
+      slotMinutes: 1,
+      slotSeconds: 1,
       disabledHours: noop,
       disabledMinutes: noop,
       disabledSeconds: noop,
@@ -155,7 +161,7 @@ const Picker = React.createClass({
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
-      addon, use12Hours,
+      addon, use12Hours, slotHours, slotMinutes, slotSeconds,
     } = this.props;
     return (
       <Panel
@@ -169,6 +175,9 @@ const Picker = React.createClass({
         showHour={showHour}
         showMinute={showMinute}
         showSecond={showSecond}
+        slotHours={slotHours}
+        slotMinutes={slotMinutes}
+        slotSeconds={slotSeconds}
         onEsc={this.onEsc}
         allowEmpty={allowEmpty}
         format={this.getFormat()}
