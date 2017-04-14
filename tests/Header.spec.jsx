@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import TimePicker from '../src/TimePicker';
 
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 const Simulate = TestUtils.Simulate;
 import expect from 'expect.js';
 import async from 'async';

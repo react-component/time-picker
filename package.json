@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -51,7 +51,6 @@
     "rc-tools": "5.x",
     "rc-util": "^4.0.2",
     "react": "15.x",
-    "react-addons-test-utils": "15.x",
     "react-dom": "15.x"
   },
   "pre-commit": [
@@ -61,6 +60,7 @@
     "babel-runtime": "6.x",
     "classnames": "2.x",
     "moment": "2.x",
+    "prop-types": "^15.5.8",
     "rc-trigger": "1.x"
   }
 }

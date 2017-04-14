@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import Combobox from './Combobox';
 import moment from 'moment';
@@ -17,8 +18,8 @@ function generateOptions(length, disabledOptions, hideDisabledOptions) {
   return arr;
 }
 
-const Panel = React.createClass({
-  propTypes: {
+class Panel extends Component {
+  static propTypes = {
     clearText: PropTypes.string,
     prefixCls: PropTypes.string,
     className: PropTypes.string,
@@ -39,28 +40,27 @@ const Panel = React.createClass({
     onClear: PropTypes.func,
     use12Hours: PropTypes.bool,
     addon: PropTypes.func,
-  },
+  };
 
-  getDefaultProps() {
-    return {
-      prefixCls: 'rc-time-picker-panel',
-      onChange: noop,
-      onClear: noop,
-      disabledHours: noop,
-      disabledMinutes: noop,
-      disabledSeconds: noop,
-      defaultOpenValue: moment(),
-      use12Hours: false,
-      addon: noop,
-    };
-  },
+  static defaultProps = {
+    prefixCls: 'rc-time-picker-panel',
+    onChange: noop,
+    onClear: noop,
+    disabledHours: noop,
+    disabledMinutes: noop,
+    disabledSeconds: noop,
+    defaultOpenValue: moment(),
+    use12Hours: false,
+    addon: noop,
+  };
 
-  getInitialState() {
-    return {
-      value: this.props.value,
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
       selectionRange: [],
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     const value = nextProps.value;
@@ -69,30 +69,22 @@ const Panel = React.createClass({
         value,
       });
     }
-  },
+  }
 
-  onChange(newValue) {
+  onChange = (newValue) => {
     this.setState({ value: newValue });
     this.props.onChange(newValue);
-  },
+  }
 
-  onClear() {
-    this.props.onClear();
-  },
-
-  onCurrentSelectPanelChange(currentSelectPanel) {
+  onCurrentSelectPanelChange = (currentSelectPanel) => {
     this.setState({ currentSelectPanel });
-  },
-
-  close() {
-    this.props.onEsc();
-  },
+  }
 
   render() {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -123,7 +115,7 @@ const Panel = React.createClass({
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
           onChange={this.onChange}
-          onClear={this.onClear}
+          onClear={onClear}
           allowEmpty={allowEmpty}
         />
         <Combobox
@@ -147,7 +139,7 @@ const Panel = React.createClass({
         {addon(this)}
       </div>
     );
-  },
-});
+  }
+}
 
 export default Panel;
