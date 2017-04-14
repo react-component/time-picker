@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>value-and-defaultValue.js - example - rc-time-picker@2.3.3</title>
+  <title>value-and-defaultValue.js - example - rc-time-picker@2.3.4</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-time-picker@2.3.3</h1>
+      <h1>rc-time-picker@2.3.4</h1>
 
       <p>React TimePicker</p>
     </div>
@@ -278,21 +278,19 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
 <span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker'</span>;
 
-<span class="hljs-keyword">const</span> App = React.createClass({
-  getInitialState() {
-    <span class="hljs-keyword">return</span> {
-      value: moment(),
-    };
-  },
-  handleValueChange(value) {
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  state = {
+    value: moment(),
+  };
+  handleValueChange = (value) =&gt; {
     <span class="hljs-built_in">console</span>.log(value &amp;&amp; value.format(<span class="hljs-string">'HH:mm:ss'</span>));
     <span class="hljs-keyword">this</span>.setState({ value });
-  },
-  clear() {
+  }
+  clear = () =&gt; {
     <span class="hljs-keyword">this</span>.setState({
       value: <span class="hljs-literal">undefined</span>,
     });
-  },
+  }
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
@@ -307,8 +305,8 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clear}</span>&gt;</span>clear<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;
-  },
-});
+  }
+}
 
 ReactDom.render(
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>,

@@ -1,13 +1,13 @@
 webpackJsonp([0],[
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -17,15 +17,15 @@ webpackJsonp([0],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(34);
+	var _reactDom = __webpack_require__(38);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _moment = __webpack_require__(180);
+	var _moment = __webpack_require__(184);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _rcTimePicker = __webpack_require__(181);
+	var _rcTimePicker = __webpack_require__(185);
 	
 	var _rcTimePicker2 = _interopRequireDefault(_rcTimePicker);
 	
@@ -48,6 +48,6 @@ webpackJsonp([0],[
 	  use12Hours: true
 	}), document.getElementById('__react-content'));
 
-/***/ }
+/***/ })
 ]);
 //# sourceMappingURL=12hours.js.map
