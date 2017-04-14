@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import classnames from 'classnames';
 
@@ -22,38 +23,36 @@ const scrollTo = (element, to, duration) => {
   });
 };
 
-const Select = React.createClass({
-  propTypes: {
+class Select extends Component {
+  static propTypes = {
     prefixCls: PropTypes.string,
     options: PropTypes.array,
     selectedIndex: PropTypes.number,
     type: PropTypes.string,
     onSelect: PropTypes.func,
     onMouseEnter: PropTypes.func,
-  },
+  };
 
-  getInitialState() {
-    return {
-      active: false,
-    };
-  },
+  state = {
+    active: false,
+  };
 
   componentDidMount() {
     // jump to selected option
     this.scrollToSelected(0);
-  },
+  }
 
   componentDidUpdate(prevProps) {
     // smooth scroll to selected option
     if (prevProps.selectedIndex !== this.props.selectedIndex) {
       this.scrollToSelected(120);
     }
-  },
+  }
 
-  onSelect(value) {
+  onSelect = (value) => {
     const { onSelect, type } = this.props;
     onSelect(type, value);
-  },
+  }
 
   getOptions() {
     const { options, selectedIndex, prefixCls } = this.props;
@@ -75,7 +74,7 @@ const Select = React.createClass({
         {item.value}
       </li>);
     });
-  },
+  }
 
   scrollToSelected(duration) {
     // move to selected item
@@ -91,16 +90,16 @@ const Select = React.createClass({
     const topOption = list.children[index];
     const to = topOption.offsetTop;
     scrollTo(select, to, duration);
-  },
+  }
 
-  handleMouseEnter(e) {
+  handleMouseEnter = (e) => {
     this.setState({ active: true });
     this.props.onMouseEnter(e);
-  },
+  }
 
-  handleMouseLeave() {
+  handleMouseLeave = () => {
     this.setState({ active: false });
-  },
+  }
 
   render() {
     if (this.props.options.length === 0) {
@@ -122,7 +121,7 @@ const Select = React.createClass({
         <ul ref="list">{this.getOptions()}</ul>
       </div>
     );
-  },
-});
+  }
+}
 
 export default Select;

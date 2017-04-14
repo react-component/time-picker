@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import Panel from './Panel';
 import placements from './placements';
@@ -11,8 +12,8 @@ function refFn(field, component) {
   this[field] = component;
 }
 
-const Picker = React.createClass({
-  propTypes: {
+class Picker extends Component {
+  static propTypes = {
     prefixCls: PropTypes.string,
     clearText: PropTypes.string,
     value: PropTypes.object,
@@ -44,43 +45,42 @@ const Picker = React.createClass({
     name: PropTypes.string,
     autoComplete: PropTypes.string,
     use12Hours: PropTypes.bool,
-  },
+  };
 
-  getDefaultProps() {
-    return {
-      clearText: 'clear',
-      prefixCls: 'rc-time-picker',
-      defaultOpen: false,
-      style: {},
-      className: '',
-      align: {},
-      defaultOpenValue: moment(),
-      allowEmpty: true,
-      showHour: true,
-      showMinute: true,
-      showSecond: true,
-      disabledHours: noop,
-      disabledMinutes: noop,
-      disabledSeconds: noop,
-      hideDisabledOptions: false,
-      placement: 'bottomLeft',
-      onChange: noop,
-      onOpen: noop,
-      onClose: noop,
-      addon: noop,
-      use12Hours: false,
-    };
-  },
+  static defaultProps = {
+    clearText: 'clear',
+    prefixCls: 'rc-time-picker',
+    defaultOpen: false,
+    style: {},
+    className: '',
+    align: {},
+    defaultOpenValue: moment(),
+    allowEmpty: true,
+    showHour: true,
+    showMinute: true,
+    showSecond: true,
+    disabledHours: noop,
+    disabledMinutes: noop,
+    disabledSeconds: noop,
+    hideDisabledOptions: false,
+    placement: 'bottomLeft',
+    onChange: noop,
+    onOpen: noop,
+    onClose: noop,
+    addon: noop,
+    use12Hours: false,
+  };
 
-  getInitialState() {
+  constructor(props) {
+    super(props);
     this.saveInputRef = refFn.bind(this, 'picker');
     this.savePanelRef = refFn.bind(this, 'panelInstance');
-    const { defaultOpen, defaultValue, open = defaultOpen, value = defaultValue } = this.props;
-    return {
+    const { defaultOpen, defaultValue, open = defaultOpen, value = defaultValue } = props;
+    this.state = {
       open,
       value,
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     const { value, open } = nextProps;
@@ -92,31 +92,31 @@ const Picker = React.createClass({
     if (open !== undefined) {
       this.setState({ open });
     }
-  },
+  }
 
-  onPanelChange(value) {
+  onPanelChange = (value) => {
     this.setValue(value);
-  },
+  }
 
-  onPanelClear() {
+  onPanelClear = () => {
     this.setValue(null);
     this.setOpen(false);
-  },
+  }
 
-  onVisibleChange(open) {
+  onVisibleChange = (open) => {
     this.setOpen(open);
-  },
+  }
 
-  onEsc() {
+  onEsc = () => {
     this.setOpen(false);
     this.focus();
-  },
+  }
 
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     if (e.keyCode === 40) {
       this.setOpen(true);
     }
-  },
+  }
 
   setValue(value) {
     if (!('value' in this.props)) {
@@ -125,7 +125,7 @@ const Picker = React.createClass({
       });
     }
     this.props.onChange(value);
-  },
+  }
 
   getFormat() {
     const { format, showHour, showMinute, showSecond, use12Hours } = this.props;
@@ -148,7 +148,7 @@ const Picker = React.createClass({
       showMinute ? 'mm' : '',
       showSecond ? 'ss' : '',
     ].filter(item => !!item).join(':');
-  },
+  }
 
   getPanelElement() {
     const {
@@ -181,7 +181,7 @@ const Picker = React.createClass({
         addon={addon}
       />
     );
-  },
+  }
 
   setOpen(open) {
     const { onOpen, onClose } = this.props;
@@ -195,11 +195,11 @@ const Picker = React.createClass({
         onClose({ open });
       }
     }
-  },
+  }
 
   focus() {
     this.picker.focus();
-  },
+  }
 
   render() {
     const {
@@ -244,7 +244,7 @@ const Picker = React.createClass({
         </span>
       </Trigger>
     );
-  },
-});
+  }
+}
 
 export default Picker;

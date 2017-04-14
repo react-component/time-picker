@@ -7,21 +7,19 @@ import ReactDom from 'react-dom';
 import moment from 'moment';
 import TimePicker from 'rc-time-picker';
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      value: moment(),
-    };
-  },
-  handleValueChange(value) {
+class App extends React.Component {
+  state = {
+    value: moment(),
+  };
+  handleValueChange = (value) => {
     console.log(value && value.format('HH:mm:ss'));
     this.setState({ value });
-  },
-  clear() {
+  }
+  clear = () => {
     this.setState({
       value: undefined,
     });
-  },
+  }
   render() {
     return (
       <div>
@@ -36,8 +34,8 @@ const App = React.createClass({
         <button onClick={this.clear}>clear</button>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(
   <App />,
