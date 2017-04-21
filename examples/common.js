@@ -31937,6 +31937,11 @@
 	    }
 	  };
 	
+	  // https://github.com/ant-design/ant-design/issues/5829
+	  Panel.prototype.close = function close() {
+	    this.props.onEsc();
+	  };
+	
 	  Panel.prototype.render = function render() {
 	    var _classNames;
 	
