@@ -80,6 +80,11 @@ class Panel extends Component {
     this.setState({ currentSelectPanel });
   }
 
+  // https://github.com/ant-design/ant-design/issues/5829
+  close() {
+    this.props.onEsc();
+  }
+
   render() {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
