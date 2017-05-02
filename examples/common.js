@@ -26087,10 +26087,40 @@
 	    });
 	  };
 	
-	  Picker.prototype.setOpen = function setOpen(open) {
+	  Picker.prototype.getPopupClassName = function getPopupClassName() {
 	    var _props3 = this.props,
-	        onOpen = _props3.onOpen,
-	        onClose = _props3.onClose;
+	        showHour = _props3.showHour,
+	        showMinute = _props3.showMinute,
+	        showSecond = _props3.showSecond,
+	        use12Hours = _props3.use12Hours,
+	        prefixCls = _props3.prefixCls;
+	
+	    var popupClassName = this.props.popupClassName;
+	    // Keep it for old compatibility
+	    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
+	      popupClassName += ' ' + prefixCls + '-panel-narrow';
+	    }
+	    var selectColumnCount = 0;
+	    if (showHour) {
+	      selectColumnCount += 1;
+	    }
+	    if (showMinute) {
+	      selectColumnCount += 1;
+	    }
+	    if (showSecond) {
+	      selectColumnCount += 1;
+	    }
+	    if (use12Hours) {
+	      selectColumnCount += 1;
+	    }
+	    popupClassName += ' ' + prefixCls + '-panel-column-' + selectColumnCount;
+	    return popupClassName;
+	  };
+	
+	  Picker.prototype.setOpen = function setOpen(open) {
+	    var _props4 = this.props,
+	        onOpen = _props4.onOpen,
+	        onClose = _props4.onClose;
 	
 	    if (this.state.open !== open) {
 	      if (!('open' in this.props)) {
@@ -26109,30 +26139,23 @@
 	  };
 	
 	  Picker.prototype.render = function render() {
-	    var _props4 = this.props,
-	        prefixCls = _props4.prefixCls,
-	        placeholder = _props4.placeholder,
-	        placement = _props4.placement,
-	        align = _props4.align,
-	        disabled = _props4.disabled,
-	        transitionName = _props4.transitionName,
-	        style = _props4.style,
-	        className = _props4.className,
-	        showHour = _props4.showHour,
-	        showMinute = _props4.showMinute,
-	        showSecond = _props4.showSecond,
-	        getPopupContainer = _props4.getPopupContainer,
-	        name = _props4.name,
-	        autoComplete = _props4.autoComplete,
-	        use12Hours = _props4.use12Hours;
+	    var _props5 = this.props,
+	        prefixCls = _props5.prefixCls,
+	        placeholder = _props5.placeholder,
+	        placement = _props5.placement,
+	        align = _props5.align,
+	        disabled = _props5.disabled,
+	        transitionName = _props5.transitionName,
+	        style = _props5.style,
+	        className = _props5.className,
+	        getPopupContainer = _props5.getPopupContainer,
+	        name = _props5.name,
+	        autoComplete = _props5.autoComplete;
 	    var _state = this.state,
 	        open = _state.open,
 	        value = _state.value;
 	
-	    var popupClassName = void 0;
-	    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
-	      popupClassName = prefixCls + '-panel-narrow';
-	    }
+	    var popupClassName = this.getPopupClassName();
 	    return _react2.default.createElement(
 	      _rcTrigger2.default,
 	      {
@@ -26192,6 +26215,7 @@
 	  showSecond: _propTypes2.default.bool,
 	  style: _propTypes2.default.object,
 	  className: _propTypes2.default.string,
+	  popupClassName: _propTypes2.default.string,
 	  disabledHours: _propTypes2.default.func,
 	  disabledMinutes: _propTypes2.default.func,
 	  disabledSeconds: _propTypes2.default.func,
@@ -26210,6 +26234,7 @@
 	  defaultOpen: false,
 	  style: {},
 	  className: '',
+	  popupClassName: '',
 	  align: {},
 	  defaultOpenValue: (0, _moment2.default)(),
 	  allowEmpty: true,
