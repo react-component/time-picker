@@ -59,6 +59,8 @@ API
 | defaultOpenValue        | moment                            | moment() | default open panel value, used to set utcOffset,locale if value/defaultValue absent |
 | value                   | moment                            | null | current value |
 | placeholder             | String                            | '' | time input's placeholder |
+| className               | String                            | '' | time picker className |
+| popupClassName          | String                            | '' | time panel className |
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |

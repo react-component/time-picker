@@ -34,6 +34,7 @@ class Picker extends Component {
     showSecond: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
+    popupClassName: PropTypes.string,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -53,6 +54,7 @@ class Picker extends Component {
     defaultOpen: false,
     style: {},
     className: '',
+    popupClassName: '',
     align: {},
     defaultOpenValue: moment(),
     allowEmpty: true,
@@ -183,6 +185,30 @@ class Picker extends Component {
     );
   }
 
+  getPopupClassName() {
+    const { showHour, showMinute, showSecond, use12Hours, prefixCls } = this.props;
+    let popupClassName = this.props.popupClassName;
+    // Keep it for old compatibility
+    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
+      popupClassName += ` ${prefixCls}-panel-narrow`;
+    }
+    let selectColumnCount = 0;
+    if (showHour) {
+      selectColumnCount += 1;
+    }
+    if (showMinute) {
+      selectColumnCount += 1;
+    }
+    if (showSecond) {
+      selectColumnCount += 1;
+    }
+    if (use12Hours) {
+      selectColumnCount += 1;
+    }
+    popupClassName += ` ${prefixCls}-panel-column-${selectColumnCount}`;
+    return popupClassName;
+  }
+
   setOpen(open) {
     const { onOpen, onClose } = this.props;
     if (this.state.open !== open) {
@@ -204,15 +230,10 @@ class Picker extends Component {
   render() {
     const {
       prefixCls, placeholder, placement, align,
-      disabled, transitionName, style, className, showHour,
-      showMinute, showSecond, getPopupContainer, name, autoComplete,
-      use12Hours,
+      disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
     } = this.props;
     const { open, value } = this.state;
-    let popupClassName;
-    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
-      popupClassName = `${prefixCls}-panel-narrow`;
-    }
+    const popupClassName = this.getPopupClassName();
     return (
       <Trigger
         prefixCls={`${prefixCls}-panel`}
