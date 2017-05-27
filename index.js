@@ -1,2 +1,1 @@
-import TimePanel from './src/';
-export default TimePanel;
+export { default } from './src/';

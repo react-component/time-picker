@@ -12,7 +12,7 @@ function refFn(field, component) {
   this[field] = component;
 }
 
-class Picker extends Component {
+export default class Picker extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     clearText: PropTypes.string,
@@ -267,5 +267,3 @@ class Picker extends Component {
     );
   }
 }
-
-export default Picker;
