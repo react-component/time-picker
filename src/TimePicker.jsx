@@ -16,6 +16,7 @@ export default class Picker extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     clearText: PropTypes.string,
+    clearOnClose: PropTypes.bool,
     value: PropTypes.object,
     defaultOpenValue: PropTypes.object,
     disabled: PropTypes.bool,
@@ -50,6 +51,7 @@ export default class Picker extends Component {
 
   static defaultProps = {
     clearText: 'clear',
+    clearOnClose: true,
     prefixCls: 'rc-time-picker',
     defaultOpen: false,
     style: {},
@@ -101,7 +103,9 @@ export default class Picker extends Component {
   }
 
   onPanelClear = () => {
-    this.setValue(null);
+    if (this.props.clearOnClose) {
+      this.setValue(null);
+    }
     this.setOpen(false);
   }
 
