@@ -22,6 +22,7 @@ class Header extends Component {
     allowEmpty: PropTypes.bool,
     defaultOpenValue: PropTypes.object,
     currentSelectPanel: PropTypes.string,
+    onKeyDown: PropTypes.func,
   };
 
   constructor(props) {
@@ -122,9 +123,12 @@ class Header extends Component {
   }
 
   onKeyDown = (e) => {
+    const { onEsc, onKeyDown } = this.props;
     if (e.keyCode === 27) {
-      this.props.onEsc();
+      onEsc();
     }
+
+    onKeyDown(e);
   }
 
   onClear = () => {
