@@ -77,6 +77,7 @@ API
 | name                    | String                            | - | sets the name of the generated input |
 | onOpen                  | Function({ open })                |   | when TimePicker panel is opened      |
 | onClose                 | Function({ open })                |   | when TimePicker panel is opened      |
+| focusOnOpen             | Boolean                           | false | automatically focus the input when the picker opens |
 
 ## Test Case
 
