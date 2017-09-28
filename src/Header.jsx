@@ -38,7 +38,10 @@ class Header extends Component {
     if (this.props.focusOnOpen) {
       // Wait one frame for the panel to be positioned before focusing
       const requestAnimationFrame = (window.requestAnimationFrame || window.setTimeout);
-      requestAnimationFrame(() => this.refs.input.focus());
+      requestAnimationFrame(() => {
+        this.refs.input.focus();
+        this.refs.input.select();
+      });
     }
   }
 
