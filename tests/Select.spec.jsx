@@ -7,6 +7,8 @@ import expect from 'expect.js';
 import async from 'async';
 import moment from 'moment';
 
+const map = (arr, fn) => Array.prototype.map.call(arr, fn);
+
 describe('Select', () => {
   let container;
 
@@ -58,6 +60,38 @@ describe('Select', () => {
       }], () => {
         done();
       });
+    });
+
+    it('shows only numbers according to step props', (done) => {
+      const picker = renderPicker({
+        hourStep: 5,
+        minuteStep: 15,
+        secondStep: 21,
+      });
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        const selectors = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-select');
+
+        const hourSelector = selectors[0];
+        const minuteSelector = selectors[1];
+        const secondSelector = selectors[2];
+
+        const hours = map(hourSelector.getElementsByTagName('li'), (li) => li.innerHTML);
+        expect(hours).to.eql(['00', '05', '10', '15', '20']);
+
+        const minutes = map(minuteSelector.getElementsByTagName('li'), (li) => li.innerHTML);
+        expect(minutes).to.eql(['00', '15', '30', '45']);
+
+        const seconds = map(secondSelector.getElementsByTagName('li'), (li) => li.innerHTML);
+        expect(seconds).to.eql(['00', '21', '42']);
+
+        next();
+      }], done);
     });
   });
 
