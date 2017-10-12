@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Select from './Select';
 
 const formatOption = (option, disabledOptions) => {
-  let value = `${option}`;
+  let value = `${option}:00`; // todo ADDED `__:00` ATTENTION!
   if (option < 10) {
-    value = `0${option}`;
+    value = `0${value}`;
   }
 
   let disabled = false;
