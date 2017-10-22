@@ -368,5 +368,33 @@ describe('Header', () => {
         done();
       });
     });
+
+    it('focus on open', (done) => {
+      const picker = renderPicker({
+        focusOnOpen: true,
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      let header;
+      async.series([(next) => {
+        expect(picker.state.open).to.be(false);
+
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        // this touches the focusOnOpen code, but we cannot verify the input is in focus
+        expect(picker.state.open).to.be(true);
+        header = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-input')[0];
+        expect(header).to.be.ok();
+        expect((header).value).to.be('01:02:03');
+        expect((input).value).to.be('01:02:03');
+
+        next();
+      }], () => {
+        done();
+      });
+    });
   });
 });

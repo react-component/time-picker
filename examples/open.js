@@ -22,7 +22,12 @@ class App extends React.Component {
     return (
       <div>
         <button onClick={this.toggleOpen}>Toggle open</button>
-        <TimePicker open={this.state.open} onOpen={this.setOpen} onClose={this.setOpen} />
+        <TimePicker
+          open={this.state.open}
+          onOpen={this.setOpen}
+          onClose={this.setOpen}
+          focusOnOpen
+        />
       </div>
     );
   }

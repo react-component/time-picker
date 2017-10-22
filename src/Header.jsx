@@ -22,6 +22,7 @@ class Header extends Component {
     allowEmpty: PropTypes.bool,
     defaultOpenValue: PropTypes.object,
     currentSelectPanel: PropTypes.string,
+    focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
   };
 
@@ -32,6 +33,17 @@ class Header extends Component {
       str: value && value.format(format) || '',
       invalid: false,
     };
+  }
+
+  componentDidMount() {
+    if (this.props.focusOnOpen) {
+      // Wait one frame for the panel to be positioned before focusing
+      const requestAnimationFrame = (window.requestAnimationFrame || window.setTimeout);
+      requestAnimationFrame(() => {
+        this.refs.input.focus();
+        this.refs.input.select();
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
