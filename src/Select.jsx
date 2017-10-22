@@ -79,7 +79,7 @@ class Select extends Component {
   scrollToSelected(duration) {
     // move to selected item
     const select = ReactDom.findDOMNode(this);
-    const list = ReactDom.findDOMNode(this.refs.list);
+    const list = ReactDom.findDOMNode(this.list);
     if (!list) {
       return;
     }
@@ -101,6 +101,10 @@ class Select extends Component {
     this.setState({ active: false });
   }
 
+  saveList = (node) => {
+    this.list = node;
+  }
+
   render() {
     if (this.props.options.length === 0) {
       return null;
@@ -118,7 +122,7 @@ class Select extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        <ul ref="list">{this.getOptions()}</ul>
+        <ul ref={this.saveList}>{this.getOptions()}</ul>
       </div>
     );
   }
