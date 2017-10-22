@@ -49,6 +49,9 @@
   border: 1px solid #ccc;
   line-height: 1.5;
 }
+.rc-time-picker-panel-narrow {
+  max-width: 113px;
+}
 .rc-time-picker-panel-input {
   margin: 0;
   padding: 0;

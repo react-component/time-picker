@@ -1,14 +1,14 @@
-webpackJsonp([2],{
+webpackJsonp([1],{
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(80);
+module.exports = __webpack_require__(81);
 
 
 /***/ }),
 
-/***/ 80:
+/***/ 81:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22,7 +22,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rc_time_picker__ = __webpack_require__(5);
-/* eslint no-console:0 */
 
 
 
@@ -30,25 +29,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
-
-var showSecond = true;
-var str = showSecond ? 'HH:mm:ss' : 'HH:mm';
-
-function onChange(value) {
-  console.log(value && value.format(str));
-}
-
-__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_rc_time_picker__["a" /* default */], {
-  style: { width: 100 },
-  showSecond: showSecond,
-  defaultValue: __WEBPACK_IMPORTED_MODULE_3_moment___default()(),
-  className: 'xxx',
-  onChange: onChange
-}), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_rc_time_picker__["a" /* default */], { defaultValue: __WEBPACK_IMPORTED_MODULE_3_moment___default()(), showSecond: false, minuteStep: 15 }), document.getElementById('__react-content'));
 
 /***/ })
 
-},[177]);
-//# sourceMappingURL=pick-time.js.map
+},[178]);
+//# sourceMappingURL=step.js.map
