@@ -8,9 +8,9 @@ import classNames from 'classnames';
 function noop() {
 }
 
-function generateOptions(length, disabledOptions, hideDisabledOptions) {
+function generateOptions(length, disabledOptions, hideDisabledOptions, step = 1) {
   const arr = [];
-  for (let value = 0; value < length; value++) {
+  for (let value = 0; value < length; value += step) {
     if (!disabledOptions || disabledOptions.indexOf(value) < 0 || !hideDisabledOptions) {
       arr.push(value);
     }
@@ -39,6 +39,9 @@ class Panel extends Component {
     showSecond: PropTypes.bool,
     onClear: PropTypes.func,
     use12Hours: PropTypes.bool,
+    hourStep: PropTypes.number,
+    minuteStep: PropTypes.number,
+    secondStep: PropTypes.number,
     addon: PropTypes.func,
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
@@ -92,7 +95,8 @@ class Panel extends Component {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear, focusOnOpen, onKeyDown,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
+      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -101,9 +105,15 @@ class Panel extends Component {
     const disabledMinuteOptions = disabledMinutes(value ? value.hour() : null);
     const disabledSecondOptions = disabledSeconds(value ? value.hour() : null,
       value ? value.minute() : null);
-    const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions);
-    const minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions);
-    const secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions);
+    const hourOptions = generateOptions(
+      24, disabledHourOptions, hideDisabledOptions, hourStep
+    );
+    const minuteOptions = generateOptions(
+      60, disabledMinuteOptions, hideDisabledOptions, minuteStep
+    );
+    const secondOptions = generateOptions(
+      60, disabledSecondOptions, hideDisabledOptions, secondStep
+    );
 
     return (
       <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: !!className })}>
