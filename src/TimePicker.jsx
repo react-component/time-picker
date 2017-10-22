@@ -42,11 +42,14 @@ export default class Picker extends Component {
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     addon: PropTypes.func,
     name: PropTypes.string,
     autoComplete: PropTypes.string,
     use12Hours: PropTypes.bool,
     focusOnOpen: PropTypes.bool,
+    onKeyDown: PropTypes.func,
   };
 
   static defaultProps = {
@@ -70,9 +73,12 @@ export default class Picker extends Component {
     onChange: noop,
     onOpen: noop,
     onClose: noop,
+    onFocus: noop,
+    onBlur: noop,
     addon: noop,
     use12Hours: false,
     focusOnOpen: false,
+    onKeyDown: noop,
   };
 
   constructor(props) {
@@ -159,7 +165,7 @@ export default class Picker extends Component {
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
-      addon, use12Hours, focusOnOpen,
+      addon, use12Hours, focusOnOpen, onKeyDown,
     } = this.props;
     return (
       <Panel
@@ -184,6 +190,7 @@ export default class Picker extends Component {
         use12Hours={use12Hours}
         addon={addon}
         focusOnOpen={focusOnOpen}
+        onKeyDown={onKeyDown}
       />
     );
   }
@@ -234,6 +241,7 @@ export default class Picker extends Component {
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
+      onFocus, onBlur,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -263,6 +271,8 @@ export default class Picker extends Component {
             onKeyDown={this.onKeyDown}
             disabled={disabled} value={value && value.format(this.getFormat()) || ''}
             autoComplete={autoComplete}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>
