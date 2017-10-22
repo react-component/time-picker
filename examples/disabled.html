@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>disabled.js - example - rc-time-picker@2.4.1</title>
+  <title>disabled.js - example - rc-time-picker@3.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-time-picker@2.4.1</h1>
+      <h1>rc-time-picker@3.0.0</h1>
 
       <p>React TimePicker</p>
     </div>
@@ -319,17 +319,25 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 }
 
 ReactDom.render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span>
-    <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{showSecond}</span>
-    <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span>
-    <span class="hljs-attribute">className</span>=<span class="hljs-value">"xxx"</span>
-    <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
-    <span class="hljs-attribute">disabledHours</span>=<span class="hljs-value">{disabledHours}</span>
-    <span class="hljs-attribute">disabledMinutes</span>=<span class="hljs-value">{disabledMinutes}</span>
-    <span class="hljs-attribute">disabledSeconds</span>=<span class="hljs-value">{disabledSeconds}</span>
-  /&gt;</span>,
-  document.getElementById('__react-content')
-);
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Disabled picker<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span>
+      <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span>
+      <span class="hljs-attribute">disabled</span>
+      <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
+    /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Disabled options<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">TimePicker</span>
+      <span class="hljs-attribute">showSecond</span>=<span class="hljs-value">{showSecond}</span>
+      <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{now}</span>
+      <span class="hljs-attribute">className</span>=<span class="hljs-value">"xxx"</span>
+      <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{onChange}</span>
+      <span class="hljs-attribute">disabledHours</span>=<span class="hljs-value">{disabledHours}</span>
+      <span class="hljs-attribute">disabledMinutes</span>=<span class="hljs-value">{disabledMinutes}</span>
+      <span class="hljs-attribute">disabledSeconds</span>=<span class="hljs-value">{disabledSeconds}</span>
+    /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+, document.getElementById('__react-content'));
 </span></code></pre></div>
   </div>
   <a href="http://github.com/react-component/time-picker">
