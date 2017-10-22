@@ -10,6 +10,7 @@
 - Add `focusOnOpen`.
 - Add `hourStep` `minuteStep` `secondStep`.
 - Fix disabled style.
+- Use `this.xxx` to replace `this.refs.xxx`.
 
 2.4.0 / 2017-05-02
 ---------------------------
