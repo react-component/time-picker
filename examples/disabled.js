@@ -48,14 +48,22 @@ function disabledSeconds(h, m) {
 }
 
 ReactDom.render(
-  <TimePicker
-    showSecond={showSecond}
-    defaultValue={now}
-    className="xxx"
-    onChange={onChange}
-    disabledHours={disabledHours}
-    disabledMinutes={disabledMinutes}
-    disabledSeconds={disabledSeconds}
-  />,
-  document.getElementById('__react-content')
-);
+  <div>
+    <h3>Disabled picker</h3>
+    <TimePicker
+      defaultValue={now}
+      disabled
+      onChange={onChange}
+    />
+    <h3>Disabled options</h3>
+    <TimePicker
+      showSecond={showSecond}
+      defaultValue={now}
+      className="xxx"
+      onChange={onChange}
+      disabledHours={disabledHours}
+      disabledMinutes={disabledMinutes}
+      disabledSeconds={disabledSeconds}
+    />
+  </div>
+, document.getElementById('__react-content'));
