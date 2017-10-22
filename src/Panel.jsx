@@ -43,6 +43,7 @@ class Panel extends Component {
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
     addon: PropTypes.func,
+    onKeyDown: PropTypes.func,
   };
 
   static defaultProps = {
@@ -55,6 +56,7 @@ class Panel extends Component {
     defaultOpenValue: moment(),
     use12Hours: false,
     addon: noop,
+    onKeyDown: noop,
   };
 
   constructor(props) {
@@ -92,7 +94,7 @@ class Panel extends Component {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear, onKeyDown,
       hourStep, minuteStep, secondStep,
     } = this.props;
     const {
@@ -132,6 +134,7 @@ class Panel extends Component {
           onChange={this.onChange}
           onClear={onClear}
           allowEmpty={allowEmpty}
+          onKeyDown={onKeyDown}
         />
         <Combobox
           prefixCls={prefixCls}

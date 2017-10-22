@@ -42,6 +42,8 @@ export default class Picker extends Component {
     onChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     addon: PropTypes.func,
     name: PropTypes.string,
     autoComplete: PropTypes.string,
@@ -49,6 +51,7 @@ export default class Picker extends Component {
     hourStep: PropTypes.number,
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
+    onKeyDown: PropTypes.func,
   };
 
   static defaultProps = {
@@ -72,8 +75,11 @@ export default class Picker extends Component {
     onChange: noop,
     onOpen: noop,
     onClose: noop,
+    onFocus: noop,
+    onBlur: noop,
     addon: noop,
     use12Hours: false,
+    onKeyDown: noop,
   };
 
   constructor(props) {
@@ -160,7 +166,7 @@ export default class Picker extends Component {
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
-      addon, use12Hours, hourStep, minuteStep, secondStep,
+      addon, use12Hours, onKeyDown, hourStep, minuteStep, secondStep,
     } = this.props;
     return (
       <Panel
@@ -187,6 +193,7 @@ export default class Picker extends Component {
         minuteStep={minuteStep}
         secondStep={secondStep}
         addon={addon}
+        onKeyDown={onKeyDown}
       />
     );
   }
@@ -237,6 +244,7 @@ export default class Picker extends Component {
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
+      onFocus, onBlur,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -266,6 +274,8 @@ export default class Picker extends Component {
             onKeyDown={this.onKeyDown}
             disabled={disabled} value={value && value.format(this.getFormat()) || ''}
             autoComplete={autoComplete}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>
