@@ -48,6 +48,7 @@ export default class Picker extends Component {
     name: PropTypes.string,
     autoComplete: PropTypes.string,
     use12Hours: PropTypes.bool,
+    focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
   };
 
@@ -76,6 +77,7 @@ export default class Picker extends Component {
     onBlur: noop,
     addon: noop,
     use12Hours: false,
+    focusOnOpen: false,
     onKeyDown: noop,
   };
 
@@ -163,7 +165,7 @@ export default class Picker extends Component {
       prefixCls, placeholder, disabledHours,
       disabledMinutes, disabledSeconds, hideDisabledOptions,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
-      addon, use12Hours, onKeyDown,
+      addon, use12Hours, focusOnOpen, onKeyDown,
     } = this.props;
     return (
       <Panel
@@ -187,6 +189,7 @@ export default class Picker extends Component {
         hideDisabledOptions={hideDisabledOptions}
         use12Hours={use12Hours}
         addon={addon}
+        focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
       />
     );

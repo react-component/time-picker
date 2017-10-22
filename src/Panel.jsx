@@ -40,6 +40,7 @@ class Panel extends Component {
     onClear: PropTypes.func,
     use12Hours: PropTypes.bool,
     addon: PropTypes.func,
+    focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
   };
 
@@ -91,7 +92,7 @@ class Panel extends Component {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear, onKeyDown,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear, focusOnOpen, onKeyDown,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -124,6 +125,7 @@ class Panel extends Component {
           onChange={this.onChange}
           onClear={onClear}
           allowEmpty={allowEmpty}
+          focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
         />
         <Combobox
