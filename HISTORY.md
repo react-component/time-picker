@@ -2,6 +2,15 @@
 
 ---
 
+3.0.0 / 2017-10-22
+---------------------------
+
+- Support React 16.
+- Add `onKeydown`.
+- Add `focusOnOpen`.
+- Add `hourStep` `minuteStep` `secondStep`.
+- Fix disabled style.
+
 2.4.0 / 2017-05-02
 ---------------------------
 
