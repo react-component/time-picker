@@ -6,7 +6,8 @@
   margin-left: -1px;
   box-sizing: border-box;
   width: 56px;
-  overflow: hidden;
+  max-height: 144px;
+  overflow-y: auto;
   position: relative; // Fix chrome weird render bug
 
   &-active {
@@ -28,7 +29,6 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    max-height: 144px;
   }
 
   li {
