@@ -33,12 +33,14 @@
     "port": 8011
   },
   "scripts": {
+    "dist": "rc-tools run dist",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "compile": "rc-tools run compile --babel-runtime",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint",
+    "lint:fix": "rc-tools run lint --fix",
     "karma": "rc-test run karma",
     "saucelabs": "rc-test run saucelabs",
     "test": "rc-test run test",
@@ -46,16 +48,15 @@
     "coverage": "rc-test run coverage"
   },
   "devDependencies": {
+    "core-js": "^2.5.1",
     "async": "~0.9.0",
-    "bootstrap": "~3.3.2",
     "expect.js": "~0.3.1",
-    "jquery": "1.x",
     "pre-commit": "1.x",
     "rc-test": "^6.0.1",
     "rc-tools": "6.x",
     "rc-util": "^4.0.2",
-    "react": "15.x",
-    "react-dom": "15.x"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "pre-commit": [
     "lint"
