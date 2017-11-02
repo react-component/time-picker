@@ -92,7 +92,7 @@ describe('TimePicker', () => {
         setTimeout(next, 100);
       }, (next) => {
         expect(TestUtils.scryRenderedDOMComponentsWithClass(picker,
-          'rc-time-picker-panel-inner')[0]).not.to.be.ok();
+          'rc-time-picker-panel-inner')[0]).to.be.ok();
         expect(picker.state.open).to.be(true);
         if (document.querySelectorAll) {
           expect(document.querySelectorAll('.rc-time-picker').length).not.to.be(0);
