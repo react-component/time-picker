@@ -53,6 +53,7 @@ export default class Picker extends Component {
     secondStep: PropTypes.number,
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
+    autoFocus: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -243,11 +244,15 @@ export default class Picker extends Component {
     this.picker.focus();
   }
 
+  blur() {
+    this.picker.blur();
+  }
+
   render() {
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur,
+      onFocus, onBlur, autoFocus,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -273,12 +278,13 @@ export default class Picker extends Component {
             type="text"
             placeholder={placeholder}
             name={name}
-            readOnly
             onKeyDown={this.onKeyDown}
-            disabled={disabled} value={value && value.format(this.getFormat()) || ''}
+            disabled={disabled}
+            value={value && value.format(this.getFormat()) || ''}
             autoComplete={autoComplete}
             onFocus={onFocus}
             onBlur={onBlur}
+            autoFocus={autoFocus}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>
