@@ -285,6 +285,7 @@ export default class Picker extends Component {
             onFocus={onFocus}
             onBlur={onBlur}
             autoFocus={autoFocus}
+            onChange={noop}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>
