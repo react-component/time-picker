@@ -8982,7 +8982,8 @@ var Picker = function (_Component) {
             autoComplete: autoComplete,
             onFocus: onFocus,
             onBlur: onBlur,
-            autoFocus: autoFocus
+            autoFocus: autoFocus,
+            onChange: noop
           }),
           __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement('span', { className: prefixCls + '-icon' })
         )
