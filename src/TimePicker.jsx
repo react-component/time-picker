@@ -126,6 +126,22 @@ export default class Picker extends Component {
     this.focus();
   }
 
+  onTab = (toPrevious) => {
+    this.setOpen(false);
+
+    const allInputs = document.querySelectorAll('input');
+    for (let i = 0; i < allInputs.length; i++) {
+      if (allInputs[i] === this.picker) {
+        if (toPrevious === true && i !== 0) {
+          allInputs[i - 1].focus();
+        } else if (i !== allInputs.length - 1) {
+          allInputs[i + 1].focus();
+        }
+        break;
+      }
+    }
+  }
+
   onKeyDown = (e) => {
     if (e.keyCode === 40) {
       this.setOpen(true);
@@ -184,6 +200,7 @@ export default class Picker extends Component {
         showMinute={showMinute}
         showSecond={showSecond}
         onEsc={this.onEsc}
+        onTab={this.onTab}
         allowEmpty={allowEmpty}
         format={this.getFormat()}
         placeholder={placeholder}
