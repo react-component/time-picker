@@ -129,7 +129,7 @@ export default class Picker extends Component {
   onTab = (toPrevious) => {
     this.setOpen(false);
 
-    const allInputs = document.querySelectorAll('input');
+    const allInputs = document.querySelectorAll('input,textarea,select');
     for (let i = 0; i < allInputs.length; i++) {
       if (allInputs[i] === this.picker) {
         if (toPrevious === true && i !== 0) {
