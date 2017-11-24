@@ -33,6 +33,7 @@ class Panel extends Component {
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
+    onTab: PropTypes.func,
     allowEmpty: PropTypes.bool,
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
@@ -95,7 +96,7 @@ class Panel extends Component {
     const {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
+      format, defaultOpenValue, clearText, onEsc, onTab, addon, use12Hours, onClear,
       focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep,
     } = this.props;
     const {
@@ -124,6 +125,7 @@ class Panel extends Component {
           value={value}
           currentSelectPanel={currentSelectPanel}
           onEsc={onEsc}
+          onTab={onTab}
           format={format}
           placeholder={placeholder}
           hourOptions={hourOptions}
