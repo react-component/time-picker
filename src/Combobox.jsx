@@ -83,12 +83,16 @@ class Combobox extends Component {
     if (!showHour) {
       return null;
     }
-    const disabledOptions = disabledHours();
+    let disabledOptions = disabledHours();
     let hourOptionsAdj;
     let hourAdj;
     if (use12Hours) {
       hourOptionsAdj = [12].concat(hourOptions.filter(h => h < 12 && h > 0));
       hourAdj = (hour % 12) || 12;
+
+      if (!this.isAM() && Array.isArray(disabledOptions)) {
+        disabledOptions = disabledOptions.map(h => h - 12);
+      }
     } else {
       hourOptionsAdj = hourOptions;
       hourAdj = hour;
