@@ -23,6 +23,7 @@ class Header extends Component {
     defaultOpenValue: PropTypes.object,
     currentSelectPanel: PropTypes.string,
     focusOnOpen: PropTypes.bool,
+    readOnly: PropTypes.bool,
     onKeyDown: PropTypes.func,
   };
 
@@ -177,6 +178,7 @@ class Header extends Component {
         value={str}
         placeholder={placeholder}
         onChange={this.onInputChange}
+        readOnly={this.props.readOnly}
       />
     );
   }
