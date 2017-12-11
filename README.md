@@ -81,6 +81,7 @@ API
 | minuteStep              | Number                            | 1 | interval between minutes in picker  |
 | secondStep              | Number                            | 1 | interval between seconds in picker  |
 | focusOnOpen             | Boolean                           | false | automatically focus the input when the picker opens |
+| readOnly                | Boolean                           | false | Making the input field readonly will avoid showing a virtual keyboard on touch devices. |
 
 ## Test Case
 
