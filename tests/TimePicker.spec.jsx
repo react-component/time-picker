@@ -243,5 +243,26 @@ describe('TimePicker', () => {
         done();
       });
     });
+
+    it('close panel correctly on ENTER', (done) => {
+      const picker = renderPicker();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be.ok();
+
+        Simulate.keyDown(input, { keyCode: 13 });
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).not.to.be.ok();
+        next();
+      }], () => {
+        done();
+      });
+    });
   });
 });
