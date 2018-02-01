@@ -552,5 +552,125 @@ describe('Select', () => {
         done();
       });
     });
+
+    it('disabled correctly', done => {
+      let change;
+      const picker = renderPicker({
+        use12Hours: true,
+        format: undefined,
+        onChange(v) {
+          change = v;
+        },
+        disabledHours() {
+          return [0, 2, 6, 18, 12];
+        },
+        defaultValue: moment()
+          .hour(0)
+          .minute(0)
+          .second(0),
+        showSecond: false,
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
+      let header;
+      async.series(
+        [
+          next => {
+            expect(picker.state.open).to.be(false);
+
+            Simulate.click(input);
+            setTimeout(next, 100);
+          },
+          next => {
+            expect(picker.state.open).to.be(true);
+            header = TestUtils.scryRenderedDOMComponentsWithClass(
+              picker.panelInstance,
+              'rc-time-picker-panel-input',
+            )[0];
+            expect(header).to.be.ok();
+            expect(header.value).to.be('12:00 am');
+            expect(input.value).to.be('12:00 am');
+
+            const selector = TestUtils.scryRenderedDOMComponentsWithClass(
+              picker.panelInstance,
+              'rc-time-picker-panel-select',
+            )[0];
+            const option = selector.getElementsByTagName('li')[2];
+            Simulate.click(option);
+            setTimeout(next, 100);
+          },
+          next => {
+            expect(change).not.to.be.ok();
+            expect(header.value).to.be('12:00 am');
+            expect(input.value).to.be('12:00 am');
+            expect(picker.state.open).to.be.ok();
+
+            const selector = TestUtils.scryRenderedDOMComponentsWithClass(
+              picker.panelInstance,
+              'rc-time-picker-panel-select',
+            )[0];
+            const option = selector.getElementsByTagName('li')[5];
+            Simulate.click(option);
+            setTimeout(next, 100);
+          },
+          next => {
+            expect(change).to.be.ok();
+            expect(change.hour()).to.be(5);
+            expect(header.value).to.be('5:00 am');
+            expect(input.value).to.be('5:00 am');
+            expect(picker.state.open).to.be.ok();
+
+            const selector = TestUtils.scryRenderedDOMComponentsWithClass(
+              picker.panelInstance,
+              'rc-time-picker-panel-select',
+            )[2];
+            Simulate.click(selector.getElementsByTagName('li')[1]);
+
+            setTimeout(next, 200);
+            change = null;
+          },
+          next => {
+            expect(change).not.to.be.ok();
+            expect(header.value).to.be('5:00 pm');
+            expect(input.value).to.be('5:00 pm');
+            expect(picker.state.open).to.be.ok();
+
+            const selector = TestUtils.scryRenderedDOMComponentsWithClass(
+              picker.panelInstance,
+              'rc-time-picker-panel-select',
+            )[0];
+            const option = selector.getElementsByTagName('li')[0];
+            Simulate.click(option);
+            setTimeout(next, 100);
+          },
+          next => {
+            expect(change).not.to.be.ok();
+            expect(header.value).to.be('5:00 pm');
+            expect(input.value).to.be('5:00 pm');
+            expect(picker.state.open).to.be.ok();
+
+            const selector = TestUtils.scryRenderedDOMComponentsWithClass(
+              picker.panelInstance,
+              'rc-time-picker-panel-select',
+            )[0];
+            const option = selector.getElementsByTagName('li')[5];
+            Simulate.click(option);
+            setTimeout(next, 100);
+          },
+          next => {
+            expect(change).to.be.ok();
+            expect(change.hour()).to.be(17);
+            expect(header.value).to.be('5:00 pm');
+            expect(input.value).to.be('5:00 pm');
+            expect(picker.state.open).to.be.ok();
+
+            next();
+          },
+        ],
+        () => {
+          done();
+        },
+      );
+    });
   });
 });
