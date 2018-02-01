@@ -10,6 +10,7 @@ class Header extends Component {
     placeholder: PropTypes.string,
     clearText: PropTypes.string,
     value: PropTypes.object,
+    inputReadOnly: PropTypes.bool,
     hourOptions: PropTypes.array,
     minuteOptions: PropTypes.array,
     secondOptions: PropTypes.array,
@@ -25,6 +26,10 @@ class Header extends Component {
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
   };
+
+  static defaultProps = {
+    inputReadOnly: false,
+  }
 
   constructor(props) {
     super(props);
@@ -166,7 +171,7 @@ class Header extends Component {
   }
 
   getInput() {
-    const { prefixCls, placeholder } = this.props;
+    const { prefixCls, placeholder, inputReadOnly } = this.props;
     const { invalid, str } = this.state;
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
     return (
@@ -177,6 +182,7 @@ class Header extends Component {
         value={str}
         placeholder={placeholder}
         onChange={this.onInputChange}
+        readOnly={!!inputReadOnly}
       />
     );
   }
