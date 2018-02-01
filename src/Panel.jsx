@@ -27,7 +27,7 @@ class Panel extends Component {
     value: PropTypes.object,
     placeholder: PropTypes.string,
     format: PropTypes.string,
-    readOnlyInput: PropTypes.bool,
+    inputReadOnly: PropTypes.bool,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -59,7 +59,7 @@ class Panel extends Component {
     use12Hours: false,
     addon: noop,
     onKeyDown: noop,
-    readOnlyInput: false,
+    inputReadOnly: false,
   };
 
   constructor(props) {
@@ -98,7 +98,7 @@ class Panel extends Component {
       prefixCls, className, placeholder, disabledHours, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
       format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
-      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, readOnlyInput,
+      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, inputReadOnly,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -139,7 +139,7 @@ class Panel extends Component {
           allowEmpty={allowEmpty}
           focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
-          readOnlyInput={readOnlyInput}
+          inputReadOnly={inputReadOnly}
         />
         <Combobox
           prefixCls={prefixCls}
