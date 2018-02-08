@@ -47,7 +47,8 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
   className: 'xxx',
   onChange: onChange,
   format: format,
-  use12Hours: true
+  use12Hours: true,
+  inputReadOnly: true
 }), document.getElementById('__react-content'));
 
 /***/ })
