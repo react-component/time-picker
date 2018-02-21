@@ -289,7 +289,8 @@ export default class Picker extends Component {
             onBlur={onBlur}
             autoFocus={autoFocus}
             onChange={noop}
-          />
+            readOnly={!!inputReadOnly}
+            />
           <span className={`${prefixCls}-icon`}/>
         </span>
       </Trigger>
