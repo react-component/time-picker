@@ -255,7 +255,7 @@ export default class Picker extends Component {
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur, autoFocus,
+      onFocus, onBlur, autoFocus, inputReadOnly
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
