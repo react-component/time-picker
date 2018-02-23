@@ -396,5 +396,32 @@ describe('Header', () => {
         done();
       });
     });
+
+    it('close panel correctly on ENTER', (done) => {
+      const picker = renderPicker();
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      let header;
+      async.series([(next) => {
+        expect(picker.state.open).to.be(false);
+
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+        header = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-input')[0];
+
+        Simulate.click(header);
+        Simulate.keyDown(header, { keyCode: 13 });
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).not.to.be.ok();
+        next();
+      }], () => {
+        done();
+      });
+    });
   });
 });

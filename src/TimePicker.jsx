@@ -128,6 +128,11 @@ export default class Picker extends Component {
     this.focus();
   }
 
+  onEnter = () => {
+    this.setOpen(false);
+    this.focus();
+  }
+
   onKeyDown = (e) => {
     if (e.keyCode === 40) {
       this.setOpen(true);
@@ -189,6 +194,7 @@ export default class Picker extends Component {
         showMinute={showMinute}
         showSecond={showSecond}
         onEsc={this.onEsc}
+        onEnter={this.onEnter}
         allowEmpty={allowEmpty}
         format={this.getFormat()}
         placeholder={placeholder}
