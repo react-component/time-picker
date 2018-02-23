@@ -255,7 +255,7 @@ export default class Picker extends Component {
     const {
       prefixCls, placeholder, placement, align,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur, autoFocus, inputReadOnly
+      onFocus, onBlur, autoFocus, inputReadOnly,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -290,7 +290,7 @@ export default class Picker extends Component {
             autoFocus={autoFocus}
             onChange={noop}
             readOnly={!!inputReadOnly}
-            />
+          />
           <span className={`${prefixCls}-icon`}/>
         </span>
       </Trigger>
