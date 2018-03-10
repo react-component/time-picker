@@ -55,6 +55,7 @@ export default class Picker extends Component {
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
     autoFocus: PropTypes.bool,
+    id: PropTypes.string,
   };
 
   static defaultProps = {
@@ -85,6 +86,7 @@ export default class Picker extends Component {
     use12Hours: false,
     focusOnOpen: false,
     onKeyDown: noop,
+    id: '',
   };
 
   constructor(props) {
@@ -253,7 +255,7 @@ export default class Picker extends Component {
 
   render() {
     const {
-      prefixCls, placeholder, placement, align,
+      prefixCls, placeholder, placement, align, id,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
       onFocus, onBlur, autoFocus, inputReadOnly,
     } = this.props;
@@ -290,6 +292,7 @@ export default class Picker extends Component {
             autoFocus={autoFocus}
             onChange={noop}
             readOnly={!!inputReadOnly}
+            id={id}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>
