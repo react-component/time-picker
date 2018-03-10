@@ -66,6 +66,7 @@ export default class Picker extends Component {
     style: {},
     className: '',
     popupClassName: '',
+    id: '',
     align: {},
     defaultOpenValue: moment(),
     allowEmpty: true,
@@ -86,7 +87,6 @@ export default class Picker extends Component {
     use12Hours: false,
     focusOnOpen: false,
     onKeyDown: noop,
-    id: '',
   };
 
   constructor(props) {
