@@ -60,6 +60,7 @@ API
 | value                   | moment                            | null | current value |
 | placeholder             | String                            | '' | time input's placeholder |
 | className               | String                            | '' | time picker className |
+| id                      | String                            | '' | time picker id |
 | popupClassName          | String                            | '' | time panel className |
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
