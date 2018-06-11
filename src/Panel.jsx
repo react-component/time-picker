@@ -45,6 +45,7 @@ class Panel extends Component {
     secondStep: PropTypes.number,
     addon: PropTypes.func,
     focusOnOpen: PropTypes.bool,
+    closeOnEsc: PropTypes.bool,
     onKeyDown: PropTypes.func,
   };
 
@@ -60,6 +61,7 @@ class Panel extends Component {
     addon: noop,
     onKeyDown: noop,
     inputReadOnly: false,
+    closeOnEsc: true,
   };
 
   constructor(props) {
@@ -117,6 +119,7 @@ class Panel extends Component {
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
       format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
       focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, inputReadOnly,
+      closeOnEsc,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -143,7 +146,7 @@ class Panel extends Component {
           defaultOpenValue={defaultOpenValue}
           value={value}
           currentSelectPanel={currentSelectPanel}
-          onEsc={onEsc}
+          onEsc={closeOnEsc ? onEsc : undefined}
           format={format}
           placeholder={placeholder}
           hourOptions={hourOptions}

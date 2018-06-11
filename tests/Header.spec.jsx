@@ -335,8 +335,8 @@ describe('Header', () => {
       });
     });
 
-    it('exit correctly', (done) => {
-      const picker = renderPicker();
+    const closeOnEscSpec = (closeOnEsc) => (done) => {
+      const picker = renderPicker({ closeOnEsc });
       expect(picker.state.open).not.to.be.ok();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
         'rc-time-picker-input')[0];
@@ -359,7 +359,7 @@ describe('Header', () => {
         });
         setTimeout(next, 100);
       }, (next) => {
-        expect(picker.state.open).to.be(false);
+        expect(picker.state.open).to.be(!closeOnEsc);
         expect((header).value).to.be('01:02:03');
         expect((input).value).to.be('01:02:03');
 
@@ -367,7 +367,11 @@ describe('Header', () => {
       }], () => {
         done();
       });
-    });
+    };
+
+    it('exit correctly', closeOnEscSpec(true));
+
+    it('stays open if `closeOnEsc` is `false`', closeOnEscSpec(false));
 
     it('focus on open', (done) => {
       const picker = renderPicker({
