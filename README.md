@@ -82,6 +82,7 @@ API
 | minuteStep              | Number                            | 1 | interval between minutes in picker  |
 | secondStep              | Number                            | 1 | interval between seconds in picker  |
 | focusOnOpen             | Boolean                           | false | automatically focus the input when the picker opens |
+| closeOnEsc              | Boolean                           | true  | whether <kbd>esc</kbd> should close the picker |
 | inputReadOnly             | Boolean                           | false | set input to read only |
 
 ## Test Case
