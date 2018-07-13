@@ -36,6 +36,7 @@ export default class Picker extends Component {
     style: PropTypes.object,
     className: PropTypes.string,
     popupClassName: PropTypes.string,
+    popupStyle: PropTypes.object,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -66,6 +67,7 @@ export default class Picker extends Component {
     style: {},
     className: '',
     popupClassName: '',
+    popupStyle: {},
     id: '',
     align: {},
     defaultOpenValue: moment(),
@@ -257,7 +259,7 @@ export default class Picker extends Component {
     const {
       prefixCls, placeholder, placement, align, id,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur, autoFocus, inputReadOnly,
+      onFocus, onBlur, autoFocus, inputReadOnly, popupStyle,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -265,6 +267,7 @@ export default class Picker extends Component {
       <Trigger
         prefixCls={`${prefixCls}-panel`}
         popupClassName={popupClassName}
+        popupStyle={popupStyle}
         popup={this.getPanelElement()}
         popupAlign={align}
         builtinPlacements={placements}
