@@ -25,6 +25,7 @@ class Header extends Component {
     currentSelectPanel: PropTypes.string,
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
+    clearIcon: PropTypes.node,
   };
 
   static defaultProps = {
@@ -154,16 +155,20 @@ class Header extends Component {
   }
 
   getClearButton() {
-    const { prefixCls, allowEmpty } = this.props;
+    const { prefixCls, allowEmpty, clearIcon } = this.props;
     if (!allowEmpty) {
       return null;
     }
-    return (<a
-      className={`${prefixCls}-clear-btn`}
-      role="button"
-      title={this.props.clearText}
-      onMouseDown={this.onClear}
-    />);
+    return (
+      <a
+        role="button"
+        className={`${prefixCls}-clear-btn`}
+        title={this.props.clearText}
+        onMouseDown={this.onClear}
+      >
+        {clearIcon || <i className={`${prefixCls}-clear-btn-icon`} />}
+      </a>
+    );
   }
 
   getProtoValue() {

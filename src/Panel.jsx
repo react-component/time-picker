@@ -46,6 +46,7 @@ class Panel extends Component {
     addon: PropTypes.func,
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
+    clearIcon: PropTypes.node,
   };
 
   static defaultProps = {
@@ -116,7 +117,7 @@ class Panel extends Component {
       prefixCls, className, placeholder, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
       format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
-      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, inputReadOnly,
+      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, inputReadOnly, clearIcon,
     } = this.props;
     const {
       value, currentSelectPanel,
@@ -158,6 +159,7 @@ class Panel extends Component {
           focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
           inputReadOnly={inputReadOnly}
+          clearIcon={clearIcon}
         />
         <Combobox
           prefixCls={prefixCls}

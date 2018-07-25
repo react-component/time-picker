@@ -83,6 +83,8 @@ API
 | secondStep              | Number                            | 1 | interval between seconds in picker  |
 | focusOnOpen             | Boolean                           | false | automatically focus the input when the picker opens |
 | inputReadOnly             | Boolean                           | false | set input to read only |
+| selectIcon             | React.ReactNode                           |  | specific the select icon. |
+| clearIcon             | React.ReactNode                           |  | specific the clear icon. |
 
 ## Test Case
 
