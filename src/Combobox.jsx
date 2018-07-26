@@ -37,6 +37,7 @@ class Combobox extends Component {
     disabledSeconds: PropTypes.func,
     onCurrentSelectPanelChange: PropTypes.func,
     use12Hours: PropTypes.bool,
+    isAM: PropTypes.bool,
   };
 
   onItemChange = (type, itemValue) => {
@@ -45,7 +46,7 @@ class Combobox extends Component {
 
     if (type === 'hour') {
       if (use12Hours) {
-        if (this.isAM()) {
+        if (this.props.isAM) {
           value.hour(+itemValue % 12);
         } else {
           value.hour((+itemValue % 12) + 12);
@@ -156,7 +157,7 @@ class Combobox extends Component {
                           .map(c => format.match(/\sA/) ? c.toUpperCase() : c)
                           .map(c => ({ value: c }));
 
-    const selected = this.isAM() ? 0 : 1;
+    const selected = this.props.isAM ? 0 : 1;
 
     return (
       <Select
@@ -168,11 +169,6 @@ class Combobox extends Component {
         onMouseEnter={this.onEnterSelectPanel.bind(this, 'ampm')}
       />
     );
-  }
-
-  isAM() {
-    const value = (this.props.value || this.props.defaultOpenValue);
-    return value.hour() >= 0 && value.hour() < 12;
   }
 
   render() {

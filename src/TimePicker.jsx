@@ -18,6 +18,7 @@ export default class Picker extends Component {
     clearText: PropTypes.string,
     value: PropTypes.object,
     defaultOpenValue: PropTypes.object,
+    inputReadOnly: PropTypes.bool,
     disabled: PropTypes.bool,
     allowEmpty: PropTypes.bool,
     defaultValue: PropTypes.object,
@@ -54,15 +55,18 @@ export default class Picker extends Component {
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
     autoFocus: PropTypes.bool,
+    id: PropTypes.string,
   };
 
   static defaultProps = {
     clearText: 'clear',
     prefixCls: 'rc-time-picker',
     defaultOpen: false,
+    inputReadOnly: false,
     style: {},
     className: '',
     popupClassName: '',
+    id: '',
     align: {},
     defaultOpenValue: moment(),
     allowEmpty: true,
@@ -183,7 +187,7 @@ export default class Picker extends Component {
   getPanelElement() {
     const {
       prefixCls, placeholder, disabledHours,
-      disabledMinutes, disabledSeconds, hideDisabledOptions,
+      disabledMinutes, disabledSeconds, hideDisabledOptions, inputReadOnly,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
       addon, use12Hours, focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep,
     } = this.props;
@@ -193,6 +197,7 @@ export default class Picker extends Component {
         prefixCls={`${prefixCls}-panel`}
         ref={this.savePanelRef}
         value={this.state.value}
+        inputReadOnly={inputReadOnly}
         onChange={this.onPanelChange}
         onClear={this.onPanelClear}
         defaultOpenValue={defaultOpenValue}
@@ -267,9 +272,9 @@ export default class Picker extends Component {
 
   render() {
     const {
-      prefixCls, placeholder, placement, align,
+      prefixCls, placeholder, placement, align, id,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur, autoFocus,
+      onFocus, onBlur, autoFocus, inputReadOnly,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -303,6 +308,8 @@ export default class Picker extends Component {
             onBlur={onBlur}
             autoFocus={autoFocus}
             onChange={noop}
+            readOnly={!!inputReadOnly}
+            id={id}
           />
           <span className={`${prefixCls}-icon`}/>
         </span>

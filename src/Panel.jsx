@@ -27,6 +27,7 @@ class Panel extends Component {
     value: PropTypes.object,
     placeholder: PropTypes.string,
     format: PropTypes.string,
+    inputReadOnly: PropTypes.bool,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
@@ -59,6 +60,7 @@ class Panel extends Component {
     use12Hours: false,
     addon: noop,
     onKeyDown: noop,
+    inputReadOnly: false,
   };
 
   constructor(props) {
@@ -92,17 +94,35 @@ class Panel extends Component {
     this.props.onEsc();
   }
 
+  disabledHours = () => {
+    const { use12Hours, disabledHours } = this.props;
+    let disabledOptions = disabledHours();
+    if (use12Hours && Array.isArray(disabledOptions)) {
+      if (this.isAM()) {
+        disabledOptions = disabledOptions.filter(h => h < 12).map(h => (h === 0 ? 12 : h));
+      } else {
+        disabledOptions = disabledOptions.map(h => (h === 12 ? 12 : h - 12));
+      }
+    }
+    return disabledOptions;
+  }
+
+  isAM() {
+    const value = (this.state.value || this.props.defaultOpenValue);
+    return value.hour() >= 0 && value.hour() < 12;
+  }
+
   render() {
     const {
-      prefixCls, className, placeholder, disabledHours, disabledMinutes,
+      prefixCls, className, placeholder, disabledMinutes,
       disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, onTab, addon, use12Hours, onClear,
-      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep,
+      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
+      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, inputReadOnly,
     } = this.props;
     const {
       value, currentSelectPanel,
     } = this.state;
-    const disabledHourOptions = disabledHours();
+    const disabledHourOptions = this.disabledHours();
     const disabledMinuteOptions = disabledMinutes(value ? value.hour() : null);
     const disabledSecondOptions = disabledSeconds(value ? value.hour() : null,
       value ? value.minute() : null);
@@ -131,7 +151,7 @@ class Panel extends Component {
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
-          disabledHours={disabledHours}
+          disabledHours={this.disabledHours}
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
           onChange={this.onChange}
@@ -139,6 +159,7 @@ class Panel extends Component {
           allowEmpty={allowEmpty}
           focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
+          inputReadOnly={inputReadOnly}
         />
         <Combobox
           prefixCls={prefixCls}
@@ -152,11 +173,12 @@ class Panel extends Component {
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
-          disabledHours={disabledHours}
+          disabledHours={this.disabledHours}
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
           onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
           use12Hours={use12Hours}
+          isAM={this.isAM()}
         />
         {addon(this)}
       </div>
