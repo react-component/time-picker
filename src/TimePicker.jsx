@@ -97,8 +97,12 @@ export default class Picker extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { value, open } = nextProps;
-    if ('value' in nextProps) {
+    const { value, open, defaultValue } = nextProps;
+    if('defaultValue' in nextProps) {
+      this.setState({
+        value: defaultValue
+      });
+    }else if ('value' in nextProps) {
       this.setState({
         value,
       });
