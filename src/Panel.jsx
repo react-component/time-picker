@@ -33,6 +33,7 @@ class Panel extends Component {
     disabledSeconds: PropTypes.func,
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
+    onAmPmChange: PropTypes.func,
     onEsc: PropTypes.func,
     allowEmpty: PropTypes.bool,
     showHour: PropTypes.bool,
@@ -83,6 +84,10 @@ class Panel extends Component {
   onChange = (newValue) => {
     this.setState({ value: newValue });
     this.props.onChange(newValue);
+  }
+
+  onAmPmChange = (ampm) => {
+    this.props.onAmPmChange(ampm);
   }
 
   onCurrentSelectPanelChange = (currentSelectPanel) => {
@@ -180,6 +185,7 @@ class Panel extends Component {
           defaultOpenValue={validDefaultOpenValue}
           format={format}
           onChange={this.onChange}
+          onAmPmChange={this.onAmPmChange}
           showHour={showHour}
           showMinute={showMinute}
           showSecond={showSecond}

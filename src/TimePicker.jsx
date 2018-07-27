@@ -41,6 +41,7 @@ export default class Picker extends Component {
     disabledSeconds: PropTypes.func,
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
+    onAmPmChange: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     onFocus: PropTypes.func,
@@ -81,6 +82,7 @@ export default class Picker extends Component {
     hideDisabledOptions: false,
     placement: 'bottomLeft',
     onChange: noop,
+    onAmPmChange: noop,
     onOpen: noop,
     onClose: noop,
     onFocus: noop,
@@ -116,6 +118,10 @@ export default class Picker extends Component {
 
   onPanelChange = (value) => {
     this.setValue(value);
+  }
+
+  onAmPmChange = (ampm) => {
+    this.props.onAmPmChange(ampm);
   }
 
   onPanelClear = () => {
@@ -186,6 +192,7 @@ export default class Picker extends Component {
         value={this.state.value}
         inputReadOnly={inputReadOnly}
         onChange={this.onPanelChange}
+        onAmPmChange={this.onAmPmChange}
         onClear={this.onPanelClear}
         defaultOpenValue={defaultOpenValue}
         showHour={showHour}
