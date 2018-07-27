@@ -250,6 +250,47 @@ describe('Select', () => {
       });
     });
 
+    it('ampm correctly', (done) => {
+      let ampmChange;
+      const picker = renderPicker({
+        onAmPmChange(v) {
+          ampmChange = v;
+        },
+        defaultValue: moment().hour(0).minute(0).second(0),
+        format: undefined,
+        showSecond: false,
+        use12Hours: true,
+      });
+      expect(picker.state.open).not.to.be.ok();
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      let selector;
+      async.series([(next) => {
+        expect(picker.state.open).to.be(false);
+
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(picker.state.open).to.be(true);
+
+        selector = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-select')[2];
+        expect((input).value).to.be('12:00 am');
+        const option = selector.getElementsByTagName('li')[1];
+        Simulate.click(option);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(ampmChange).to.be.ok();
+        expect(ampmChange).to.be('PM');
+        expect((input).value).to.be('12:00 pm');
+        expect(picker.state.open).to.be.ok();
+
+        next();
+      }], () => {
+        done();
+      });
+    });
+
     it('disabled correctly', (done) => {
       let change;
       const picker = renderPicker({

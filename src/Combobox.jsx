@@ -26,6 +26,7 @@ class Combobox extends Component {
     prefixCls: PropTypes.string,
     value: PropTypes.object,
     onChange: PropTypes.func,
+    onAmPmChange: PropTypes.func,
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
@@ -69,6 +70,7 @@ class Combobox extends Component {
           }
         }
       }
+      this.props.onAmPmChange(ampm);
     } else {
       value.second(+itemValue);
     }
