@@ -68,6 +68,7 @@ API
 | use12Hours              | Boolean                           | false | 12 hours display mode |
 | hideDisabledOptions     | Boolean                           | false | whether hide disabled options |
 | onChange                | Function                          | null | called when select a different value |
+| onAmPmChange            | Function                          | null | called when select an am/pm value |
 | addon                   | Function                          | - | called from timepicker panel to render some addon to its bottom, like an OK button. Receives panel instance as parameter, to be able to close it like `panel.close()`.|
 | placement               | String                            | bottomLeft | one of ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
 | transitionName          | String                            | ''  |  |
