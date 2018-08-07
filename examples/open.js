@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 
 import 'rc-time-picker/assets/index.less';
-import 'rc-time-picker/assets/custom-icon.less';
 import React from 'react';
 import ReactDom from 'react-dom';
 import TimePicker from 'rc-time-picker';
@@ -37,18 +36,30 @@ class App extends React.Component {
     open: false,
     useIcon: false,
   };
-  getIcon = (path, props = {}) => {
+  getIcon = (path, style = {}) => {
     return (
-      <svg
-        viewBox="0 0 1024 1024"
-        width="1em"
-        height="1em"
-        fill="currentColor"
-        style={{ verticalAlign: '-.125em' }}
-        {...props}
+      <i
+        style={{
+          fontSize: '12px',
+          fontStyle: 'normal',
+          color: '#aaa',
+          display: 'inline-block',
+          lineHeight: '1',
+          width: '20px',
+          transition: 'color 0.3s ease',
+          ...style,
+        }}
       >
-        <path d={path} p-id="5827"></path>
-      </svg>
+        <svg
+          viewBox="0 0 1024 1024"
+          width="1em"
+          height="1em"
+          fill="currentColor"
+          style={{ verticalAlign: '-.125em' }}
+        >
+          <path d={path} p-id="5827"></path>
+        </svg>
+      </i>
     );
   }
   setOpen = ({ open }) => {
@@ -66,16 +77,24 @@ class App extends React.Component {
   }
   render() {
     const selectIcon = this.getIcon(starPath, {
-      className: `rc-time-picker-icon`,
+      position: 'absolute',
+      width: '24px',
+      right: 0,
+      top: 0,
+      bottom: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     });
-    const clearIcon = this.getIcon(redoPath, {
-      className: `rc-time-picker-panel-clear-icon`,
-    });
+    const clearIcon = this.getIcon(redoPath);
     return (
       <div>
         <button onClick={this.toggleOpen}>Toggle open</button>
         <button onClick={this.toggleIcon}>Use Custom Icon</button>
         <TimePicker
+          style={{
+            position: 'relative',
+          }}
           open={this.state.open}
           onOpen={this.setOpen}
           onClose={this.setOpen}
