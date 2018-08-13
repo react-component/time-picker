@@ -138,6 +138,15 @@ describe('TimePicker', () => {
       Simulate.click(input);
       expect(picker.state.open).not.to.be.ok();
     });
+
+    it('support custom icon', () => {
+      const picker = renderPicker({
+        inputIcon: 'test-select',
+      });
+      const innerPicker = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker')[0];
+      expect(innerPicker.innerText).to.be('test-select');
+    });
   });
 
   describe('render panel to body (without seconds)', () => {

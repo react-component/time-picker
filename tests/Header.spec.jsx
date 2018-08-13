@@ -297,6 +297,7 @@ describe('Header', () => {
     it('clear correctly', (done) => {
       let change;
       const picker = renderPicker({
+        clearIcon: 'test-clear',
         onChange(v) {
           change = v;
         },
@@ -318,6 +319,7 @@ describe('Header', () => {
           'rc-time-picker-panel-clear-btn')[0];
         expect(header).to.be.ok();
         expect(clearButton).to.be.ok();
+        expect(clearButton.innerText).to.be('test-clear');
         expect((header).value).to.be('01:02:03');
         expect((input).value).to.be('01:02:03');
 
