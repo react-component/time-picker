@@ -141,7 +141,7 @@ describe('TimePicker', () => {
 
     it('support custom icon', () => {
       const picker = renderPicker({
-        selectIcon: 'test-select',
+        inputIcon: 'test-select',
       });
       const innerPicker = TestUtils.scryRenderedDOMComponentsWithClass(picker,
         'rc-time-picker')[0];

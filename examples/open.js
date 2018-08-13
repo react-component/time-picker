@@ -76,7 +76,7 @@ class App extends React.Component {
     });
   }
   render() {
-    const selectIcon = this.getIcon(starPath, {
+    const inputIcon = this.getIcon(starPath, {
       position: 'absolute',
       width: '24px',
       right: 0,
@@ -98,7 +98,7 @@ class App extends React.Component {
           open={this.state.open}
           onOpen={this.setOpen}
           onClose={this.setOpen}
-          selectIcon={this.state.useIcon && selectIcon || undefined}
+          inputIcon={this.state.useIcon && inputIcon || undefined}
           clearIcon={this.state.useIcon && clearIcon || undefined}
           focusOnOpen
         />
