@@ -77,7 +77,7 @@ API
 | transitionName          | String                            | ''  |  |
 | name                    | String                            | - | sets the name of the generated input |
 | onOpen                  | Function({ open })                |   | when TimePicker panel is opened      |
-| onClose                 | Function({ open })                |   | when TimePicker panel is opened      |
+| onClose                 | Function({ open })                |   | when TimePicker panel is closed      |
 | hourStep                | Number                            | 1 | interval between hours in picker  |
 | minuteStep              | Number                            | 1 | interval between minutes in picker  |
 | secondStep              | Number                            | 1 | interval between seconds in picker  |
