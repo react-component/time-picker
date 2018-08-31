@@ -301,7 +301,12 @@ export default class Picker extends Component {
               readOnly={!!inputReadOnly}
               id={id}
             />
-            <span className={`${prefixCls}-label-content`} style={{display: 'none'}}>Timepicker</span>
+            <span
+              className={`${prefixCls}-label-content`}
+              style={{ display: 'none' }}
+            >
+              Timepicker
+            </span>
           </label>
           {inputIcon || <span className={`${prefixCls}-icon`}/>}
         </span>
