@@ -281,23 +281,28 @@ export default class Picker extends Component {
         onPopupVisibleChange={this.onVisibleChange}
       >
         <span className={`${prefixCls} ${className}`} style={style}>
-          <input
-            className={`${prefixCls}-input`}
-            ref={this.saveInputRef}
-            type="text"
-            placeholder={placeholder}
-            name={name}
-            onKeyDown={this.onKeyDown}
-            disabled={disabled}
-            value={value && value.format(this.getFormat()) || ''}
-            autoComplete={autoComplete}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            autoFocus={autoFocus}
-            onChange={noop}
-            readOnly={!!inputReadOnly}
-            id={id}
-          />
+          <label
+            className{`${prefixCls}-label`}
+          >
+            <input
+              className={`${prefixCls}-input`}
+              ref={this.saveInputRef}
+              type="text"
+              placeholder={placeholder}
+              name={name}
+              onKeyDown={this.onKeyDown}
+              disabled={disabled}
+              value={value && value.format(this.getFormat()) || ''}
+              autoComplete={autoComplete}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              autoFocus={autoFocus}
+              onChange={noop}
+              readOnly={!!inputReadOnly}
+              id={id}
+            />
+            <span className={`${prefixCls}-label-content`} style{{display: 'none'}}>Timepicker</span>
+          </label>
           {inputIcon || <span className={`${prefixCls}-icon`}/>}
         </span>
       </Trigger>
