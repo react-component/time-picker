@@ -112,6 +112,16 @@ class Panel extends Component {
     return value.hour() >= 0 && value.hour() < 12;
   }
 
+  toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
+    const hour = hourOptions.sort((a, b) =>
+        Math.abs(time.hour() - a) - Math.abs(time.hour() - b))[0];
+    const minute = minuteOptions.sort((a, b) =>
+        Math.abs(time.minute() - a) - Math.abs(time.minute() - b))[0];
+    const second = secondOptions.sort((a, b) =>
+        Math.abs(time.second() - a) - Math.abs(time.second() - b))[0];
+    return moment(`${hour}:${minute}:${second}`, 'HH:mm:ss');
+  }
+
   render() {
     const {
       prefixCls, className, placeholder, disabledMinutes,
@@ -136,12 +146,15 @@ class Panel extends Component {
       60, disabledSecondOptions, hideDisabledOptions, secondStep
     );
 
+    const validDefaultOpenValue = this
+        .toNearestValidTime(defaultOpenValue, hourOptions, minuteOptions, secondOptions);
+
     return (
       <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: !!className })}>
         <Header
           clearText={clearText}
           prefixCls={prefixCls}
-          defaultOpenValue={defaultOpenValue}
+          defaultOpenValue={validDefaultOpenValue}
           value={value}
           currentSelectPanel={currentSelectPanel}
           onEsc={onEsc}
@@ -164,7 +177,7 @@ class Panel extends Component {
         <Combobox
           prefixCls={prefixCls}
           value={value}
-          defaultOpenValue={defaultOpenValue}
+          defaultOpenValue={validDefaultOpenValue}
           format={format}
           onChange={this.onChange}
           showHour={showHour}
