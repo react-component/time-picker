@@ -46,8 +46,8 @@ class Header extends Component {
       // Wait one frame for the panel to be positioned before focusing
       const requestAnimationFrame = (window.requestAnimationFrame || window.setTimeout);
       requestAnimationFrame(() => {
-        this.refs.input.focus();
-        this.refs.input.select();
+        this.refInput.focus();
+        this.refInput.select();
       });
     }
   }
@@ -182,7 +182,7 @@ class Header extends Component {
     return (
       <input
         className={`${prefixCls}-input  ${invalidClass}`}
-        ref="input"
+        ref={ref => {this.refInput = ref}}
         onKeyDown={this.onKeyDown}
         value={str}
         placeholder={placeholder}
