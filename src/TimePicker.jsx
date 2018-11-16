@@ -4,6 +4,7 @@ import Trigger from 'rc-trigger';
 import Panel from './Panel';
 import placements from './placements';
 import moment from 'moment';
+import { formatTime } from './util';
 
 function noop() {
 }
@@ -29,7 +30,7 @@ export default class Picker extends Component {
     transitionName: PropTypes.string,
     getPopupContainer: PropTypes.func,
     placeholder: PropTypes.string,
-    format: PropTypes.string,
+    format: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
@@ -289,7 +290,7 @@ export default class Picker extends Component {
             name={name}
             onKeyDown={this.onKeyDown}
             disabled={disabled}
-            value={value && value.format(this.getFormat()) || ''}
+            value={formatTime(value, this.getFormat())}
             autoComplete={autoComplete}
             onFocus={onFocus}
             onBlur={onBlur}

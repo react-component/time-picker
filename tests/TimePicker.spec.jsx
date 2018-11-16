@@ -253,4 +253,60 @@ describe('TimePicker', () => {
       });
     });
   });
+
+  describe('time formats', () => {
+    it('supports single format', (done) => {
+      const picker = renderPickerWithoutSeconds({
+        format: 'h:mm a',
+      });
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-inner')[0]).to.be.ok();
+        expect(picker.state.open).to.be(true);
+        const innerInput = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+          'rc-time-picker-panel-input')[0];
+        (innerInput).value = '8:34 am';
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(input).to.be.ok();
+        expect((input).value).to.be('8:24 am');
+        next();
+      }], () => {
+        done();
+      });
+    });
+
+    it('supports an array of formats', (done) => {
+      const picker = renderPickerWithoutSeconds({
+        format: ['h:mm', 'h:mm a'],
+      });
+      const input = TestUtils.scryRenderedDOMComponentsWithClass(picker,
+        'rc-time-picker-input')[0];
+      async.series([(next) => {
+        Simulate.click(input);
+        setTimeout(next, 100);
+      }, (next) => {
+        (input).value = '8:34';
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(input).to.be.ok();
+        expect((input).value).to.be('8:34');
+        next();
+      }, (next) => {
+        (input).value = '8:34 pm';
+        setTimeout(next, 100);
+      }, (next) => {
+        expect(input).to.be.ok();
+        expect((input).value).to.be('8:34 pm');
+        next();
+      }], () => {
+        done();
+      });
+    });
+  });
 });

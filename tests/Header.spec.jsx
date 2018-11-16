@@ -60,7 +60,6 @@ describe('Header', () => {
         expect(picker.state.open).to.be(true);
         expect((header).value).to.be('12:34:56');
         expect((input).value).to.be('12:34:56');
-
         next();
       }], () => {
         done();

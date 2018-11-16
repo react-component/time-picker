@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from './Select';
+import { getTimeFormat } from './util';
 
 const formatOption = (option, disabledOptions) => {
   let value = `${option}`;
@@ -21,7 +22,7 @@ const formatOption = (option, disabledOptions) => {
 
 class Combobox extends Component {
   static propTypes = {
-    format: PropTypes.string,
+    format: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     defaultOpenValue: PropTypes.object,
     prefixCls: PropTypes.string,
     value: PropTypes.object,
@@ -148,7 +149,8 @@ class Combobox extends Component {
   }
 
   getAMPMSelect() {
-    const { prefixCls, use12Hours, format } = this.props;
+    const { prefixCls, use12Hours } = this.props;
+    const format = getTimeFormat(this.props.format);
     if (!use12Hours) {
       return null;
     }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { formatTime } from './util';
 
 class Header extends Component {
   static propTypes = {
-    format: PropTypes.string,
+    format: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     prefixCls: PropTypes.string,
     disabledDate: PropTypes.func,
     placeholder: PropTypes.string,
@@ -36,7 +37,7 @@ class Header extends Component {
     super(props);
     const { value, format } = props;
     this.state = {
-      str: value && value.format(format) || '',
+      str: formatTime(value, format),
       invalid: false,
     };
   }
@@ -55,7 +56,7 @@ class Header extends Component {
   componentWillReceiveProps(nextProps) {
     const { value, format } = nextProps;
     this.setState({
-      str: value && value.format(format) || '',
+      str: formatTime(value, format),
       invalid: false,
     });
   }
