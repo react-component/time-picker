@@ -321,15 +321,16 @@ describe('Header', () => {
         expect(clearButton.innerText).to.be('test-clear');
         expect((header).value).to.be('01:02:03');
         expect((input).value).to.be('01:02:03');
-
         Simulate.mouseDown(clearButton);
         setTimeout(next, 100);
       }, (next) => {
         expect(picker.state.open).to.be(false);
         expect(change).to.be(null);
+        Simulate.click(input);
+        header = TestUtils.scryRenderedDOMComponentsWithClass(picker.panelInstance,
+          'rc-time-picker-panel-input')[0];
         expect((header).value).to.be('');
         expect((input).value).to.be('');
-
         next();
       }], () => {
         done();
