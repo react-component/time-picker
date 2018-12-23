@@ -182,7 +182,7 @@ class Header extends Component {
     return (
       <input
         className={`${prefixCls}-input  ${invalidClass}`}
-        ref={ref => {this.refInput = ref}}
+        ref={ref => { this.refInput = ref; }}
         onKeyDown={this.onKeyDown}
         value={str}
         placeholder={placeholder}
