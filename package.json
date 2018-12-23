@@ -75,7 +75,7 @@
     ]
   },
   "dependencies": {
-    "babel-runtime": "6.x",
+    "@babel/runtime": "7.x",
     "classnames": "2.x",
     "moment": "2.x",
     "prop-types": "^15.5.8",
