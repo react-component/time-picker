@@ -58,6 +58,7 @@ API
 | className               | String                            | '' | time picker className |
 | id                      | String                            | '' | time picker id |
 | popupClassName          | String                            | '' | time panel className |
+| popupStyle              | object                            | {} | customize popup style
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
