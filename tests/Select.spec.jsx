@@ -15,8 +15,8 @@ describe('Select', () => {
     const showSecond = true;
     const format = 'HH:mm:ss';
 
+    // eslint-disable-next-line
     return ReactDOM.render(
-      // eslint-disable-line
       <TimePicker
         format={format}
         showSecond={showSecond}
