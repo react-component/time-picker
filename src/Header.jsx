@@ -26,6 +26,7 @@ class Header extends Component {
     currentSelectPanel: PropTypes.string,
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
+    clearIcon: PropTypes.node,
   };
 
   static defaultProps = {
@@ -46,8 +47,8 @@ class Header extends Component {
       // Wait one frame for the panel to be positioned before focusing
       const requestAnimationFrame = (window.requestAnimationFrame || window.setTimeout);
       requestAnimationFrame(() => {
-        this.refs.input.focus();
-        this.refs.input.select();
+        this.refInput.focus();
+        this.refInput.select();
       });
     }
   }
@@ -157,16 +158,20 @@ class Header extends Component {
   }
 
   getClearButton() {
-    const { prefixCls, allowEmpty } = this.props;
+    const { prefixCls, allowEmpty, clearIcon } = this.props;
     if (!allowEmpty) {
       return null;
     }
-    return (<a
-      className={`${prefixCls}-clear-btn`}
-      role="button"
-      title={this.props.clearText}
-      onMouseDown={this.onClear}
-    />);
+    return (
+      <a
+        role="button"
+        className={`${prefixCls}-clear-btn`}
+        title={this.props.clearText}
+        onMouseDown={this.onClear}
+      >
+        {clearIcon || <i className={`${prefixCls}-clear-btn-icon`} />}
+      </a>
+    );
   }
 
   getProtoValue() {
@@ -180,7 +185,7 @@ class Header extends Component {
     return (
       <input
         className={`${prefixCls}-input  ${invalidClass}`}
-        ref="input"
+        ref={ref => {this.refInput = ref}}
         onKeyDown={this.onKeyDown}
         value={str}
         placeholder={placeholder}

@@ -55,6 +55,9 @@ export default class Picker extends Component {
     focusOnOpen: PropTypes.bool,
     onKeyDown: PropTypes.func,
     autoFocus: PropTypes.bool,
+    id: PropTypes.string,
+    inputIcon: PropTypes.node,
+    clearIcon: PropTypes.node,
   };
 
   static defaultProps = {
@@ -65,6 +68,7 @@ export default class Picker extends Component {
     style: {},
     className: '',
     popupClassName: '',
+    id: '',
     align: {},
     defaultOpenValue: moment(),
     allowEmpty: true,
@@ -179,6 +183,7 @@ export default class Picker extends Component {
       disabledMinutes, disabledSeconds, hideDisabledOptions, inputReadOnly,
       allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
       addon, use12Hours, focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep,
+      clearIcon,
     } = this.props;
     return (
       <Panel
@@ -209,6 +214,7 @@ export default class Picker extends Component {
         addon={addon}
         focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
+        clearIcon={clearIcon}
       />
     );
   }
@@ -261,9 +267,9 @@ export default class Picker extends Component {
 
   render() {
     const {
-      prefixCls, placeholder, placement, align,
+      prefixCls, placeholder, placement, align, id,
       disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur, autoFocus,
+      onFocus, onBlur, autoFocus, inputReadOnly, inputIcon,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -297,8 +303,10 @@ export default class Picker extends Component {
             onBlur={onBlur}
             autoFocus={autoFocus}
             onChange={noop}
+            readOnly={!!inputReadOnly}
+            id={id}
           />
-          <span className={`${prefixCls}-icon`}/>
+          {inputIcon || <span className={`${prefixCls}-icon`}/>}
         </span>
       </Trigger>
     );

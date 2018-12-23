@@ -60,6 +60,7 @@ API
 | value                   | moment                            | null | current value |
 | placeholder             | String                            | '' | time input's placeholder |
 | className               | String                            | '' | time picker className |
+| id                      | String                            | '' | time picker id |
 | popupClassName          | String                            | '' | time panel className |
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
@@ -76,12 +77,14 @@ API
 | transitionName          | String                            | ''  |  |
 | name                    | String                            | - | sets the name of the generated input |
 | onOpen                  | Function({ open })                |   | when TimePicker panel is opened      |
-| onClose                 | Function({ open })                |   | when TimePicker panel is opened      |
+| onClose                 | Function({ open })                |   | when TimePicker panel is closed      |
 | hourStep                | Number                            | 1 | interval between hours in picker  |
 | minuteStep              | Number                            | 1 | interval between minutes in picker  |
 | secondStep              | Number                            | 1 | interval between seconds in picker  |
 | focusOnOpen             | Boolean                           | false | automatically focus the input when the picker opens |
 | inputReadOnly             | Boolean                           | false | set input to read only |
+| inputIcon             | ReactNode                           |  | specific the select icon. |
+| clearIcon             | ReactNode                           |  | specific the clear icon. |
 
 ## Test Case
 
