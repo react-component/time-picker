@@ -14,8 +14,8 @@ describe('TimePicker', () => {
     const showSecond = true;
     const format = 'HH:mm:ss';
 
+    // eslint-disable-next-line
     return ReactDOM.render(
-      // eslint-disable-line
       <TimePicker
         format={format}
         showSecond={showSecond}
@@ -30,8 +30,8 @@ describe('TimePicker', () => {
     const showSecond = false;
     const format = 'HH:mm';
 
+    // eslint-disable-next-line
     return ReactDOM.render(
-      // eslint-disable-line
       <TimePicker
         format={format}
         showSecond={showSecond}
