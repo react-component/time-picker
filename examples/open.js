@@ -36,6 +36,7 @@ class App extends React.Component {
     open: false,
     useIcon: false,
   };
+
   getIcon = (path, style = {}) => {
     return (
       <i
@@ -57,24 +58,30 @@ class App extends React.Component {
           fill="currentColor"
           style={{ verticalAlign: '-.125em' }}
         >
-          <path d={path} p-id="5827"></path>
+          <path d={path} p-id="5827" />
         </svg>
       </i>
     );
   }
+
   setOpen = ({ open }) => {
     this.setState({ open });
   }
+
   toggleOpen = () => {
+    const { open } = this.state;
     this.setState({
-      open: !this.state.open,
+      open: !open,
     });
   }
+
   toggleIcon = () => {
+    const { useIcon } = this.state;
     this.setState({
-      useIcon: !this.state.useIcon,
+      useIcon: !useIcon,
     });
   }
+
   render() {
     const inputIcon = this.getIcon(starPath, {
       position: 'absolute',
@@ -86,20 +93,25 @@ class App extends React.Component {
       alignItems: 'center',
       justifyContent: 'center',
     });
+    const { useIcon, open } = this.state;
     const clearIcon = this.getIcon(redoPath);
     return (
       <div>
-        <button onClick={this.toggleOpen}>Toggle open</button>
-        <button onClick={this.toggleIcon}>Use Custom Icon</button>
+        <button onClick={this.toggleOpen} type="button">
+          Toggle open
+        </button>
+        <button onClick={this.toggleIcon} type="button">
+          Use Custom Icon
+        </button>
         <TimePicker
           style={{
             position: 'relative',
           }}
-          open={this.state.open}
+          open={open}
           onOpen={this.setOpen}
           onClose={this.setOpen}
-          inputIcon={this.state.useIcon && inputIcon || undefined}
-          clearIcon={this.state.useIcon && clearIcon || undefined}
+          inputIcon={useIcon && inputIcon || undefined}
+          clearIcon={useIcon && clearIcon || undefined}
           focusOnOpen
         />
       </div>

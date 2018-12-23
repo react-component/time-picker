@@ -1,12 +1,12 @@
+/* eslint jsx-a11y/no-autofocus: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
+import moment from 'moment';
 import Panel from './Panel';
 import placements from './placements';
-import moment from 'moment';
 
-function noop() {
-}
+function noop() {}
 
 function refFn(field, component) {
   this[field] = component;
@@ -118,41 +118,43 @@ export default class Picker extends Component {
     }
   }
 
-  onPanelChange = (value) => {
+  onPanelChange = value => {
     this.setValue(value);
-  }
+  };
 
-  onAmPmChange = (ampm) => {
-    this.props.onAmPmChange(ampm);
-  }
+  onAmPmChange = ampm => {
+    const { onAmPmChange } = this.props;
+    onAmPmChange(ampm);
+  };
 
   onPanelClear = () => {
     this.setValue(null);
     this.setOpen(false);
-  }
+  };
 
-  onVisibleChange = (open) => {
+  onVisibleChange = open => {
     this.setOpen(open);
-  }
+  };
 
   onEsc = () => {
     this.setOpen(false);
     this.focus();
-  }
+  };
 
-  onKeyDown = (e) => {
+  onKeyDown = e => {
     if (e.keyCode === 40) {
       this.setOpen(true);
     }
-  }
+  };
 
   setValue(value) {
+    const { onChange } = this.props;
     if (!('value' in this.props)) {
       this.setState({
         value,
       });
     }
-    this.props.onChange(value);
+    onChange(value);
   }
 
   getFormat() {
@@ -162,36 +164,49 @@ export default class Picker extends Component {
     }
 
     if (use12Hours) {
-      const fmtString = ([
-        showHour ? 'h' : '',
-        showMinute ? 'mm' : '',
-        showSecond ? 'ss' : '',
-      ].filter(item => !!item).join(':'));
+      const fmtString = [showHour ? 'h' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+        .filter(item => !!item)
+        .join(':');
 
       return fmtString.concat(' a');
     }
 
-    return [
-      showHour ? 'HH' : '',
-      showMinute ? 'mm' : '',
-      showSecond ? 'ss' : '',
-    ].filter(item => !!item).join(':');
+    return [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+      .filter(item => !!item)
+      .join(':');
   }
 
   getPanelElement() {
     const {
-      prefixCls, placeholder, disabledHours,
-      disabledMinutes, disabledSeconds, hideDisabledOptions, inputReadOnly,
-      allowEmpty, showHour, showMinute, showSecond, defaultOpenValue, clearText,
-      addon, use12Hours, focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep,
+      prefixCls,
+      placeholder,
+      disabledHours,
+      disabledMinutes,
+      disabledSeconds,
+      hideDisabledOptions,
+      inputReadOnly,
+      allowEmpty,
+      showHour,
+      showMinute,
+      showSecond,
+      defaultOpenValue,
+      clearText,
+      addon,
+      use12Hours,
+      focusOnOpen,
+      onKeyDown,
+      hourStep,
+      minuteStep,
+      secondStep,
       clearIcon,
     } = this.props;
+    const { value } = this.state;
     return (
       <Panel
         clearText={clearText}
         prefixCls={`${prefixCls}-panel`}
         ref={this.savePanelRef}
-        value={this.state.value}
+        value={value}
         inputReadOnly={inputReadOnly}
         onChange={this.onPanelChange}
         onAmPmChange={this.onAmPmChange}
@@ -221,11 +236,11 @@ export default class Picker extends Component {
   }
 
   getPopupClassName() {
-    const { showHour, showMinute, showSecond, use12Hours, prefixCls } = this.props;
-    let popupClassName = this.props.popupClassName;
+    const { showHour, showMinute, showSecond, use12Hours, prefixCls, popupClassName } = this.props;
+    let className = popupClassName;
     // Keep it for old compatibility
     if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
-      popupClassName += ` ${prefixCls}-panel-narrow`;
+      className += ` ${prefixCls}-panel-narrow`;
     }
     let selectColumnCount = 0;
     if (showHour) {
@@ -240,13 +255,14 @@ export default class Picker extends Component {
     if (use12Hours) {
       selectColumnCount += 1;
     }
-    popupClassName += ` ${prefixCls}-panel-column-${selectColumnCount}`;
-    return popupClassName;
+    className += ` ${prefixCls}-panel-column-${selectColumnCount}`;
+    return className;
   }
 
   setOpen(open) {
     const { onOpen, onClose } = this.props;
-    if (this.state.open !== open) {
+    const { open: currentOpen } = this.state;
+    if (currentOpen !== open) {
       if (!('open' in this.props)) {
         this.setState({ open });
       }
@@ -268,9 +284,24 @@ export default class Picker extends Component {
 
   render() {
     const {
-      prefixCls, placeholder, placement, align, id,
-      disabled, transitionName, style, className, getPopupContainer, name, autoComplete,
-      onFocus, onBlur, autoFocus, inputReadOnly, inputIcon, popupStyle,
+      prefixCls,
+      placeholder,
+      placement,
+      align,
+      id,
+      disabled,
+      transitionName,
+      style,
+      className,
+      getPopupContainer,
+      name,
+      autoComplete,
+      onFocus,
+      onBlur,
+      autoFocus,
+      inputReadOnly,
+      inputIcon,
+      popupStyle,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -299,7 +330,7 @@ export default class Picker extends Component {
             name={name}
             onKeyDown={this.onKeyDown}
             disabled={disabled}
-            value={value && value.format(this.getFormat()) || ''}
+            value={(value && value.format(this.getFormat())) || ''}
             autoComplete={autoComplete}
             onFocus={onFocus}
             onBlur={onBlur}
@@ -308,7 +339,7 @@ export default class Picker extends Component {
             readOnly={!!inputReadOnly}
             id={id}
           />
-          {inputIcon || <span className={`${prefixCls}-icon`}/>}
+          {inputIcon || <span className={`${prefixCls}-icon`} />}
         </span>
       </Trigger>
     );

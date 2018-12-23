@@ -4,7 +4,7 @@
 ---------------------------
 
 - Add `popupStyle`
-- Add `onAmpmChange`
+- Add `onAmPmChange`
 - Add Typescript definition
 
 3.4.0 / 2019-08-13
