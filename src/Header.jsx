@@ -20,6 +20,7 @@ class Header extends Component {
     onChange: PropTypes.func,
     onClear: PropTypes.func,
     onEsc: PropTypes.func,
+    onTab: PropTypes.func,
     allowEmpty: PropTypes.bool,
     defaultOpenValue: PropTypes.object,
     currentSelectPanel: PropTypes.string,
@@ -141,11 +142,12 @@ class Header extends Component {
   }
 
   onKeyDown = (e) => {
-    const { onEsc, onKeyDown } = this.props;
+    const { onEsc, onTab, onKeyDown } = this.props;
     if (e.keyCode === 27) {
       onEsc();
+    } else if (e.keyCode === 9) {
+      onTab(e.shiftKey);
     }
-
     onKeyDown(e);
   }
 

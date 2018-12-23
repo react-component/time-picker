@@ -34,6 +34,7 @@ class Panel extends Component {
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
+    onTab: PropTypes.func,
     allowEmpty: PropTypes.bool,
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
@@ -145,6 +146,7 @@ class Panel extends Component {
           value={value}
           currentSelectPanel={currentSelectPanel}
           onEsc={onEsc}
+          onTab={onTab}
           format={format}
           placeholder={placeholder}
           hourOptions={hourOptions}
