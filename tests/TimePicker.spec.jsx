@@ -60,9 +60,9 @@ describe('TimePicker', () => {
           change = v;
         },
       });
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
-      expect(input.value).to.be('12:57:58');
+      expect(input.value).toBe('12:57:58');
 
       Simulate.click(input);
       await delay(100);
@@ -72,23 +72,23 @@ describe('TimePicker', () => {
           picker.panelInstance,
           'rc-time-picker-panel-inner',
         )[0],
-      ).to.be.ok();
-      expect(picker.state.open).to.be(true);
+      ).toBeTruthy();
+      expect(picker.state().open).toBeTruthy();
       const hour = TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[1];
       Simulate.click(hour);
       await delay(100);
 
-      expect(change).to.be.ok();
-      expect(change.hour()).to.be(1);
-      expect(change.minute()).to.be(57);
-      expect(change.second()).to.be(58);
-      expect(input.value).to.be('01:57:58');
-      expect(picker.state.open).to.be.ok();
+      expect(change).toBeTruthy();
+      expect(change.hour()).toBe(1);
+      expect(change.minute()).toBe(57);
+      expect(change.second()).toBe(58);
+      expect(input.value).toBe('01:57:58');
+      expect(picker.state().open).toBeTruthy();
     });
 
     it('destroy correctly', async () => {
       const picker = renderPicker();
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
 
       Simulate.click(input);
@@ -96,19 +96,19 @@ describe('TimePicker', () => {
 
       expect(
         TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-panel-inner')[0],
-      ).to.be.ok();
-      expect(picker.state.open).to.be(true);
+      ).toBeTruthy();
+      expect(picker.state().open).toBeTruthy();
       if (document.querySelectorAll) {
-        expect(document.querySelectorAll('.rc-time-picker').length).not.to.be(0);
+        expect(document.querySelectorAll('.rc-time-picker').length).not.toBe(0);
       }
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[0]).to.be.ok();
+      expect(TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[0]).toBeTruthy();
       ReactDOM.unmountComponentAtNode(container);
       await delay(100);
 
       if (document.querySelectorAll) {
-        expect(document.querySelectorAll('.rc-time-picker').length).to.be(0);
+        expect(document.querySelectorAll('.rc-time-picker').length).toBe(0);
       }
-      expect(picker.panelInstance).not.to.be.ok();
+      expect(picker.panelInstance).not.toBeTruthy();
     });
 
     it('support name', () => {
@@ -116,24 +116,24 @@ describe('TimePicker', () => {
         name: 'time-picker-form-name',
       });
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
-      expect(input.name).to.be('time-picker-form-name');
+      expect(input.name).toBe('time-picker-form-name');
     });
 
     it('support focus', () => {
       const picker = renderPicker({
         name: 'time-picker-form-name',
       });
-      expect(picker.focus).to.be.a('function');
+      expect(typeof picker.focus).toBe('function');
     });
 
     it('should be controlled by open', () => {
       const picker = renderPicker({
         open: false,
       });
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
       Simulate.click(input);
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
     });
 
     it('support custom icon', () => {
@@ -141,7 +141,7 @@ describe('TimePicker', () => {
         inputIcon: 'test-select',
       });
       const innerPicker = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker')[0];
-      expect(innerPicker.innerText).to.be('test-select');
+      expect(innerPicker.innerText).toBe('test-select');
     });
   });
 
@@ -153,9 +153,9 @@ describe('TimePicker', () => {
           change = v;
         },
       });
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
-      expect(input.value).to.be('08:24');
+      expect(input.value).toBe('08:24');
 
       Simulate.click(input);
       await delay(100);
@@ -165,17 +165,17 @@ describe('TimePicker', () => {
           picker.panelInstance,
           'rc-time-picker-panel-inner',
         )[0],
-      ).to.be.ok();
-      expect(picker.state.open).to.be(true);
+      ).toBeTruthy();
+      expect(picker.state().open).toBeTruthy();
       const hour = TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[1];
       Simulate.click(hour);
       await delay(100);
 
-      expect(change).to.be.ok();
-      expect(change.hour()).to.be(1);
-      expect(change.minute()).to.be(24);
-      expect(input.value).to.be('01:24');
-      expect(picker.state.open).to.be.ok();
+      expect(change).toBeTruthy();
+      expect(change.hour()).toBe(1);
+      expect(change.minute()).toBe(24);
+      expect(input.value).toBe('01:24');
+      expect(picker.state().open).toBeTruthy();
     });
   });
 
@@ -189,9 +189,9 @@ describe('TimePicker', () => {
           change = v;
         },
       });
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
-      expect(input.value).to.be('');
+      expect(input.value).toBe('');
 
       Simulate.click(input);
       await delay(100);
@@ -201,14 +201,14 @@ describe('TimePicker', () => {
           picker.panelInstance,
           'rc-time-picker-panel-inner',
         )[0],
-      ).to.be.ok();
-      expect(picker.state.open).to.be(true);
+      ).toBeTruthy();
+      expect(picker.state().open).toBeTruthy();
       const hour = TestUtils.scryRenderedDOMComponentsWithTag(picker.panelInstance, 'li')[1];
       Simulate.click(hour);
       await delay(100);
 
-      expect(change).to.be.ok();
-      expect(picker.state.open).to.be.ok();
+      expect(change).toBeTruthy();
+      expect(picker.state().open).toBeTruthy();
     });
   });
 
@@ -225,19 +225,19 @@ describe('TimePicker', () => {
           blur = true;
         },
       });
-      expect(picker.state.open).not.to.be.ok();
+      expect(picker.state().open).not.toBeTruthy();
       const input = TestUtils.scryRenderedDOMComponentsWithClass(picker, 'rc-time-picker-input')[0];
 
       Simulate.focus(input);
       await delay(100);
 
-      expect(picker.state.open).to.be(false);
+      expect(picker.state().open).toBeFalsy();
 
       Simulate.blur(input);
       await delay(100);
 
-      expect(focus).to.be(true);
-      expect(blur).to.be(true);
+      expect(focus).toBeTruthy();
+      expect(blur).toBeTruthy();
     });
   });
 });
