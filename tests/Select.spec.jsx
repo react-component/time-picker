@@ -1,10 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 import moment from 'moment';
 import TimePicker from '../src/TimePicker';
-
-const delay = duration => new Promise(resolve => setTimeout(resolve, duration));
+import { clickInput, clickSelectItem, matchValue, matchAll } from './util';
 
 describe('Select', () => {
   let container;
@@ -20,26 +19,8 @@ describe('Select', () => {
         showSecond={showSecond}
         defaultValue={moment('01:02:04', format)}
         {...props}
-      />
+      />,
     );
-  }
-
-  function clickInput(picker) {
-    picker.find('.rc-time-picker-input').simulate('click');
-  }
-
-  function clickSelectItem(picker, select, index) {
-    const selector = picker.find('.rc-time-picker-panel-select').at(select);
-    selector.find('li').at(index).simulate('click');
-  }
-
-  function matchValue(picker, str) {
-    expect(picker.find('.rc-time-picker-input').instance().value).toBe(str);
-  }
-
-  function matchAll(picker, str) {
-    expect(picker.find('.rc-time-picker-panel-input').instance().value).toBe(str);
-    matchValue(picker, str);
   }
 
   beforeEach(() => {
@@ -61,22 +42,37 @@ describe('Select', () => {
 
       expect(
         re.test(
-          picker.find('.rc-time-picker-panel-select').at(0).instance().className
-        )
+          picker
+            .find('.rc-time-picker-panel-select')
+            .at(0)
+            .instance().className,
+        ),
       ).toBeFalsy();
 
-      picker.find('.rc-time-picker-panel-select').at(0).simulate('mouseEnter');
+      picker
+        .find('.rc-time-picker-panel-select')
+        .at(0)
+        .simulate('mouseEnter');
       expect(
         re.test(
-          picker.find('.rc-time-picker-panel-select').at(0).instance().className
-        )
+          picker
+            .find('.rc-time-picker-panel-select')
+            .at(0)
+            .instance().className,
+        ),
       ).toBeTruthy();
 
-      picker.find('.rc-time-picker-panel-select').at(0).simulate('mouseLeave');
+      picker
+        .find('.rc-time-picker-panel-select')
+        .at(0)
+        .simulate('mouseLeave');
       expect(
         re.test(
-          picker.find('.rc-time-picker-panel-select').at(0).instance().className
-        )
+          picker
+            .find('.rc-time-picker-panel-select')
+            .at(0)
+            .instance().className,
+        ),
       ).toBeFalsy();
     });
 
@@ -113,9 +109,7 @@ describe('Select', () => {
       clickInput(picker);
       expect(picker.state().open).toBeTruthy();
 
-      expect(
-        picker.find('.rc-time-picker-panel-select').length
-      ).toBe(3);
+      expect(picker.find('.rc-time-picker-panel-select').length).toBe(3);
     });
   });
 
@@ -146,7 +140,7 @@ describe('Select', () => {
         onChange,
       });
       expect(picker.state().open).toBeFalsy();
-    
+
       clickInput(picker);
 
       expect(picker.state().open).toBeTruthy();
@@ -166,7 +160,7 @@ describe('Select', () => {
         onChange,
       });
       expect(picker.state().open).toBeFalsy();
-    
+
       clickInput(picker);
 
       expect(picker.state().open).toBeTruthy();
