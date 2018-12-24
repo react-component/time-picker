@@ -49,11 +49,10 @@
     "lint-staged": "lint-staged"
   },
   "devDependencies": {
-    "core-js": "^2.5.1",
     "enzyme": "^3.8.0",
     "lint-staged": "^8.1.0",
     "pre-commit": "1.x",
-    "rc-tools": "9.1.0-alpha.2",
+    "rc-tools": "^9.1.1",
     "rc-util": "^4.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
