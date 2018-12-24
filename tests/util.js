@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export function clickInput(picker) {
   picker.find('.rc-time-picker-input').simulate('click');
 }
