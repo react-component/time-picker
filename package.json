@@ -33,36 +33,40 @@
     "port": 8011
   },
   "scripts": {
-    "dist": "rc-tools run dist",
     "build": "rc-tools run build",
+    "compile": "rc-tools run compile --babel-runtime",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
-    "compile": "rc-tools run compile --babel-runtime",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint",
     "lint:fix": "rc-tools run lint --fix",
-    "karma": "rc-test run karma",
-    "saucelabs": "rc-test run saucelabs",
-    "test": "rc-test run test",
-    "chrome-test": "rc-test run chrome-test",
-    "coverage": "rc-test run coverage"
+    "prettier": "rc-tools run prettier",
+    "test": "rc-tools run test",
+    "prepublish": "rc-tools run guard",
+    "init-tslint": "rc-tools run init-tslint",
+    "coverage": "rc-tools run test --coverage",
+    "pre-commit": "rc-tools run pre-commit",
+    "lint-staged": "lint-staged"
   },
   "devDependencies": {
-    "async": "~2.6.1",
-    "core-js": "^2.5.1",
-    "expect.js": "~0.3.1",
+    "enzyme": "^3.8.0",
+    "lint-staged": "^8.1.0",
     "pre-commit": "1.x",
-    "rc-test": "^6.0.1",
-    "rc-tools": "9.x",
+    "rc-tools": "^9.1.1",
     "rc-util": "^4.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
   "pre-commit": [
-    "lint"
+    "lint-staged"
   ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run pre-commit",
+      "git add"
+    ]
+  },
   "dependencies": {
-    "babel-runtime": "6.x",
     "classnames": "2.x",
     "moment": "2.x",
     "prop-types": "^15.5.8",

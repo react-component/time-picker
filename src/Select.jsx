@@ -1,12 +1,14 @@
+/* eslint jsx-a11y/no-noninteractive-element-to-interactive-role: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import classnames from 'classnames';
 
 const scrollTo = (element, to, duration) => {
-  const requestAnimationFrame = window.requestAnimationFrame ||
+  const requestAnimationFrame =
+    window.requestAnimationFrame ||
     function requestAnimationFrameTimeout() {
-      return setTimeout(arguments[0], 10);
+      return setTimeout(arguments[0], 10); // eslint-disable-line
     };
   // jump to target if duration zero
   if (duration <= 0) {
@@ -14,10 +16,10 @@ const scrollTo = (element, to, duration) => {
     return;
   }
   const difference = to - element.scrollTop;
-  const perTick = difference / duration * 10;
+  const perTick = (difference / duration) * 10;
 
   requestAnimationFrame(() => {
-    element.scrollTop = element.scrollTop + perTick;
+    element.scrollTop += perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
   });
@@ -43,16 +45,17 @@ class Select extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { selectedIndex } = this.props;
     // smooth scroll to selected option
-    if (prevProps.selectedIndex !== this.props.selectedIndex) {
+    if (prevProps.selectedIndex !== selectedIndex) {
       this.scrollToSelected(120);
     }
   }
 
-  onSelect = (value) => {
+  onSelect = value => {
     const { onSelect, type } = this.props;
     onSelect(type, value);
-  }
+  };
 
   getOptions() {
     const { options, selectedIndex, prefixCls } = this.props;
@@ -61,29 +64,42 @@ class Select extends Component {
         [`${prefixCls}-select-option-selected`]: selectedIndex === index,
         [`${prefixCls}-select-option-disabled`]: item.disabled,
       });
-      let onclick = null;
-      if (!item.disabled) {
-        onclick = this.onSelect.bind(this, item.value);
-      }
-      return (<li
-        className={cls}
-        key={index}
-        onClick={onclick}
-        disabled={item.disabled}
-      >
-        {item.value}
-      </li>);
+      const onClick = item.disabled
+        ? undefined
+        : () => {
+            this.onSelect(item.value);
+          };
+      return (
+        <li role="button" onClick={onClick} className={cls} key={index} disabled={item.disabled}>
+          {item.value}
+        </li>
+      );
     });
   }
 
+  handleMouseEnter = e => {
+    const { onMouseEnter } = this.props;
+    this.setState({ active: true });
+    onMouseEnter(e);
+  };
+
+  handleMouseLeave = () => {
+    this.setState({ active: false });
+  };
+
+  saveList = node => {
+    this.list = node;
+  };
+
   scrollToSelected(duration) {
     // move to selected item
+    const { selectedIndex } = this.props;
     const select = ReactDom.findDOMNode(this);
     const list = ReactDom.findDOMNode(this.list);
     if (!list) {
       return;
     }
-    let index = this.props.selectedIndex;
+    let index = selectedIndex;
     if (index < 0) {
       index = 0;
     }
@@ -92,30 +108,15 @@ class Select extends Component {
     scrollTo(select, to, duration);
   }
 
-  handleMouseEnter = (e) => {
-    this.setState({ active: true });
-    this.props.onMouseEnter(e);
-  }
-
-  handleMouseLeave = () => {
-    this.setState({ active: false });
-  }
-
-  saveList = (node) => {
-    this.list = node;
-  }
-
   render() {
-    if (this.props.options.length === 0) {
+    const { prefixCls, options } = this.props;
+    const { active } = this.state;
+    if (options.length === 0) {
       return null;
     }
-
-    const { prefixCls } = this.props;
-    const cls = classnames({
-      [`${prefixCls}-select`]: 1,
-      [`${prefixCls}-select-active`]: this.state.active,
+    const cls = classnames(`${prefixCls}-select`, {
+      [`${prefixCls}-select-active`]: active,
     });
-
     return (
       <div
         className={cls}

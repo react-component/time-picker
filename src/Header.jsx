@@ -30,21 +30,22 @@ class Header extends Component {
 
   static defaultProps = {
     inputReadOnly: false,
-  }
+  };
 
   constructor(props) {
     super(props);
     const { value, format } = props;
     this.state = {
-      str: value && value.format(format) || '',
+      str: (value && value.format(format)) || '',
       invalid: false,
     };
   }
 
   componentDidMount() {
-    if (this.props.focusOnOpen) {
+    const { focusOnOpen } = this.props;
+    if (focusOnOpen) {
       // Wait one frame for the panel to be positioned before focusing
-      const requestAnimationFrame = (window.requestAnimationFrame || window.setTimeout);
+      const requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
       requestAnimationFrame(() => {
         this.refInput.focus();
         this.refInput.select();
@@ -55,24 +56,30 @@ class Header extends Component {
   componentWillReceiveProps(nextProps) {
     const { value, format } = nextProps;
     this.setState({
-      str: value && value.format(format) || '',
+      str: (value && value.format(format)) || '',
       invalid: false,
     });
   }
 
-  onInputChange = (event) => {
+  onInputChange = event => {
     const str = event.target.value;
     this.setState({
       str,
     });
     const {
-      format, hourOptions, minuteOptions, secondOptions,
-      disabledHours, disabledMinutes,
-      disabledSeconds, onChange, allowEmpty,
+      format,
+      hourOptions,
+      minuteOptions,
+      secondOptions,
+      disabledHours,
+      disabledMinutes,
+      disabledSeconds,
+      onChange,
+      allowEmpty,
     } = this.props;
 
     if (str) {
-      const originalValue = this.props.value;
+      const { value: originalValue } = this.props;
       const value = this.getProtoValue().clone();
       const parsed = moment(str, format, true);
       if (!parsed.isValid()) {
@@ -81,7 +88,10 @@ class Header extends Component {
         });
         return;
       }
-      value.hour(parsed.hour()).minute(parsed.minute()).second(parsed.second());
+      value
+        .hour(parsed.hour())
+        .minute(parsed.minute())
+        .second(parsed.second());
 
       // if time value not allowed, response warning.
       if (
@@ -138,24 +148,25 @@ class Header extends Component {
     this.setState({
       invalid: false,
     });
-  }
+  };
 
-  onKeyDown = (e) => {
+  onKeyDown = e => {
     const { onEsc, onKeyDown } = this.props;
     if (e.keyCode === 27) {
       onEsc();
     }
 
     onKeyDown(e);
-  }
+  };
 
   onClear = () => {
+    const { onClear } = this.props;
     this.setState({ str: '' });
-    this.props.onClear();
-  }
+    onClear();
+  };
 
   getClearButton() {
-    const { prefixCls, allowEmpty, clearIcon } = this.props;
+    const { prefixCls, allowEmpty, clearIcon, clearText } = this.props;
     if (!allowEmpty) {
       return null;
     }
@@ -163,8 +174,9 @@ class Header extends Component {
       <a
         role="button"
         className={`${prefixCls}-clear-btn`}
-        title={this.props.clearText}
+        title={clearText}
         onMouseDown={this.onClear}
+        tabIndex={0}
       >
         {clearIcon || <i className={`${prefixCls}-clear-btn-icon`} />}
       </a>
@@ -172,7 +184,8 @@ class Header extends Component {
   }
 
   getProtoValue() {
-    return this.props.value || this.props.defaultOpenValue;
+    const { value, defaultOpenValue } = this.props;
+    return value || defaultOpenValue;
   }
 
   getInput() {
@@ -182,7 +195,9 @@ class Header extends Component {
     return (
       <input
         className={`${prefixCls}-input  ${invalidClass}`}
-        ref={ref => { this.refInput = ref; }}
+        ref={ref => {
+          this.refInput = ref;
+        }}
         onKeyDown={this.onKeyDown}
         value={str}
         placeholder={placeholder}
