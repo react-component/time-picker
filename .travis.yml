@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+- 10
+
+script:
+- |
+    if [ "$TEST_TYPE" = coverage ]; then
+      npm run coverage && \
+      bash <(curl -s https://codecov.io/bash)
+    else
+      npm run $TEST_TYPE
+    fi
+env:
+  matrix:
+  - TEST_TYPE=lint
+  - TEST_TYPE=test
+  - TEST_TYPE=coverage
