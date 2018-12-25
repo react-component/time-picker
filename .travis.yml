@@ -5,8 +5,9 @@ node_js:
 
 script:
 - |
-    if [ "$TEST_TYPE" = test ]; then
-      npm test
+    if [ "$TEST_TYPE" = coverage ]; then
+      npm run coverage && \
+      bash <(curl -s https://codecov.io/bash)
     else
       npm run $TEST_TYPE
     fi
