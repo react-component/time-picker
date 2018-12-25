@@ -41,7 +41,7 @@
     "lint": "rc-tools run lint",
     "lint:fix": "rc-tools run lint --fix",
     "prettier": "rc-tools run prettier",
-    "test": "rc-tools run test --verbose --no-cache",
+    "test": "rc-tools run test",
     "prepublish": "rc-tools run guard",
     "init-tslint": "rc-tools run init-tslint",
     "coverage": "rc-tools run test --coverage",

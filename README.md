@@ -4,7 +4,7 @@ React TimePicker
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
+[![Test coverage][codecov-image]][codecov-url]
 [![Dependencies](https://img.shields.io/david/react-component/time-picker.svg?style=flat-square)](https://david-dm.org/react-component/time-picker)
 [![DevDependencies](https://img.shields.io/david/dev/react-component/time-picker.svg?style=flat-square)](https://david-dm.org/react-component/time-picker?type=dev)
 [![npm download][download-image]][download-url]
@@ -13,8 +13,8 @@ React TimePicker
 [npm-url]: http://npmjs.org/package/rc-time-picker
 [travis-image]: https://img.shields.io/travis/react-component/time-picker.svg?style=flat-square
 [travis-url]: https://travis-ci.org/react-component/time-picker
-[coveralls-image]: https://img.shields.io/coveralls/react-component/time-picker.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/react-component/time-picker?branch=master
+[codecov-image]: https://codecov.io/gh/react-component/time-picker/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/react-component/time-picker
 [download-image]: https://img.shields.io/npm/dm/rc-time-picker.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-time-picker
 
