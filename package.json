@@ -41,7 +41,7 @@
     "lint": "rc-tools run lint",
     "lint:fix": "rc-tools run lint --fix",
     "prettier": "rc-tools run prettier",
-    "test": "rc-tools run test",
+    "test": "rc-tools run test --verbose --no-cache",
     "prepublish": "rc-tools run guard",
     "init-tslint": "rc-tools run init-tslint",
     "coverage": "rc-tools run test --coverage",
@@ -52,7 +52,7 @@
     "enzyme": "^3.8.0",
     "lint-staged": "^8.1.0",
     "pre-commit": "1.x",
-    "rc-tools": "^9.1.2",
+    "rc-tools": "^9.2.0-alpha.0",
     "rc-util": "^4.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
