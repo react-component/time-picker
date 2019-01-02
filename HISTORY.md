@@ -1,5 +1,12 @@
 # History
 
+3.5.0 / 2019-12-23
+---------------------------
+
+- Add `popupStyle`
+- Add `onAmPmChange`
+- Add Typescript definition
+
 3.4.0 / 2019-08-13
 ---------------------------
 

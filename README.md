@@ -4,21 +4,17 @@ React TimePicker
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
-[![gemnasium deps][gemnasium-image]][gemnasium-url]
-[![node version][node-image]][node-url]
+[![Test coverage][codecov-image]][codecov-url]
+[![Dependencies](https://img.shields.io/david/react-component/time-picker.svg?style=flat-square)](https://david-dm.org/react-component/time-picker)
+[![DevDependencies](https://img.shields.io/david/dev/react-component/time-picker.svg?style=flat-square)](https://david-dm.org/react-component/time-picker?type=dev)
 [![npm download][download-image]][download-url]
 
 [npm-image]: http://img.shields.io/npm/v/rc-time-picker.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rc-time-picker
 [travis-image]: https://img.shields.io/travis/react-component/time-picker.svg?style=flat-square
 [travis-url]: https://travis-ci.org/react-component/time-picker
-[coveralls-image]: https://img.shields.io/coveralls/react-component/time-picker.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/react-component/time-picker?branch=master
-[gemnasium-image]: http://img.shields.io/gemnasium/react-component/time-picker.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/react-component/time-picker
-[node-image]: https://img.shields.io/badge/node.js-%3E=_4.0.0-green.svg?style=flat-square
-[node-url]: http://nodejs.org/download/
+[codecov-image]: https://codecov.io/gh/react-component/time-picker/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/react-component/time-picker
 [download-image]: https://img.shields.io/npm/dm/rc-time-picker.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-time-picker
 
@@ -62,6 +58,7 @@ API
 | className               | String                            | '' | time picker className |
 | id                      | String                            | '' | time picker id |
 | popupClassName          | String                            | '' | time panel className |
+| popupStyle              | object                            | {} | customize popup style
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
@@ -72,8 +69,9 @@ API
 | use12Hours              | Boolean                           | false | 12 hours display mode |
 | hideDisabledOptions     | Boolean                           | false | whether hide disabled options |
 | onChange                | Function                          | null | called when select a different value |
+| onAmPmChange            | Function                          | null | called when select an am/pm value |
 | addon                   | Function                          | - | called from timepicker panel to render some addon to its bottom, like an OK button. Receives panel instance as parameter, to be able to close it like `panel.close()`.|
-| placement               | String                            | bottomLeft | one of ['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
+| placement               | String                            | bottomLeft | one of ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'] |
 | transitionName          | String                            | ''  |  |
 | name                    | String                            | - | sets the name of the generated input |
 | onOpen                  | Function({ open })                |   | when TimePicker panel is opened      |
