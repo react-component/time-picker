@@ -189,9 +189,9 @@ describe('TimePicker', () => {
 
       clickInput(picker);
       setTimeout(100);
-      findHeader(picker).value('8:34 am');
+      findHeader(picker).simulate('change', { target: { value: '8:34 am' } });
       setTimeout(100);
-      matchValue(picker, '8:24 am');
+      matchValue(picker, '8:34 am');
     });
 
     it('supports an array of formats', async () => {
@@ -201,10 +201,10 @@ describe('TimePicker', () => {
 
       clickInput(picker);
       setTimeout(100);
-      findHeader(picker).value('8:34');
+      findHeader(picker).simulate('change', { target: { value: '8:34' } });
       setTimeout(100);
       matchValue(picker, '8:34');
-      findHeader(picker).value('8:34 pm');
+      findHeader(picker).simulate('change', { target: { value: '8:34 pm' } });
       setTimeout(100);
       matchValue(picker, '8:34 pm');
     });
