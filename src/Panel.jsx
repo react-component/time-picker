@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Header from './Header';
-import Combobox from './Combobox';
 import moment from 'moment';
 import classNames from 'classnames';
+import Header from './Header';
+import Combobox from './Combobox';
 
-function noop() {
-}
+function noop() {}
 
 function generateOptions(length, disabledOptions, hideDisabledOptions, step = 1) {
   const arr = [];
@@ -16,6 +15,19 @@ function generateOptions(length, disabledOptions, hideDisabledOptions, step = 1)
     }
   }
   return arr;
+}
+
+function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
+  const hour = hourOptions
+    .slice()
+    .sort((a, b) => Math.abs(time.hour() - a) - Math.abs(time.hour() - b))[0];
+  const minute = minuteOptions
+    .slice()
+    .sort((a, b) => Math.abs(time.minute() - a) - Math.abs(time.minute() - b))[0];
+  const second = secondOptions
+    .slice()
+    .sort((a, b) => Math.abs(time.second() - a) - Math.abs(time.second() - b))[0];
+  return moment(`${hour}:${minute}:${second}`, 'HH:mm:ss');
 }
 
 class Panel extends Component {
@@ -33,6 +45,7 @@ class Panel extends Component {
     disabledSeconds: PropTypes.func,
     hideDisabledOptions: PropTypes.bool,
     onChange: PropTypes.func,
+    onAmPmChange: PropTypes.func,
     onEsc: PropTypes.func,
     allowEmpty: PropTypes.bool,
     showHour: PropTypes.bool,
@@ -67,7 +80,6 @@ class Panel extends Component {
     super(props);
     this.state = {
       value: props.value,
-      selectionRange: [],
     };
   }
 
@@ -80,19 +92,20 @@ class Panel extends Component {
     }
   }
 
-  onChange = (newValue) => {
+  onChange = newValue => {
+    const { onChange } = this.props;
     this.setState({ value: newValue });
-    this.props.onChange(newValue);
-  }
+    onChange(newValue);
+  };
 
-  onCurrentSelectPanelChange = (currentSelectPanel) => {
+  onAmPmChange = ampm => {
+    const { onAmPmChange } = this.props;
+    onAmPmChange(ampm);
+  };
+
+  onCurrentSelectPanelChange = currentSelectPanel => {
     this.setState({ currentSelectPanel });
-  }
-
-  // https://github.com/ant-design/ant-design/issues/5829
-  close() {
-    this.props.onEsc();
-  }
+  };
 
   disabledHours = () => {
     const { use12Hours, disabledHours } = this.props;
@@ -105,43 +118,87 @@ class Panel extends Component {
       }
     }
     return disabledOptions;
+  };
+
+  // https://github.com/ant-design/ant-design/issues/5829
+  close() {
+    const { onEsc } = this.props;
+    onEsc();
   }
 
   isAM() {
-    const value = (this.state.value || this.props.defaultOpenValue);
-    return value.hour() >= 0 && value.hour() < 12;
+    const { defaultOpenValue } = this.props;
+    const { value } = this.state;
+    const realValue = value || defaultOpenValue;
+    return realValue.hour() >= 0 && realValue.hour() < 12;
   }
 
   render() {
     const {
-      prefixCls, className, placeholder, disabledMinutes,
-      disabledSeconds, hideDisabledOptions, allowEmpty, showHour, showMinute, showSecond,
-      format, defaultOpenValue, clearText, onEsc, addon, use12Hours, onClear,
-      focusOnOpen, onKeyDown, hourStep, minuteStep, secondStep, inputReadOnly, clearIcon,
+      prefixCls,
+      className,
+      placeholder,
+      disabledMinutes,
+      disabledSeconds,
+      hideDisabledOptions,
+      allowEmpty,
+      showHour,
+      showMinute,
+      showSecond,
+      format,
+      defaultOpenValue,
+      clearText,
+      onEsc,
+      addon,
+      use12Hours,
+      onClear,
+      focusOnOpen,
+      onKeyDown,
+      hourStep,
+      minuteStep,
+      secondStep,
+      inputReadOnly,
+      clearIcon,
     } = this.props;
-    const {
-      value, currentSelectPanel,
-    } = this.state;
+    const { value, currentSelectPanel } = this.state;
     const disabledHourOptions = this.disabledHours();
     const disabledMinuteOptions = disabledMinutes(value ? value.hour() : null);
-    const disabledSecondOptions = disabledSeconds(value ? value.hour() : null,
-      value ? value.minute() : null);
-    const hourOptions = generateOptions(
-      24, disabledHourOptions, hideDisabledOptions, hourStep
+    const disabledSecondOptions = disabledSeconds(
+      value ? value.hour() : null,
+      value ? value.minute() : null,
     );
+    const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions, hourStep);
     const minuteOptions = generateOptions(
-      60, disabledMinuteOptions, hideDisabledOptions, minuteStep
+      60,
+      disabledMinuteOptions,
+      hideDisabledOptions,
+      minuteStep,
     );
     const secondOptions = generateOptions(
-      60, disabledSecondOptions, hideDisabledOptions, secondStep
+      60,
+      disabledSecondOptions,
+      hideDisabledOptions,
+      secondStep,
+    );
+
+    const validDefaultOpenValue = toNearestValidTime(
+      defaultOpenValue,
+      hourOptions,
+      minuteOptions,
+      secondOptions,
     );
 
     return (
-      <div className={classNames({ [`${prefixCls}-inner`]: true, [className]: !!className })}>
+      <div
+        className={classNames({
+          [`${prefixCls}-inner`]: true,
+          [className]: !!className,
+        })}
+      >
         <Header
           clearText={clearText}
           prefixCls={prefixCls}
-          defaultOpenValue={defaultOpenValue}
+          defaultOpenValue={validDefaultOpenValue}
           value={value}
           currentSelectPanel={currentSelectPanel}
           onEsc={onEsc}
@@ -164,9 +221,10 @@ class Panel extends Component {
         <Combobox
           prefixCls={prefixCls}
           value={value}
-          defaultOpenValue={defaultOpenValue}
+          defaultOpenValue={validDefaultOpenValue}
           format={format}
           onChange={this.onChange}
+          onAmPmChange={this.onAmPmChange}
           showHour={showHour}
           showMinute={showMinute}
           showSecond={showSecond}
