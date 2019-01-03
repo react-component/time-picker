@@ -189,11 +189,8 @@ describe('TimePicker', () => {
 
       clickInput(picker);
       setTimeout(100);
-      expect(picker.find('rc-time-picker-panel-inner')[0]).to.be.ok();
-      expect(picker.state.open).to.be(true);
       findHeader(picker).value('8:34 am');
       setTimeout(100);
-      expect(picker.find('rc-time-picker-input')).to.be.ok();
       matchValue(picker, '8:24 am');
     });
 

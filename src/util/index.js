@@ -4,7 +4,7 @@ export function getTimeFormat(format) {
   }
   return format;
 }
-//
+
 export function formatTime(value, format) {
   if (!value) {
     return '';

@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "enzyme": "^3.8.0",
+    "jest-cli": "^23.6.0",
     "lint-staged": "^8.1.0",
     "pre-commit": "1.x",
     "rc-tools": "^9.2.0",
