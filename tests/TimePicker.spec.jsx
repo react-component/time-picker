@@ -204,11 +204,9 @@ describe('TimePicker', () => {
       findHeader(picker).simulate('change', { target: { value: '8:34' } });
       setTimeout(100);
       matchValue(picker, '8:34');
-      clickInput(picker);
-      setTimeout(100);
       findHeader(picker).simulate('change', { target: { value: '8:34 pm' } });
       setTimeout(100);
-      matchValue(picker, '8:34 pm');
+      matchValue(picker, '8:34');
     });
   });
 });
