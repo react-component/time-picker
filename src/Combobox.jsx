@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from './Select';
-import { getTimeFormat } from './util';
 
 const formatOption = (option, disabledOptions) => {
   let value = `${option}`;
