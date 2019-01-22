@@ -127,7 +127,8 @@ export default class Picker extends Component {
     onAmPmChange(ampm);
   };
 
-  onPanelClear = () => {
+  onClear = event => {
+    event.stopPropagation();
     this.setValue(null);
     this.setOpen(false);
   };
@@ -210,7 +211,6 @@ export default class Picker extends Component {
         inputReadOnly={inputReadOnly}
         onChange={this.onPanelChange}
         onAmPmChange={this.onAmPmChange}
-        onClear={this.onPanelClear}
         defaultOpenValue={defaultOpenValue}
         showHour={showHour}
         showMinute={showMinute}
@@ -282,6 +282,35 @@ export default class Picker extends Component {
     this.picker.blur();
   }
 
+  renderClearButton() {
+    const { prefixCls, allowEmpty, clearIcon, clearText } = this.props;
+    if (!allowEmpty) {
+      return null;
+    }
+
+    if (React.isValidElement(clearIcon)) {
+      const { onClick } = clearIcon.props || {};
+      return React.cloneElement(clearIcon, {
+        onClick: (...args) => {
+          if (onClick) onClick(...args);
+          this.onClear(...args);
+        },
+      });
+    }
+
+    return (
+      <a
+        role="button"
+        className={`${prefixCls}-clear`}
+        title={clearText}
+        onClick={this.onClear}
+        tabIndex={0}
+      >
+        {clearIcon || <i className={`${prefixCls}-clear-icon`} />}
+      </a>
+    );
+  }
+
   render() {
     const {
       prefixCls,
@@ -340,6 +369,7 @@ export default class Picker extends Component {
             id={id}
           />
           {inputIcon || <span className={`${prefixCls}-icon`} />}
+          {this.renderClearButton()}
         </span>
       </Trigger>
     );

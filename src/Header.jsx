@@ -18,7 +18,6 @@ class Header extends Component {
     disabledMinutes: PropTypes.func,
     disabledSeconds: PropTypes.func,
     onChange: PropTypes.func,
-    onClear: PropTypes.func,
     onEsc: PropTypes.func,
     allowEmpty: PropTypes.bool,
     defaultOpenValue: PropTypes.object,
@@ -159,30 +158,6 @@ class Header extends Component {
     onKeyDown(e);
   };
 
-  onClear = () => {
-    const { onClear } = this.props;
-    this.setState({ str: '' });
-    onClear();
-  };
-
-  getClearButton() {
-    const { prefixCls, allowEmpty, clearIcon, clearText } = this.props;
-    if (!allowEmpty) {
-      return null;
-    }
-    return (
-      <a
-        role="button"
-        className={`${prefixCls}-clear-btn`}
-        title={clearText}
-        onMouseDown={this.onClear}
-        tabIndex={0}
-      >
-        {clearIcon || <i className={`${prefixCls}-clear-btn-icon`} />}
-      </a>
-    );
-  }
-
   getProtoValue() {
     const { value, defaultOpenValue } = this.props;
     return value || defaultOpenValue;
@@ -209,12 +184,7 @@ class Header extends Component {
 
   render() {
     const { prefixCls } = this.props;
-    return (
-      <div className={`${prefixCls}-input-wrap`}>
-        {this.getInput()}
-        {this.getClearButton()}
-      </div>
-    );
+    return <div className={`${prefixCls}-input-wrap`}>{this.getInput()}</div>;
   }
 }
 

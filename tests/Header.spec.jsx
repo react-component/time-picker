@@ -176,28 +176,6 @@ describe('Header', () => {
   });
 
   describe('other operations', () => {
-    it('clear correctly', async () => {
-      const onChange = jest.fn();
-      const picker = renderPicker({
-        clearIcon: 'test-clear',
-        onChange,
-      });
-      expect(picker.state().open).toBeFalsy();
-      clickInput(picker);
-      expect(picker.state().open).toBeTruthy();
-
-      const clearButton = picker.find('.rc-time-picker-panel-clear-btn');
-      expect(clearButton.text()).toBe('test-clear');
-      matchAll(picker, '01:02:03', '01:02:03');
-
-      clearButton.simulate('mouseDown');
-      expect(picker.state().open).toBeFalsy();
-      expect(onChange.mock.calls[0][0]).toBe(null);
-
-      clickInput(picker);
-      matchAll(picker, '');
-    });
-
     it('exit correctly', async () => {
       const picker = renderPicker();
       expect(picker.state().open).toBeFalsy();

@@ -429,4 +429,39 @@ describe('Select', () => {
       expect(picker.state().open).toBeTruthy();
     });
   });
+
+  describe('other operations', () => {
+    function testClearIcon(name, clearIcon, findClearFunc) {
+      it(name, async () => {
+        const onChange = jest.fn();
+        const picker = renderPicker({
+          clearIcon,
+          onChange,
+        });
+
+        const clearButton = findClearFunc(picker);
+        matchValue(picker, '01:02:04');
+
+        clearButton.simulate('click');
+        expect(picker.state().open).toBeFalsy();
+        expect(onChange.mock.calls[0][0]).toBe(null);
+
+        clickInput(picker);
+        matchValue(picker, '');
+      });
+    }
+
+    testClearIcon('clear correctly', 'test-clear', picker => {
+      const clearButton = picker.find('.rc-time-picker-clear');
+      expect(clearButton.text()).toBe('test-clear');
+      return clearButton;
+    });
+    testClearIcon(
+      'customize element clear icon correctly',
+      <span className="test-clear-element">Clear Me</span>,
+      picker => {
+        return picker.find('.test-clear-element');
+      },
+    );
+  });
 });

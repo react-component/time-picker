@@ -4,6 +4,18 @@ import 'rc-time-picker/assets/index.less';
 import React from 'react';
 import ReactDom from 'react-dom';
 import TimePicker from 'rc-time-picker';
+import moment from 'moment';
+
+const iconStyle = {
+  position: 'absolute',
+  width: '24px',
+  right: 0,
+  top: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
 const starPath =
   'M908.1 353.1l-253.9-36.9L540.7 86.1c-3' +
@@ -85,18 +97,9 @@ class App extends React.Component {
   };
 
   render() {
-    const inputIcon = this.getIcon(starPath, {
-      position: 'absolute',
-      width: '24px',
-      right: 0,
-      top: 0,
-      bottom: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    });
+    const inputIcon = this.getIcon(starPath, iconStyle);
     const { useIcon, open } = this.state;
-    const clearIcon = this.getIcon(redoPath);
+    const clearIcon = this.getIcon(redoPath, { ...iconStyle, right: 20 });
     return (
       <div>
         <button onClick={this.toggleOpen} type="button">
@@ -109,6 +112,7 @@ class App extends React.Component {
           style={{
             position: 'relative',
           }}
+          defaultValue={moment('01:02:04', 'HH:mm:ss')}
           open={open}
           onOpen={this.setOpen}
           onClose={this.setOpen}

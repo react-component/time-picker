@@ -51,7 +51,6 @@ class Panel extends Component {
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
-    onClear: PropTypes.func,
     use12Hours: PropTypes.bool,
     hourStep: PropTypes.number,
     minuteStep: PropTypes.number,
@@ -65,7 +64,6 @@ class Panel extends Component {
   static defaultProps = {
     prefixCls: 'rc-time-picker-panel',
     onChange: noop,
-    onClear: noop,
     disabledHours: noop,
     disabledMinutes: noop,
     disabledSeconds: noop,
@@ -151,7 +149,6 @@ class Panel extends Component {
       onEsc,
       addon,
       use12Hours,
-      onClear,
       focusOnOpen,
       onKeyDown,
       hourStep,
@@ -211,7 +208,6 @@ class Panel extends Component {
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
           onChange={this.onChange}
-          onClear={onClear}
           allowEmpty={allowEmpty}
           focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
