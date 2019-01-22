@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>open.js - example - rc-time-picker@3.5.0</title>
+  <title>open.js - example - rc-time-picker@3.6.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-time-picker@3.5.0</h1>
+      <h1>rc-time-picker@3.6.0</h1>
 
       <p>React TimePicker</p>
     </div>
@@ -275,6 +275,18 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> TimePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-time-picker'</span>;
+<span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
+
+<span class="hljs-keyword">const</span> iconStyle = {
+  position: <span class="hljs-string">'absolute'</span>,
+  width: <span class="hljs-string">'24px'</span>,
+  right: <span class="hljs-number">0</span>,
+  top: <span class="hljs-number">0</span>,
+  bottom: <span class="hljs-number">0</span>,
+  display: <span class="hljs-string">'flex'</span>,
+  alignItems: <span class="hljs-string">'center'</span>,
+  justifyContent: <span class="hljs-string">'center'</span>,
+};
 
 <span class="hljs-keyword">const</span> starPath =
   <span class="hljs-string">'M908.1 353.1l-253.9-36.9L540.7 86.1c-3'</span> +
@@ -356,18 +368,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   };
 
   render() {
-    <span class="hljs-keyword">const</span> inputIcon = <span class="hljs-keyword">this</span>.getIcon(starPath, {
-      position: <span class="hljs-string">'absolute'</span>,
-      width: <span class="hljs-string">'24px'</span>,
-      right: <span class="hljs-number">0</span>,
-      top: <span class="hljs-number">0</span>,
-      bottom: <span class="hljs-number">0</span>,
-      display: <span class="hljs-string">'flex'</span>,
-      alignItems: <span class="hljs-string">'center'</span>,
-      justifyContent: <span class="hljs-string">'center'</span>,
-    });
+    <span class="hljs-keyword">const</span> inputIcon = <span class="hljs-keyword">this</span>.getIcon(starPath, iconStyle);
     <span class="hljs-keyword">const</span> { useIcon, open } = <span class="hljs-keyword">this</span>.state;
-    <span class="hljs-keyword">const</span> clearIcon = <span class="hljs-keyword">this</span>.getIcon(redoPath);
+    <span class="hljs-keyword">const</span> clearIcon = <span class="hljs-keyword">this</span>.getIcon(redoPath, { ...iconStyle, right: <span class="hljs-number">20</span> });
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.toggleOpen}</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"button"</span>&gt;</span>
@@ -380,6 +383,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
             <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">relative</span>',
           }}
+          <span class="hljs-attribute">defaultValue</span>=<span class="hljs-value">{moment('01:02:04',</span> '<span class="hljs-attribute">HH:mm:ss</span>')}
           <span class="hljs-attribute">open</span>=<span class="hljs-value">{open}</span>
           <span class="hljs-attribute">onOpen</span>=<span class="hljs-value">{this.setOpen}</span>
           <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.setOpen}</span>
