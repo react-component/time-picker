@@ -37288,13 +37288,14 @@ function (_Component) {
     value: function renderClearButton() {
       var _this2 = this;
 
+      var value = this.state.value;
       var _this$props5 = this.props,
           prefixCls = _this$props5.prefixCls,
           allowEmpty = _this$props5.allowEmpty,
           clearIcon = _this$props5.clearIcon,
           clearText = _this$props5.clearText;
 
-      if (!allowEmpty) {
+      if (!allowEmpty || !value) {
         return null;
       }
 
