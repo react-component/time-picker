@@ -71,6 +71,7 @@ class Panel extends Component {
     use12Hours: false,
     addon: noop,
     onKeyDown: noop,
+    onAmPmChange: noop,
     inputReadOnly: false,
   };
 
