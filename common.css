@@ -128,7 +128,6 @@
 }
 .rc-time-picker-panel-select li {
   list-style: none;
-  box-sizing: content-box;
   margin: 0;
   padding: 0 0 0 16px;
   width: 100%;
