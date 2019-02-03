@@ -62,7 +62,7 @@ API
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
-| format                  | String                            | - | moment format |
+| format                  | String or String[]                | - | moment format |
 | disabledHours           | Function                          | - | disabled hour options |
 | disabledMinutes         | Function                          | - | disabled minute options |
 | disabledSeconds         | Function                          | - | disabled second options |

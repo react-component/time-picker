@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from './Select';
+import { getTimeFormat } from './util';
 
 const formatOption = (option, disabledOptions) => {
   let value = `${option}`;
@@ -21,7 +22,7 @@ const formatOption = (option, disabledOptions) => {
 
 class Combobox extends Component {
   static propTypes = {
-    format: PropTypes.string,
+    format: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     defaultOpenValue: PropTypes.object,
     prefixCls: PropTypes.string,
     value: PropTypes.object,
@@ -172,13 +173,14 @@ class Combobox extends Component {
   }
 
   getAMPMSelect() {
-    const { prefixCls, use12Hours, format, isAM } = this.props;
+    const { prefixCls, use12Hours, isAM, format } = this.props;
+    const timeFormat = getTimeFormat(format);
     if (!use12Hours) {
       return null;
     }
 
     const AMPMOptions = ['am', 'pm'] // If format has A char, then we should uppercase AM/PM
-      .map(c => (format.match(/\sA/) ? c.toUpperCase() : c))
+      .map(c => (timeFormat.match(/\sA/) ? c.toUpperCase() : c))
       .map(c => ({ value: c }));
 
     const selected = isAM ? 0 : 1;

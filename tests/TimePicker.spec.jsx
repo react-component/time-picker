@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import moment from 'moment';
 import TimePicker from '../src/TimePicker';
-import { clickInput, clickSelectItem, matchValue } from './util';
+import { clickInput, clickSelectItem, matchValue, findHeader } from './util';
 
 describe('TimePicker', () => {
   let container;
@@ -178,6 +178,35 @@ describe('TimePicker', () => {
 
       expect(focus).toBeTruthy();
       expect(blur).toBeTruthy();
+    });
+  });
+
+  describe('time formats', () => {
+    it('supports single format', async () => {
+      const picker = renderPickerWithoutSeconds({
+        format: 'h:mm a',
+      });
+
+      clickInput(picker);
+      setTimeout(100);
+      findHeader(picker).simulate('change', { target: { value: '8:34 am' } });
+      setTimeout(100);
+      matchValue(picker, '8:34 am');
+    });
+
+    it('supports an array of formats', async () => {
+      const picker = renderPickerWithoutSeconds({
+        format: ['h:mm', 'h:mm a'],
+      });
+
+      clickInput(picker);
+      setTimeout(100);
+      findHeader(picker).simulate('change', { target: { value: '8:34' } });
+      setTimeout(100);
+      matchValue(picker, '8:34');
+      findHeader(picker).simulate('change', { target: { value: '8:34 pm' } });
+      setTimeout(100);
+      matchValue(picker, '8:34');
     });
   });
 });

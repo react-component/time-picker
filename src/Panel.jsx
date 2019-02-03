@@ -38,7 +38,7 @@ class Panel extends Component {
     defaultOpenValue: PropTypes.object,
     value: PropTypes.object,
     placeholder: PropTypes.string,
-    format: PropTypes.string,
+    format: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     inputReadOnly: PropTypes.bool,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
