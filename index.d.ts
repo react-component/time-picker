@@ -12,6 +12,7 @@ interface ITimePickerProps {
   value: moment.Moment;
   placeholder: string;
   className: string;
+  inputClassName: string;
   id: string;
   popupClassName: string;
   showHour: boolean;

@@ -35,6 +35,7 @@ export default class Picker extends Component {
     showSecond: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
+    inputClassName: PropTypes.string,
     popupClassName: PropTypes.string,
     popupStyle: PropTypes.object,
     disabledHours: PropTypes.func,
@@ -69,6 +70,7 @@ export default class Picker extends Component {
     inputReadOnly: false,
     style: {},
     className: '',
+    inputClassName: '',
     popupClassName: '',
     popupStyle: {},
     id: '',
@@ -323,6 +325,7 @@ export default class Picker extends Component {
       transitionName,
       style,
       className,
+      inputClassName,
       getPopupContainer,
       name,
       autoComplete,
@@ -353,7 +356,7 @@ export default class Picker extends Component {
       >
         <span className={`${prefixCls} ${className}`} style={style}>
           <input
-            className={`${prefixCls}-input`}
+            className={`${prefixCls}-input ${inputClassName}`}
             ref={this.saveInputRef}
             type="text"
             placeholder={placeholder}
