@@ -284,8 +284,8 @@ export default class Picker extends Component {
 
   renderClearButton() {
     const { value } = this.state;
-    const { prefixCls, allowEmpty, clearIcon, clearText } = this.props;
-    if (!allowEmpty || !value) {
+    const { prefixCls, allowEmpty, clearIcon, clearText, disabled } = this.props;
+    if (!allowEmpty || !value || disabled) {
       return null;
     }
 
