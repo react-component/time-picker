@@ -186,7 +186,6 @@ export default class Picker extends Component {
       disabledSeconds,
       hideDisabledOptions,
       inputReadOnly,
-      allowEmpty,
       showHour,
       showMinute,
       showSecond,
@@ -216,7 +215,6 @@ export default class Picker extends Component {
         showMinute={showMinute}
         showSecond={showSecond}
         onEsc={this.onEsc}
-        allowEmpty={allowEmpty}
         format={this.getFormat()}
         placeholder={placeholder}
         disabledHours={disabledHours}

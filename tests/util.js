@@ -4,6 +4,10 @@ export function clickInput(picker) {
   picker.find('.rc-time-picker-input').simulate('click');
 }
 
+export function blurInput(picker) {
+  picker.find('.rc-time-picker-input').simulate('blur');
+}
+
 export function clickSelectItem(picker, select, index) {
   const selector = picker.find('.rc-time-picker-panel-select').at(select);
   selector

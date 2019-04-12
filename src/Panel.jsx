@@ -47,7 +47,6 @@ class Panel extends Component {
     onChange: PropTypes.func,
     onAmPmChange: PropTypes.func,
     onEsc: PropTypes.func,
-    allowEmpty: PropTypes.bool,
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
@@ -140,7 +139,6 @@ class Panel extends Component {
       disabledMinutes,
       disabledSeconds,
       hideDisabledOptions,
-      allowEmpty,
       showHour,
       showMinute,
       showSecond,
@@ -209,7 +207,6 @@ class Panel extends Component {
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
           onChange={this.onChange}
-          allowEmpty={allowEmpty}
           focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
           inputReadOnly={inputReadOnly}

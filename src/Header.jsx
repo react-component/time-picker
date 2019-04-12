@@ -19,7 +19,6 @@ class Header extends Component {
     disabledSeconds: PropTypes.func,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
-    allowEmpty: PropTypes.bool,
     defaultOpenValue: PropTypes.object,
     currentSelectPanel: PropTypes.string,
     focusOnOpen: PropTypes.bool,
@@ -74,7 +73,6 @@ class Header extends Component {
       disabledMinutes,
       disabledSeconds,
       onChange,
-      allowEmpty,
     } = this.props;
 
     if (str) {
@@ -135,13 +133,8 @@ class Header extends Component {
       } else if (originalValue !== value) {
         onChange(value);
       }
-    } else if (allowEmpty) {
-      onChange(null);
     } else {
-      this.setState({
-        invalid: true,
-      });
-      return;
+      onChange(null);
     }
 
     this.setState({
