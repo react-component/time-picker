@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
 class Header extends Component {
   static propTypes = {
@@ -162,7 +163,7 @@ class Header extends Component {
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
     return (
       <input
-        className={`${prefixCls}-input  ${invalidClass}`}
+        className={classNames(`${prefixCls}-input`, invalidClass)}
         ref={ref => {
           this.refInput = ref;
         }}

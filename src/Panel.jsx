@@ -185,12 +185,7 @@ class Panel extends Component {
     );
 
     return (
-      <div
-        className={classNames({
-          [`${prefixCls}-inner`]: true,
-          [className]: !!className,
-        })}
-      >
+      <div className={classNames(className, `${prefixCls}-inner`)}>
         <Header
           clearText={clearText}
           prefixCls={prefixCls}

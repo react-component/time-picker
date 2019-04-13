@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 const scrollTo = (element, to, duration) => {
   const requestAnimationFrame =
@@ -60,7 +60,7 @@ class Select extends Component {
   getOptions() {
     const { options, selectedIndex, prefixCls } = this.props;
     return options.map((item, index) => {
-      const cls = classnames({
+      const cls = classNames({
         [`${prefixCls}-select-option-selected`]: selectedIndex === index,
         [`${prefixCls}-select-option-disabled`]: item.disabled,
       });
@@ -114,7 +114,7 @@ class Select extends Component {
     if (options.length === 0) {
       return null;
     }
-    const cls = classnames(`${prefixCls}-select`, {
+    const cls = classNames(`${prefixCls}-select`, {
       [`${prefixCls}-select-active`]: active,
     });
     return (

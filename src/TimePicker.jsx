@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import moment from 'moment';
+import classNames from 'classnames';
 import Panel from './Panel';
 import placements from './placements';
 
@@ -235,11 +236,6 @@ export default class Picker extends Component {
 
   getPopupClassName() {
     const { showHour, showMinute, showSecond, use12Hours, prefixCls, popupClassName } = this.props;
-    let className = popupClassName;
-    // Keep it for old compatibility
-    if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
-      className += ` ${prefixCls}-panel-narrow`;
-    }
     let selectColumnCount = 0;
     if (showHour) {
       selectColumnCount += 1;
@@ -253,8 +249,14 @@ export default class Picker extends Component {
     if (use12Hours) {
       selectColumnCount += 1;
     }
-    className += ` ${prefixCls}-panel-column-${selectColumnCount}`;
-    return className;
+    // Keep it for old compatibility
+    return classNames(
+      popupClassName,
+      {
+        [`${prefixCls}-panel-narrow`]: (!showHour || !showMinute || !showSecond) && !use12Hours,
+      },
+      `${prefixCls}-panel-column-${selectColumnCount}`,
+    );
   }
 
   setOpen(open) {
@@ -349,7 +351,7 @@ export default class Picker extends Component {
         popupVisible={open}
         onPopupVisibleChange={this.onVisibleChange}
       >
-        <span className={`${prefixCls} ${className}`} style={style}>
+        <span className={classNames(prefixCls, className)} style={style}>
           <input
             className={`${prefixCls}-input`}
             ref={this.saveInputRef}
