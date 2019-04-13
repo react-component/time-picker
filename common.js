@@ -37781,6 +37781,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/_moment@2.24.0@moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/_classnames@2.2.6@classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -37798,6 +37800,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -37961,7 +37964,7 @@ function (_Component) {
           str = _this$state.str;
       var invalidClass = invalid ? "".concat(prefixCls, "-input-invalid") : '';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "".concat(prefixCls, "-input  ").concat(invalidClass),
+        className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("".concat(prefixCls, "-input"), invalidClass),
         ref: function ref(_ref) {
           _this3.refInput = _ref;
         },
@@ -38179,8 +38182,6 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _classNames;
-
       var _this$props2 = this.props,
           prefixCls = _this$props2.prefixCls,
           className = _this$props2.className,
@@ -38215,7 +38216,7 @@ function (_Component) {
       var secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions, secondStep);
       var validDefaultOpenValue = toNearestValidTime(defaultOpenValue, hourOptions, minuteOptions, secondOptions);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: classnames__WEBPACK_IMPORTED_MODULE_3___default()((_classNames = {}, _defineProperty(_classNames, "".concat(prefixCls, "-inner"), true), _defineProperty(_classNames, className, !!className), _classNames))
+        className: classnames__WEBPACK_IMPORTED_MODULE_3___default()(className, "".concat(prefixCls, "-inner"))
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_4__["default"], {
         clearText: clearText,
         prefixCls: prefixCls,
@@ -38447,9 +38448,9 @@ function (_Component) {
           selectedIndex = _this$props2.selectedIndex,
           prefixCls = _this$props2.prefixCls;
       return options.map(function (item, index) {
-        var _classnames;
+        var _classNames;
 
-        var cls = classnames__WEBPACK_IMPORTED_MODULE_3___default()((_classnames = {}, _defineProperty(_classnames, "".concat(prefixCls, "-select-option-selected"), selectedIndex === index), _defineProperty(_classnames, "".concat(prefixCls, "-select-option-disabled"), item.disabled), _classnames));
+        var cls = classnames__WEBPACK_IMPORTED_MODULE_3___default()((_classNames = {}, _defineProperty(_classNames, "".concat(prefixCls, "-select-option-selected"), selectedIndex === index), _defineProperty(_classNames, "".concat(prefixCls, "-select-option-disabled"), item.disabled), _classNames));
         var onClick = item.disabled ? undefined : function () {
           _this2.onSelect(item.value);
         };
@@ -38540,8 +38541,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rc_trigger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rc-trigger */ "./node_modules/_rc-trigger@2.6.2@rc-trigger/es/index.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/_moment@2.24.0@moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Panel */ "./src/Panel.jsx");
-/* harmony import */ var _placements__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./placements */ "./src/placements.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/_classnames@2.2.6@classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Panel */ "./src/Panel.jsx");
+/* harmony import */ var _placements__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./placements */ "./src/placements.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -38561,6 +38564,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* eslint jsx-a11y/no-autofocus: 0 */
+
 
 
 
@@ -38717,7 +38721,7 @@ function (_Component) {
           secondStep = _this$props2.secondStep,
           clearIcon = _this$props2.clearIcon;
       var value = this.state.value;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Panel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Panel__WEBPACK_IMPORTED_MODULE_5__["default"], {
         clearText: clearText,
         prefixCls: "".concat(prefixCls, "-panel"),
         ref: this.savePanelRef,
@@ -38756,12 +38760,6 @@ function (_Component) {
           use12Hours = _this$props3.use12Hours,
           prefixCls = _this$props3.prefixCls,
           popupClassName = _this$props3.popupClassName;
-      var className = popupClassName; // Keep it for old compatibility
-
-      if ((!showHour || !showMinute || !showSecond) && !use12Hours) {
-        className += " ".concat(prefixCls, "-panel-narrow");
-      }
-
       var selectColumnCount = 0;
 
       if (showHour) {
@@ -38778,10 +38776,10 @@ function (_Component) {
 
       if (use12Hours) {
         selectColumnCount += 1;
-      }
+      } // Keep it for old compatibility
 
-      className += " ".concat(prefixCls, "-panel-column-").concat(selectColumnCount);
-      return className;
+
+      return classnames__WEBPACK_IMPORTED_MODULE_4___default()(popupClassName, _defineProperty({}, "".concat(prefixCls, "-panel-narrow"), (!showHour || !showMinute || !showSecond) && !use12Hours), "".concat(prefixCls, "-panel-column-").concat(selectColumnCount));
     }
   }, {
     key: "setOpen",
@@ -38891,7 +38889,7 @@ function (_Component) {
         popupStyle: popupStyle,
         popup: this.getPanelElement(),
         popupAlign: align,
-        builtinPlacements: _placements__WEBPACK_IMPORTED_MODULE_5__["default"],
+        builtinPlacements: _placements__WEBPACK_IMPORTED_MODULE_6__["default"],
         popupPlacement: placement,
         action: disabled ? [] : ['click'],
         destroyPopupOnHide: true,
@@ -38900,7 +38898,7 @@ function (_Component) {
         popupVisible: open,
         onPopupVisibleChange: this.onVisibleChange
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "".concat(prefixCls, " ").concat(className),
+        className: classnames__WEBPACK_IMPORTED_MODULE_4___default()(prefixCls, className),
         style: style
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "".concat(prefixCls, "-input"),
