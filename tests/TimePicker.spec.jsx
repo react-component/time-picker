@@ -113,6 +113,13 @@ describe('TimePicker', () => {
       });
       expect(picker.find('.rc-time-picker').text()).toBe('test-select');
     });
+
+    it ('support custom input element', () => {
+      const picker = renderPicker({
+        customInput: <div className="custom-wrapper"><input type="text"/></div>,
+      });
+      expect(picker.find('.custom-wrapper')).toBeDefined();
+    });
   });
 
   describe('render panel to body (without seconds)', () => {

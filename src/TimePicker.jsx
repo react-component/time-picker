@@ -61,6 +61,7 @@ export default class Picker extends Component {
     id: PropTypes.string,
     inputIcon: PropTypes.node,
     clearIcon: PropTypes.node,
+    customInput: PropTypes.element,
   };
 
   static defaultProps = {
@@ -332,9 +333,11 @@ export default class Picker extends Component {
       inputReadOnly,
       inputIcon,
       popupStyle,
+      customInput,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
+    const Input = customInput || <input type="text" />;
     return (
       <Trigger
         prefixCls={`${prefixCls}-panel`}
@@ -352,23 +355,22 @@ export default class Picker extends Component {
         onPopupVisibleChange={this.onVisibleChange}
       >
         <span className={classNames(prefixCls, className)} style={style}>
-          <input
-            className={`${prefixCls}-input`}
-            ref={this.saveInputRef}
-            type="text"
-            placeholder={placeholder}
-            name={name}
-            onKeyDown={this.onKeyDown}
-            disabled={disabled}
-            value={(value && value.format(this.getFormat())) || ''}
-            autoComplete={autoComplete}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            autoFocus={autoFocus}
-            onChange={noop}
-            readOnly={!!inputReadOnly}
-            id={id}
-          />
+          {React.cloneElement(Input, {
+            className: [Input.className, `${prefixCls}-input`].join(' ').trim(),
+            ref: this.saveInputRef,
+            placeholder: placeholder,
+            name: name,
+            onKeyDown: this.onKeyDown,
+            disabled: disabled,
+            value: (value && value.format(this.getFormat())) || '',
+            autoComplete: autoComplete,
+            onFocus: onFocus,
+            onBlur: onBlur,
+            autoFocus: autoFocus,
+            onChange: noop,
+            readOnly: !!inputReadOnly,
+            id: id,
+          })}
           {inputIcon || <span className={`${prefixCls}-icon`} />}
           {this.renderClearButton()}
         </span>
