@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Header from './Header';
 import Combobox from './Combobox';
 
-function noop() {}
+function noop() { }
 
 function generateOptions(length, disabledOptions, hideDisabledOptions, step = 1) {
   const arr = [];
@@ -16,7 +16,7 @@ function generateOptions(length, disabledOptions, hideDisabledOptions, step = 1)
   return arr;
 }
 
-function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
+function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions, millisecondOptions) {
   const hour = hourOptions
     .slice()
     .sort((a, b) => Math.abs(time.hour() - a) - Math.abs(time.hour() - b))[0];
@@ -26,7 +26,10 @@ function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
   const second = secondOptions
     .slice()
     .sort((a, b) => Math.abs(time.second() - a) - Math.abs(time.second() - b))[0];
-  return moment(`${hour}:${minute}:${second}`, 'HH:mm:ss');
+  const millisecond = millisecondOptions
+    .slice()
+    .sort((a, b) => Math.abs(time.millisecond() - a) - Math.abs(time.millisecond() - b))[0];
+  return moment(`${hour}:${minute}:${second}:${millisecond}`, 'HH:mm:ss:SS');
 }
 
 class Panel extends Component {
@@ -36,6 +39,7 @@ class Panel extends Component {
     disabledHours: noop,
     disabledMinutes: noop,
     disabledSeconds: noop,
+    disabledMilliseconds: noop,
     defaultOpenValue: moment(),
     use12Hours: false,
     addon: noop,
@@ -104,10 +108,12 @@ class Panel extends Component {
       placeholder,
       disabledMinutes,
       disabledSeconds,
+      disabledMilliseconds,
       hideDisabledOptions,
       showHour,
       showMinute,
       showSecond,
+      showMillisecond,
       format,
       defaultOpenValue,
       clearText,
@@ -119,6 +125,7 @@ class Panel extends Component {
       hourStep,
       minuteStep,
       secondStep,
+      millisecondStep,
       inputReadOnly,
       clearIcon,
     } = this.props;
@@ -128,6 +135,11 @@ class Panel extends Component {
     const disabledSecondOptions = disabledSeconds(
       value ? value.hour() : null,
       value ? value.minute() : null,
+    );
+    const disabledMillisecondOptions = disabledMilliseconds(
+      value ? value.hour() : null,
+      value ? value.minute() : null,
+      value ? value.second() : null,
     );
     const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions, hourStep);
     const minuteOptions = generateOptions(
@@ -142,12 +154,19 @@ class Panel extends Component {
       hideDisabledOptions,
       secondStep,
     );
+    const millisecondOptions = generateOptions(
+      100,
+      disabledMillisecondOptions,
+      hideDisabledOptions,
+      millisecondStep,
+    );
 
     const validDefaultOpenValue = toNearestValidTime(
       defaultOpenValue,
       hourOptions,
       minuteOptions,
       secondOptions,
+      millisecondOptions,
     );
 
     return (
@@ -164,9 +183,11 @@ class Panel extends Component {
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
+          millisecondOptions={millisecondOptions}
           disabledHours={this.disabledHours}
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
+          disabledMilliseconds={disabledMilliseconds}
           onChange={this.onChange}
           focusOnOpen={focusOnOpen}
           onKeyDown={onKeyDown}
@@ -183,12 +204,15 @@ class Panel extends Component {
           showHour={showHour}
           showMinute={showMinute}
           showSecond={showSecond}
+          showMillisecond={showMillisecond}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
           secondOptions={secondOptions}
+          millisecondOptions={millisecondOptions}
           disabledHours={this.disabledHours}
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}
+          disabledMilliseconds={disabledMilliseconds}
           onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
           use12Hours={use12Hours}
           onEsc={onEsc}

@@ -8,6 +8,7 @@ const App = () => (
     <TimePicker defaultValue={moment()} showHour={false} />
     <TimePicker defaultValue={moment()} showMinute={false} />
     <TimePicker defaultValue={moment()} showSecond={false} />
+    <TimePicker defaultValue={moment()} showMillisecond />
 
     <TimePicker defaultValue={moment()} showMinute={false} showSecond={false} />
     <TimePicker defaultValue={moment()} showHour={false} showSecond={false} />

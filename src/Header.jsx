@@ -57,9 +57,11 @@ class Header extends Component {
       hourOptions,
       minuteOptions,
       secondOptions,
+      millisecondOptions,
       disabledHours,
       disabledMinutes,
       disabledSeconds,
+      disabledMilliseconds,
       onChange,
     } = this.props;
 
@@ -76,13 +78,15 @@ class Header extends Component {
       value
         .hour(parsed.hour())
         .minute(parsed.minute())
-        .second(parsed.second());
+        .second(parsed.second())
+        .millisecond(parsed.millisecond());
 
       // if time value not allowed, response warning.
       if (
         hourOptions.indexOf(value.hour()) < 0 ||
         minuteOptions.indexOf(value.minute()) < 0 ||
-        secondOptions.indexOf(value.second()) < 0
+        secondOptions.indexOf(value.second()) < 0 ||
+        millisecondOptions.indexOf(value.millisecond()) < 0
       ) {
         this.setState({
           invalid: true,
@@ -94,10 +98,16 @@ class Header extends Component {
       const disabledHourOptions = disabledHours();
       const disabledMinuteOptions = disabledMinutes(value.hour());
       const disabledSecondOptions = disabledSeconds(value.hour(), value.minute());
+      const disabledMillisecondOptions = disabledMilliseconds(
+        value.hour(),
+        value.minute(),
+        value.second(),
+      );
       if (
         (disabledHourOptions && disabledHourOptions.indexOf(value.hour()) >= 0) ||
         (disabledMinuteOptions && disabledMinuteOptions.indexOf(value.minute()) >= 0) ||
-        (disabledSecondOptions && disabledSecondOptions.indexOf(value.second()) >= 0)
+        (disabledSecondOptions && disabledSecondOptions.indexOf(value.second()) >= 0) ||
+        (disabledMillisecondOptions && disabledMillisecondOptions.indexOf(value.millisecond()) >= 0)
       ) {
         this.setState({
           invalid: true,
@@ -109,13 +119,15 @@ class Header extends Component {
         if (
           originalValue.hour() !== value.hour() ||
           originalValue.minute() !== value.minute() ||
-          originalValue.second() !== value.second()
+          originalValue.second() !== value.second() ||
+          originalValue.millisecond() !== value.millisecond()
         ) {
           // keep other fields for rc-calendar
           const changedValue = originalValue.clone();
           changedValue.hour(value.hour());
           changedValue.minute(value.minute());
           changedValue.second(value.second());
+          changedValue.millisecond(value.millisecond());
           onChange(changedValue);
         }
       } else if (originalValue !== value) {

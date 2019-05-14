@@ -45,6 +45,10 @@ function disabledSeconds(h, m) {
   return [h + (m % 60)];
 }
 
+function disabledMilliseconds() {
+  return [1, 5, 10];
+}
+
 const App = () => (
   <>
     <h3>Disabled picker</h3>
@@ -52,12 +56,14 @@ const App = () => (
     <h3>Disabled options</h3>
     <TimePicker
       showSecond={showSecond}
+      showMillisecond
       defaultValue={now}
       className="xxx"
       onChange={onChange}
       disabledHours={disabledHours}
       disabledMinutes={disabledMinutes}
       disabledSeconds={disabledSeconds}
+      disabledMilliseconds={disabledMilliseconds}
     />
   </>
 );
