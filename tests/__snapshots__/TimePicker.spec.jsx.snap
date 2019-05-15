@@ -8,7 +8,7 @@ exports[`TimePicker allowEmpty cannot allow clear when disabled 1`] = `
     class="rc-time-picker-input"
     disabled=""
     type="text"
-    value="12:57:58"
+    value="12:57:58:65"
   />
   <span
     class="rc-time-picker-icon"
@@ -23,7 +23,7 @@ exports[`TimePicker allowEmpty should allow clear 1`] = `
   <input
     class="rc-time-picker-input"
     type="text"
-    value="12:57:58"
+    value="12:57:58:65"
   />
   <span
     class="rc-time-picker-icon"

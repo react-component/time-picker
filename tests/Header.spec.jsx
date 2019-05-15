@@ -88,6 +88,9 @@ describe('Header', () => {
         disabledSeconds(h, m) {
           return [h + (m % 60)];
         },
+        disabledMilliseconds() {
+          return [15, 25, 35];
+        },
       });
       expect(picker.state().open).toBeFalsy();
       clickInput(picker);
