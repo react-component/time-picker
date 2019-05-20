@@ -3,22 +3,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import classNames from 'classnames';
+import raf from 'raf';
 
 const scrollTo = (element, to, duration) => {
-  const requestAnimationFrame =
-    window.requestAnimationFrame ||
-    function requestAnimationFrameTimeout() {
-      return setTimeout(arguments[0], 10); // eslint-disable-line
-    };
   // jump to target if duration zero
   if (duration <= 0) {
-    element.scrollTop = to;
+    raf(() => {
+      element.scrollTop = to;
+    });
     return;
   }
   const difference = to - element.scrollTop;
   const perTick = (difference / duration) * 10;
 
-  requestAnimationFrame(() => {
+  raf(() => {
     element.scrollTop += perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
