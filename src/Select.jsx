@@ -67,8 +67,18 @@ class Select extends Component {
         : () => {
             this.onSelect(item.value);
           };
+      const onKeyDown = e => e.keyCode === 13 && onClick();
+
       return (
-        <li role="button" onClick={onClick} className={cls} key={index} disabled={item.disabled}>
+        <li
+          role="button"
+          onClick={onClick}
+          className={cls}
+          key={index}
+          disabled={item.disabled}
+          tabIndex="0"
+          onKeyDown={onKeyDown}
+        >
           {item.value}
         </li>
       );
