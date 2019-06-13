@@ -225,6 +225,7 @@ class Panel extends Component {
           disabledSeconds={disabledSeconds}
           onCurrentSelectPanelChange={this.onCurrentSelectPanelChange}
           use12Hours={use12Hours}
+          onEsc={onEsc}
           isAM={this.isAM()}
         />
         {addon(this)}
