@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import moment from 'moment';
 import TimePicker from '../src/TimePicker';
-import { clickInput, clickSelectItem, matchValue, matchAll } from './util';
+import { clickInput, clickSelectItem, matchValue, matchAll, escapeSelected } from './util';
 
 describe('Select', () => {
   let container;
@@ -463,5 +463,18 @@ describe('Select', () => {
         return picker.find('.test-clear-element');
       },
     );
+  });
+
+  it('escape closes popup', async () => {
+    const picker = renderPicker();
+
+    expect(picker.state().open).toBeFalsy();
+    clickInput(picker);
+    expect(picker.state().open).toBeTruthy();
+
+    clickSelectItem(picker, 1, 1);
+    escapeSelected(picker);
+
+    expect(picker.state().open).toBeFalsy();
   });
 });
