@@ -37941,7 +37941,8 @@ function (_Component) {
           hourOptions = _this$props2.hourOptions,
           disabledHours = _this$props2.disabledHours,
           showHour = _this$props2.showHour,
-          use12Hours = _this$props2.use12Hours;
+          use12Hours = _this$props2.use12Hours,
+          onEsc = _this$props2.onEsc;
 
       if (!showHour) {
         return null;
@@ -37971,7 +37972,8 @@ function (_Component) {
         onSelect: this.onItemChange,
         onMouseEnter: function onMouseEnter() {
           return _this2.onEnterSelectPanel('hour');
-        }
+        },
+        onEsc: onEsc
       });
     }
   }, {
@@ -37985,7 +37987,8 @@ function (_Component) {
           disabledMinutes = _this$props3.disabledMinutes,
           defaultOpenValue = _this$props3.defaultOpenValue,
           showMinute = _this$props3.showMinute,
-          propValue = _this$props3.value;
+          propValue = _this$props3.value,
+          onEsc = _this$props3.onEsc;
 
       if (!showMinute) {
         return null;
@@ -38003,7 +38006,8 @@ function (_Component) {
         onSelect: this.onItemChange,
         onMouseEnter: function onMouseEnter() {
           return _this3.onEnterSelectPanel('minute');
-        }
+        },
+        onEsc: onEsc
       });
     }
   }, {
@@ -38017,7 +38021,8 @@ function (_Component) {
           disabledSeconds = _this$props4.disabledSeconds,
           showSecond = _this$props4.showSecond,
           defaultOpenValue = _this$props4.defaultOpenValue,
-          propValue = _this$props4.value;
+          propValue = _this$props4.value,
+          onEsc = _this$props4.onEsc;
 
       if (!showSecond) {
         return null;
@@ -38035,7 +38040,8 @@ function (_Component) {
         onSelect: this.onItemChange,
         onMouseEnter: function onMouseEnter() {
           return _this4.onEnterSelectPanel('second');
-        }
+        },
+        onEsc: onEsc
       });
     }
   }, {
@@ -38047,7 +38053,8 @@ function (_Component) {
           prefixCls = _this$props5.prefixCls,
           use12Hours = _this$props5.use12Hours,
           format = _this$props5.format,
-          isAM = _this$props5.isAM;
+          isAM = _this$props5.isAM,
+          onEsc = _this$props5.onEsc;
 
       if (!use12Hours) {
         return null;
@@ -38070,7 +38077,8 @@ function (_Component) {
         onSelect: this.onItemChange,
         onMouseEnter: function onMouseEnter() {
           return _this5.onEnterSelectPanel('ampm');
-        }
+        },
+        onEsc: onEsc
       });
     }
   }, {
@@ -38108,6 +38116,7 @@ _defineProperty(Combobox, "propTypes", {
   disabledSeconds: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   onCurrentSelectPanelChange: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   use12Hours: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
+  onEsc: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   isAM: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
 });
 
@@ -38604,6 +38613,7 @@ function (_Component) {
         disabledSeconds: disabledSeconds,
         onCurrentSelectPanelChange: this.onCurrentSelectPanelChange,
         use12Hours: use12Hours,
+        onEsc: onEsc,
         isAM: this.isAM()
       }), addon(this));
     }
@@ -38796,7 +38806,8 @@ function (_Component) {
       var _this$props2 = this.props,
           options = _this$props2.options,
           selectedIndex = _this$props2.selectedIndex,
-          prefixCls = _this$props2.prefixCls;
+          prefixCls = _this$props2.prefixCls,
+          onEsc = _this$props2.onEsc;
       return options.map(function (item, index) {
         var _classNames;
 
@@ -38806,7 +38817,7 @@ function (_Component) {
         };
 
         var onKeyDown = function onKeyDown(e) {
-          return e.keyCode === 13 && onClick();
+          if (e.keyCode === 13) onClick();else if (e.keyCode === 27) onEsc();
         };
 
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -38874,7 +38885,8 @@ _defineProperty(Select, "propTypes", {
   selectedIndex: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
   type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   onSelect: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
-  onMouseEnter: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func
+  onMouseEnter: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+  onEsc: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func
 });
 
 /* harmony default export */ __webpack_exports__["default"] = (Select);
