@@ -15,7 +15,8 @@
   "files": [
     "lib",
     "es",
-    "assets/*.css"
+    "assets/*.css",
+    "index.d.ts"
   ],
   "main": "lib/index",
   "module": "es/index",
