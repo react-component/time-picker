@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "enzyme": "^3.8.0",
-    "lint-staged": "^8.1.0",
+    "lint-staged": "^9.0.0",
     "pre-commit": "1.x",
     "rc-tools": "^9.2.0",
     "rc-util": "^4.0.2",
