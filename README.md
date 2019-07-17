@@ -36,6 +36,7 @@ Usage
 ```
 import TimePicker from 'rc-time-picker';
 import ReactDOM from 'react-dom';
+import 'rc-time-picker/assets/index.css';
 ReactDOM.render(<TimePicker />, container);
 ```
 
