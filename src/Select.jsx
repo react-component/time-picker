@@ -2,23 +2,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
+import raf from 'raf';
 
 const scrollTo = (element, to, duration) => {
-  const requestAnimationFrame =
-    window.requestAnimationFrame ||
-    function requestAnimationFrameTimeout() {
-      return setTimeout(arguments[0], 10); // eslint-disable-line
-    };
   // jump to target if duration zero
   if (duration <= 0) {
-    element.scrollTop = to;
+    raf(() => {
+      element.scrollTop = to;
+    });
     return;
   }
   const difference = to - element.scrollTop;
   const perTick = (difference / duration) * 10;
 
-  requestAnimationFrame(() => {
+  raf(() => {
     element.scrollTop += perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -33,6 +31,7 @@ class Select extends Component {
     type: PropTypes.string,
     onSelect: PropTypes.func,
     onMouseEnter: PropTypes.func,
+    onEsc: PropTypes.func,
   };
 
   state = {
@@ -58,9 +57,9 @@ class Select extends Component {
   };
 
   getOptions() {
-    const { options, selectedIndex, prefixCls } = this.props;
+    const { options, selectedIndex, prefixCls, onEsc } = this.props;
     return options.map((item, index) => {
-      const cls = classnames({
+      const cls = classNames({
         [`${prefixCls}-select-option-selected`]: selectedIndex === index,
         [`${prefixCls}-select-option-disabled`]: item.disabled,
       });
@@ -69,8 +68,21 @@ class Select extends Component {
         : () => {
             this.onSelect(item.value);
           };
+      const onKeyDown = e => {
+        if (e.keyCode === 13) onClick();
+        else if (e.keyCode === 27) onEsc();
+      };
+
       return (
-        <li role="button" onClick={onClick} className={cls} key={index} disabled={item.disabled}>
+        <li
+          role="button"
+          onClick={onClick}
+          className={cls}
+          key={index}
+          disabled={item.disabled}
+          tabIndex="0"
+          onKeyDown={onKeyDown}
+        >
           {item.value}
         </li>
       );
@@ -114,7 +126,7 @@ class Select extends Component {
     if (options.length === 0) {
       return null;
     }
-    const cls = classnames(`${prefixCls}-select`, {
+    const cls = classNames(`${prefixCls}-select`, {
       [`${prefixCls}-select-active`]: active,
     });
     return (

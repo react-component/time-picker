@@ -180,4 +180,21 @@ describe('TimePicker', () => {
       expect(blur).toBeTruthy();
     });
   });
+
+  describe('allowEmpty', () => {
+    it('should allow clear', async () => {
+      const picker = renderPicker({
+        allowEmpty: true,
+      });
+      expect(picker.render()).toMatchSnapshot();
+    });
+
+    it('cannot allow clear when disabled', async () => {
+      const picker = renderPicker({
+        allowEmpty: true,
+        disabled: true,
+      });
+      expect(picker.render()).toMatchSnapshot();
+    });
+  });
 });

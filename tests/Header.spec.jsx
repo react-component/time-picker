@@ -4,7 +4,7 @@ import KeyCode from 'rc-util/lib/KeyCode';
 import { mount } from 'enzyme';
 import moment from 'moment';
 import TimePicker from '../src/TimePicker';
-import { findHeader, clickInput, matchAll } from './util';
+import { findHeader, clickInput, blurInput, matchAll } from './util';
 
 describe('Header', () => {
   let container;
@@ -204,6 +204,18 @@ describe('Header', () => {
       // this touches the focusOnOpen code, but we cannot verify the input is in focus
       expect(picker.state().open).toBeTruthy();
       matchAll(picker, '01:02:03');
+    });
+
+    it('can be clear mannually even allowEmpty is false', async () => {
+      const picker = renderPicker({
+        allowEmpty: false,
+      });
+      clickInput(picker);
+      expect(picker.state().open).toBeTruthy();
+      matchAll(picker, '01:02:03');
+      changeTime(picker, '');
+      blurInput(picker);
+      matchAll(picker, '');
     });
   });
 });

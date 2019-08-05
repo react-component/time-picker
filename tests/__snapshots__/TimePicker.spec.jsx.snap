@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimePicker allowEmpty cannot allow clear when disabled 1`] = `
+<span
+  class="rc-time-picker"
+>
+  <input
+    class="rc-time-picker-input"
+    disabled=""
+    id=""
+    type="text"
+    value="12:57:58"
+  />
+  <span
+    class="rc-time-picker-icon"
+  />
+</span>
+`;
+
+exports[`TimePicker allowEmpty should allow clear 1`] = `
+<span
+  class="rc-time-picker"
+>
+  <input
+    class="rc-time-picker-input"
+    id=""
+    type="text"
+    value="12:57:58"
+  />
+  <span
+    class="rc-time-picker-icon"
+  />
+  <a
+    class="rc-time-picker-clear"
+    role="button"
+    tabindex="0"
+    title="clear"
+  >
+    <i
+      class="rc-time-picker-clear-icon"
+    />
+  </a>
+</span>
+`;

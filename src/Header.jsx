@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
 class Header extends Component {
   static propTypes = {
@@ -19,7 +20,6 @@ class Header extends Component {
     disabledSeconds: PropTypes.func,
     onChange: PropTypes.func,
     onEsc: PropTypes.func,
-    allowEmpty: PropTypes.bool,
     defaultOpenValue: PropTypes.object,
     currentSelectPanel: PropTypes.string,
     focusOnOpen: PropTypes.bool,
@@ -74,7 +74,6 @@ class Header extends Component {
       disabledMinutes,
       disabledSeconds,
       onChange,
-      allowEmpty,
     } = this.props;
 
     if (str) {
@@ -135,13 +134,8 @@ class Header extends Component {
       } else if (originalValue !== value) {
         onChange(value);
       }
-    } else if (allowEmpty) {
-      onChange(null);
     } else {
-      this.setState({
-        invalid: true,
-      });
-      return;
+      onChange(null);
     }
 
     this.setState({
@@ -169,7 +163,7 @@ class Header extends Component {
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
     return (
       <input
-        className={`${prefixCls}-input  ${invalidClass}`}
+        className={classNames(`${prefixCls}-input`, invalidClass)}
         ref={ref => {
           this.refInput = ref;
         }}
