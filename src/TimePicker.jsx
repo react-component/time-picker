@@ -356,7 +356,7 @@ export default class Picker extends Component {
       >
         <span className={classNames(prefixCls, className)} style={style}>
           <input
-            className={`${prefixCls}-input ${inputClassName}`}
+            className={classNames(`${prefixCls}-input`, inputClassName)}
             ref={this.saveInputRef}
             type="text"
             placeholder={placeholder}
