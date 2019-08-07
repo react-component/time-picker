@@ -116,7 +116,7 @@ class Select extends Component {
       index = 0;
     }
     const topOption = list.children[index];
-    const to = topOption.offsetTop;
+    const to = topOption.offsetTop + topOption.offsetHeight / 2 - select.offsetHeight / 2;
     scrollTo(select, to, duration);
   }
 
