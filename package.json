@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "3.7.1",
+  "version": "3.7.1-getaround.1",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -24,7 +24,7 @@
   "author": "wuzhao.mail@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:react-component/time-picker.git"
+    "url": "git@github.com:Getaround/time-picker.git"
   },
   "bugs": {
     "url": "http://github.com/react-component/time-picker/issues"
