@@ -39,6 +39,7 @@ class Panel extends Component {
     value: PropTypes.object,
     placeholder: PropTypes.string,
     format: PropTypes.string,
+    formatHours: PropTypes.string,
     inputReadOnly: PropTypes.bool,
     disabledHours: PropTypes.func,
     disabledMinutes: PropTypes.func,
@@ -143,6 +144,7 @@ class Panel extends Component {
       showMinute,
       showSecond,
       format,
+      formatHours,
       defaultOpenValue,
       clearText,
       onEsc,
@@ -212,6 +214,7 @@ class Panel extends Component {
           value={value}
           defaultOpenValue={validDefaultOpenValue}
           format={format}
+          formatHours={formatHours}
           onChange={this.onChange}
           onAmPmChange={this.onAmPmChange}
           showHour={showHour}

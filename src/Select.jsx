@@ -83,7 +83,7 @@ class Select extends Component {
           tabIndex="0"
           onKeyDown={onKeyDown}
         >
-          {item.value}
+          {item.label || item.value}
         </li>
       );
     });
