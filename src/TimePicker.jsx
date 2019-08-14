@@ -31,6 +31,7 @@ export default class Picker extends Component {
     getPopupContainer: PropTypes.func,
     placeholder: PropTypes.string,
     format: PropTypes.string,
+    formatHours: PropTypes.string,
     showHour: PropTypes.bool,
     showMinute: PropTypes.bool,
     showSecond: PropTypes.bool,
@@ -190,6 +191,7 @@ export default class Picker extends Component {
       showHour,
       showMinute,
       showSecond,
+      formatHours,
       defaultOpenValue,
       clearText,
       addon,
@@ -217,6 +219,7 @@ export default class Picker extends Component {
         showSecond={showSecond}
         onEsc={this.onEsc}
         format={this.getFormat()}
+        formatHours={formatHours}
         placeholder={placeholder}
         disabledHours={disabledHours}
         disabledMinutes={disabledMinutes}

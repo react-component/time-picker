@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Select from './Select';
 
-const formatOption = (option, disabledOptions) => {
+const formatOption = (option, disabledOptions, label) => {
   let value = `${option}`;
   if (option < 10) {
     value = `0${option}`;
@@ -15,6 +16,7 @@ const formatOption = (option, disabledOptions) => {
 
   return {
     value,
+    label,
     disabled,
   };
 };
@@ -22,6 +24,7 @@ const formatOption = (option, disabledOptions) => {
 class Combobox extends Component {
   static propTypes = {
     format: PropTypes.string,
+    formatHours: PropTypes.string,
     defaultOpenValue: PropTypes.object,
     prefixCls: PropTypes.string,
     value: PropTypes.object,
@@ -109,7 +112,7 @@ class Combobox extends Component {
     return (
       <Select
         prefixCls={prefixCls}
-        options={hourOptionsAdj.map(option => formatOption(option, disabledOptions))}
+        options={hourOptionsAdj.map(option => this.formatHour(option, disabledOptions))}
         selectedIndex={hourOptionsAdj.indexOf(hourAdj)}
         type="hour"
         onSelect={this.onItemChange}
@@ -200,6 +203,15 @@ class Combobox extends Component {
         onEsc={onEsc}
       />
     );
+  }
+
+  formatHour(option, disabledOptions) {
+    const { formatHours } = this.props;
+    let label;
+    if (formatHours) {
+      label = moment(option, 'H').format(formatHours);
+    }
+    return formatOption(option, disabledOptions, label);
   }
 
   render() {
