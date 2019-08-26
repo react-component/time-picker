@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
 import Header from './Header';
 import Combobox from './Combobox';
 
@@ -74,20 +75,16 @@ class Panel extends Component {
     inputReadOnly: false,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value,
-    };
-  }
+  state = {};
 
-  componentWillReceiveProps(nextProps) {
-    const value = nextProps.value;
-    if (value) {
-      this.setState({
-        value,
-      });
+  static getDerivedStateFromProps(props, state) {
+    if ('value' in props) {
+      return {
+        ...state,
+        value: props.value,
+      };
     }
+    return null;
   }
 
   onChange = newValue => {
@@ -233,5 +230,7 @@ class Panel extends Component {
     );
   }
 }
+
+polyfill(Panel);
 
 export default Panel;
