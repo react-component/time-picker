@@ -55,6 +55,7 @@ class Header extends Component {
   componentDidUpdate(prevProps) {
     const { value, format } = this.props;
     if (value !== prevProps.value) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         str: (value && value.format(format)) || '',
         invalid: false,
