@@ -138,7 +138,14 @@ class Combobox extends Component {
     return (
       <Select
         prefixCls={prefixCls}
-        options={minuteOptions.map(option => formatOption(option, disabledOptions))}
+        options={minuteOptions
+          .map(option => formatOption(option, disabledOptions))
+          .map(option => {
+            return {
+              ...option,
+              displayValue: `${option.value} - ${parseInt(option.value) + 15}`,
+            };
+          })}
         selectedIndex={minuteOptions.indexOf(minute)}
         type="minute"
         onSelect={this.onItemChange}
