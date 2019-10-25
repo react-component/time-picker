@@ -15,6 +15,7 @@ declare module "rc-time-picker" {
     className?: string;
     id?: string;
     popupClassName?: string;
+    popupStyle?: any;
     showHour?: boolean;
     showMinute?: boolean;
     showSecond?: boolean;
