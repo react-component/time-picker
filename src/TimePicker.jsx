@@ -1,4 +1,3 @@
-/* eslint jsx-a11y/no-autofocus: 0 */
 import React, { Component } from 'react';
 import Trigger from 'rc-trigger';
 import moment from 'moment';
@@ -320,7 +319,7 @@ class Picker extends Component {
             autoComplete={autoComplete}
             onFocus={onFocus}
             onBlur={onBlur}
-            autoFocus={autoFocus}
+            autoFocus={autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
             onChange={noop}
             readOnly={!!inputReadOnly}
             id={id}
