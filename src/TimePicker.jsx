@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import moment from 'moment';
-import { polyfill } from 'react-lifecycles-compat';
 import classNames from 'classnames';
 import Panel from './Panel';
 import placements from './placements';
@@ -118,10 +117,12 @@ class Picker extends Component {
     if (props.open !== undefined) {
       newState.open = props.open;
     }
-    return Object.keys(newState).length > 0 ? {
-      ...state,
-      ...newState,
-    } : null;
+    return Object.keys(newState).length > 0
+      ? {
+          ...state,
+          ...newState,
+        }
+      : null;
   }
 
   onPanelChange = value => {
@@ -382,7 +383,5 @@ class Picker extends Component {
     );
   }
 }
-
-polyfill(Picker);
 
 export default Picker;

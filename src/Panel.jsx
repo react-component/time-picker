@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
-import { polyfill } from 'react-lifecycles-compat';
 import Header from './Header';
 import Combobox from './Combobox';
 
@@ -230,7 +229,5 @@ class Panel extends Component {
     );
   }
 }
-
-polyfill(Panel);
 
 export default Panel;
