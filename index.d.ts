@@ -13,6 +13,7 @@ declare module "rc-time-picker" {
     value?: Moment;
     placeholder?: string;
     className?: string;
+    inputClassName?: string;
     id?: string;
     popupClassName?: string;
     popupStyle?: any;

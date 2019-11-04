@@ -57,6 +57,7 @@ API
 | value                   | moment                            | null | current value |
 | placeholder             | String                            | '' | time input's placeholder |
 | className               | String                            | '' | time picker className |
+| inputClassName          | String                            | '' | time picker input element className |
 | id                      | String                            | '' | time picker id |
 | popupClassName          | String                            | '' | time panel className |
 | popupStyle              | object                            | {} | customize popup style
