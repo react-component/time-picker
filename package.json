@@ -1,6 +1,6 @@
 {
   "name": "rc-time-picker",
-  "version": "4.0.0-beta.0",
+  "version": "3.7.2",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -30,10 +30,7 @@
   "bugs": {
     "url": "http://github.com/react-component/time-picker/issues"
   },
-  "licenses": "MIT",
-  "config": {
-    "port": 8011
-  },
+  "license": "MIT",
   "dependencies": {
     "classnames": "2.x",
     "moment": "2.x",
