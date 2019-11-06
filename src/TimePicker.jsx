@@ -1,9 +1,6 @@
-/* eslint jsx-a11y/no-autofocus: 0 */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import moment from 'moment';
-import { polyfill } from 'react-lifecycles-compat';
 import classNames from 'classnames';
 import Panel from './Panel';
 import placements from './placements';
@@ -15,56 +12,6 @@ function refFn(field, component) {
 }
 
 class Picker extends Component {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    clearText: PropTypes.string,
-    value: PropTypes.object,
-    defaultOpenValue: PropTypes.object,
-    inputReadOnly: PropTypes.bool,
-    disabled: PropTypes.bool,
-    allowEmpty: PropTypes.bool,
-    defaultValue: PropTypes.object,
-    open: PropTypes.bool,
-    defaultOpen: PropTypes.bool,
-    align: PropTypes.object,
-    placement: PropTypes.any,
-    transitionName: PropTypes.string,
-    getPopupContainer: PropTypes.func,
-    placeholder: PropTypes.string,
-    format: PropTypes.string,
-    showHour: PropTypes.bool,
-    showMinute: PropTypes.bool,
-    showSecond: PropTypes.bool,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    inputClassName: PropTypes.string,
-    popupClassName: PropTypes.string,
-    popupStyle: PropTypes.object,
-    disabledHours: PropTypes.func,
-    disabledMinutes: PropTypes.func,
-    disabledSeconds: PropTypes.func,
-    hideDisabledOptions: PropTypes.bool,
-    onChange: PropTypes.func,
-    onAmPmChange: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    addon: PropTypes.func,
-    name: PropTypes.string,
-    autoComplete: PropTypes.string,
-    use12Hours: PropTypes.bool,
-    hourStep: PropTypes.number,
-    minuteStep: PropTypes.number,
-    secondStep: PropTypes.number,
-    focusOnOpen: PropTypes.bool,
-    onKeyDown: PropTypes.func,
-    autoFocus: PropTypes.bool,
-    id: PropTypes.string,
-    inputIcon: PropTypes.node,
-    clearIcon: PropTypes.node,
-  };
-
   static defaultProps = {
     clearText: 'clear',
     prefixCls: 'rc-time-picker',
@@ -118,10 +65,12 @@ class Picker extends Component {
     if (props.open !== undefined) {
       newState.open = props.open;
     }
-    return Object.keys(newState).length > 0 ? {
-      ...state,
-      ...newState,
-    } : null;
+    return Object.keys(newState).length > 0
+      ? {
+          ...state,
+          ...newState,
+        }
+      : null;
   }
 
   onPanelChange = value => {
@@ -370,7 +319,7 @@ class Picker extends Component {
             autoComplete={autoComplete}
             onFocus={onFocus}
             onBlur={onBlur}
-            autoFocus={autoFocus}
+            autoFocus={autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
             onChange={noop}
             readOnly={!!inputReadOnly}
             id={id}
@@ -382,7 +331,5 @@ class Picker extends Component {
     );
   }
 }
-
-polyfill(Picker);
 
 export default Picker;

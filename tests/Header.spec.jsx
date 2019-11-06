@@ -12,8 +12,6 @@ describe('Header', () => {
   function renderPicker(props) {
     const showSecond = true;
     const format = 'HH:mm:ss';
-
-    // eslint-disable-next-line
     return mount(
       <TimePicker
         format={format}

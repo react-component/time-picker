@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Select from './Select';
 
 const formatOption = (option, disabledOptions) => {
@@ -20,28 +19,6 @@ const formatOption = (option, disabledOptions) => {
 };
 
 class Combobox extends Component {
-  static propTypes = {
-    format: PropTypes.string,
-    defaultOpenValue: PropTypes.object,
-    prefixCls: PropTypes.string,
-    value: PropTypes.object,
-    onChange: PropTypes.func,
-    onAmPmChange: PropTypes.func,
-    showHour: PropTypes.bool,
-    showMinute: PropTypes.bool,
-    showSecond: PropTypes.bool,
-    hourOptions: PropTypes.array,
-    minuteOptions: PropTypes.array,
-    secondOptions: PropTypes.array,
-    disabledHours: PropTypes.func,
-    disabledMinutes: PropTypes.func,
-    disabledSeconds: PropTypes.func,
-    onCurrentSelectPanelChange: PropTypes.func,
-    use12Hours: PropTypes.bool,
-    onEsc: PropTypes.func,
-    isAM: PropTypes.bool,
-  };
-
   onItemChange = (type, itemValue) => {
     const {
       onChange,

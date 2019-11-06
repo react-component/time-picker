@@ -12,7 +12,6 @@ describe('TimePicker', () => {
     const showSecond = true;
     const format = 'HH:mm:ss';
 
-    // eslint-disable-next-line
     return mount(
       <TimePicker
         format={format}
@@ -28,7 +27,6 @@ describe('TimePicker', () => {
     const showSecond = false;
     const format = 'HH:mm';
 
-    // eslint-disable-next-line
     return mount(
       <TimePicker
         format={format}
