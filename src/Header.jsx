@@ -19,9 +19,10 @@ class Header extends Component {
   componentDidMount() {
     const { focusOnOpen } = this.props;
     if (focusOnOpen) {
-      // Wait one frame for the panel to be positioned before focusing
-      const requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
-      requestAnimationFrame(() => {
+      // requestAnimationFrame will cause jump on rc-trigger 3.x
+      // https://github.com/ant-design/ant-design/pull/19698#issuecomment-552889571
+      // use setTimeout can resolve it
+      this.timeout = setTimeout(() => {
         this.refInput.focus();
         this.refInput.select();
       });
@@ -36,6 +37,12 @@ class Header extends Component {
         str: (value && value.format(format)) || '',
         invalid: false,
       });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
   }
 
