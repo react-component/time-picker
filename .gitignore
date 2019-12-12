@@ -23,11 +23,9 @@ node_modules
 dist
 assets/**/*.css
 build
-lib
 coverage
 .vscode
 yarn.lock
-es/
 package-lock.json
 src/*.map
 .prettierrc
