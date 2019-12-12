@@ -30,6 +30,18 @@ const placements = {
     offset: [0, 3],
     targetOffset,
   },
+  customNormal: {
+    points: ['bl', 'bl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 26],
+    targetOffset,
+  },
+  customShort: {
+    points: ['bl', 'bl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 40],
+    targetOffset,
+  }
 };
 
 export default placements;
