@@ -29,13 +29,13 @@ var placements = {
     targetOffset: targetOffset
   },
   customNormal: {
-    points: ['bl', 'bl'],
+    points: ['tl', 'tl'],
     overflow: autoAdjustOverflow,
     offset: [0, 26],
     targetOffset: targetOffset
   },
   customShort: {
-    points: ['bl', 'bl'],
+    points: ['tl', 'tl'],
     overflow: autoAdjustOverflow,
     offset: [0, 40],
     targetOffset: targetOffset
