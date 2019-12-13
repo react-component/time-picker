@@ -328,6 +328,7 @@ class Picker extends Component {
             onChange={onInputChange}
             readOnly={!!inputReadOnly}
             id={id}
+            required
           />
           {inputIcon || <span className={`${prefixCls}-icon`} />}
           {this.renderClearButton()}

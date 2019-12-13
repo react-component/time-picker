@@ -360,6 +360,7 @@ function (_Component) {
         ,
         onChange: onInputChange,
         readOnly: !!inputReadOnly,
+        required: true,
         id: id
       }), inputIcon || React.createElement("span", {
         className: "".concat(prefixCls, "-icon")
