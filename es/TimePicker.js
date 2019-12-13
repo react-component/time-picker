@@ -75,7 +75,10 @@ function (_Component) {
     };
 
     _this.onKeyDown = function (e) {
-      if (e.keyCode === 40) {
+      if (this.props.onInputKeyDown) {
+        this.props.onInputKeyDown(e);
+      }
+      else if (e.keyCode === 40) {
         _this.setOpen(true);
       }
     };
@@ -318,7 +321,8 @@ function (_Component) {
           autoFocus = _this$props6.autoFocus,
           inputReadOnly = _this$props6.inputReadOnly,
           inputIcon = _this$props6.inputIcon,
-          popupStyle = _this$props6.popupStyle;
+          popupStyle = _this$props6.popupStyle,
+          onInputChange = _this$props6.onInputChange;
       var _this$state = this.state,
           open = _this$state.open,
           value = _this$state.value;
@@ -343,7 +347,7 @@ function (_Component) {
       }, React.createElement("input", {
         className: classNames("".concat(prefixCls, "-input"), inputClassName),
         ref: this.saveInputRef,
-        type: "text",
+        type: "time",
         placeholder: placeholder,
         name: name,
         onKeyDown: this.onKeyDown,
@@ -354,7 +358,7 @@ function (_Component) {
         onBlur: onBlur,
         autoFocus: autoFocus // eslint-disable-line jsx-a11y/no-autofocus
         ,
-        onChange: noop,
+        onChange: onInputChange,
         readOnly: !!inputReadOnly,
         id: id
       }), inputIcon || React.createElement("span", {
@@ -412,6 +416,8 @@ Picker.defaultProps = {
   addon: noop,
   use12Hours: false,
   focusOnOpen: false,
-  onKeyDown: noop
+  onKeyDown: noop,
+  onInputChange: noop,
+  onInputKeyDown: noop
 };
 export default Picker;

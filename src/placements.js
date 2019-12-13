@@ -33,13 +33,13 @@ const placements = {
   customNormal: {
     points: ['tl', 'tl'],
     overflow: autoAdjustOverflow,
-    offset: [0, 26],
+    offset: [0, 39],
     targetOffset,
   },
   customShort: {
     points: ['tl', 'tl'],
     overflow: autoAdjustOverflow,
-    offset: [0, 40],
+    offset: [0, 25],
     targetOffset,
   },
 };

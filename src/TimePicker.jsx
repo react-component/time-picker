@@ -44,6 +44,8 @@ class Picker extends Component {
     use12Hours: false,
     focusOnOpen: false,
     onKeyDown: noop,
+    onInputChange: noop,
+    onInputKeyDown: noop,
   };
 
   constructor(props) {
@@ -98,7 +100,9 @@ class Picker extends Component {
   };
 
   onKeyDown = e => {
-    if (e.keyCode === 40) {
+    if (this.props.onInputKeyDown) {
+      this.props.onInputKeyDown(e);
+    } else if (e.keyCode === 40) {
       this.setOpen(true);
     }
   };
@@ -287,6 +291,7 @@ class Picker extends Component {
       inputReadOnly,
       inputIcon,
       popupStyle,
+      onInputChange,
     } = this.props;
     const { open, value } = this.state;
     const popupClassName = this.getPopupClassName();
@@ -310,7 +315,7 @@ class Picker extends Component {
           <input
             className={classNames(`${prefixCls}-input`, inputClassName)}
             ref={this.saveInputRef}
-            type="text"
+            type="time"
             placeholder={placeholder}
             name={name}
             onKeyDown={this.onKeyDown}
@@ -320,7 +325,7 @@ class Picker extends Component {
             onFocus={onFocus}
             onBlur={onBlur}
             autoFocus={autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
-            onChange={noop}
+            onChange={onInputChange}
             readOnly={!!inputReadOnly}
             id={id}
           />
