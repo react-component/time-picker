@@ -1,7 +1,5 @@
 /* eslint jsx-a11y/no-noninteractive-element-to-interactive-role: 0 */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactDom from 'react-dom';
 import classNames from 'classnames';
 import raf from 'raf';
 
@@ -9,6 +7,7 @@ const scrollTo = (element, to, duration) => {
   // jump to target if duration zero
   if (duration <= 0) {
     raf(() => {
+      // eslint-disable-next-line no-param-reassign
       element.scrollTop = to;
     });
     return;
@@ -17,6 +16,7 @@ const scrollTo = (element, to, duration) => {
   const perTick = (difference / duration) * 10;
 
   raf(() => {
+    // eslint-disable-next-line no-param-reassign
     element.scrollTop += perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
@@ -24,16 +24,6 @@ const scrollTo = (element, to, duration) => {
 };
 
 class Select extends Component {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    options: PropTypes.array,
-    selectedIndex: PropTypes.number,
-    type: PropTypes.string,
-    onSelect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onEsc: PropTypes.func,
-  };
-
   state = {
     active: false,
   };
@@ -72,13 +62,12 @@ class Select extends Component {
         if (e.keyCode === 13) onClick();
         else if (e.keyCode === 27) onEsc();
       };
-
       return (
         <li
           role="button"
           onClick={onClick}
           className={cls}
-          key={index}
+          key={index} // eslint-disable-line react/no-array-index-key
           disabled={item.disabled}
           tabIndex="0"
           onKeyDown={onKeyDown}
@@ -99,6 +88,10 @@ class Select extends Component {
     this.setState({ active: false });
   };
 
+  saveRoot = node => {
+    this.root = node;
+  };
+
   saveList = node => {
     this.list = node;
   };
@@ -106,18 +99,16 @@ class Select extends Component {
   scrollToSelected(duration) {
     // move to selected item
     const { selectedIndex } = this.props;
-    const select = ReactDom.findDOMNode(this);
-    const list = ReactDom.findDOMNode(this.list);
-    if (!list) {
+    if (!this.list) {
       return;
     }
     let index = selectedIndex;
     if (index < 0) {
       index = 0;
     }
-    const topOption = list.children[index];
+    const topOption = this.list.children[index];
     const to = topOption.offsetTop;
-    scrollTo(select, to, duration);
+    scrollTo(this.root, to, duration);
   }
 
   render() {
@@ -134,6 +125,7 @@ class Select extends Component {
         className={cls}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        ref={this.saveRoot}
       >
         <ul ref={this.saveList}>{this.getOptions()}</ul>
       </div>

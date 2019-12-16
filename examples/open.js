@@ -1,10 +1,8 @@
 /* eslint no-console:0 */
-
-import 'rc-time-picker/assets/index.less';
+import '../assets/index.less';
 import React from 'react';
-import ReactDom from 'react-dom';
-import TimePicker from 'rc-time-picker';
 import moment from 'moment';
+import TimePicker from '..';
 
 const iconStyle = {
   position: 'absolute',
@@ -51,32 +49,30 @@ class App extends React.Component {
     useIcon: false,
   };
 
-  getIcon = (path, style = {}) => {
-    return (
-      <i
-        style={{
-          fontSize: '12px',
-          fontStyle: 'normal',
-          color: '#aaa',
-          display: 'inline-block',
-          lineHeight: '1',
-          width: '20px',
-          transition: 'color 0.3s ease',
-          ...style,
-        }}
+  getIcon = (path, style = {}) => (
+    <i
+      style={{
+        fontSize: '12px',
+        fontStyle: 'normal',
+        color: '#aaa',
+        display: 'inline-block',
+        lineHeight: '1',
+        width: '20px',
+        transition: 'color 0.3s ease',
+        ...style,
+      }}
+    >
+      <svg
+        viewBox="0 0 1024 1024"
+        width="1em"
+        height="1em"
+        fill="currentColor"
+        style={{ verticalAlign: '-.125em' }}
       >
-        <svg
-          viewBox="0 0 1024 1024"
-          width="1em"
-          height="1em"
-          fill="currentColor"
-          style={{ verticalAlign: '-.125em' }}
-        >
-          <path d={path} p-id="5827" />
-        </svg>
-      </i>
-    );
-  };
+        <path d={path} p-id="5827" />
+      </svg>
+    </i>
+  );
 
   setOpen = ({ open }) => {
     this.setState({ open });
@@ -125,4 +121,4 @@ class App extends React.Component {
   }
 }
 
-ReactDom.render(<App />, document.getElementById('__react-content'));
+export default App;

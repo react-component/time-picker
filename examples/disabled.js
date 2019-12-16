@@ -1,22 +1,20 @@
 /* eslint no-console:0 */
 
-import 'rc-time-picker/assets/index.less';
-
+import '../assets/index.less';
 import React from 'react';
-import ReactDom from 'react-dom';
-
 import moment from 'moment';
-
-import TimePicker from 'rc-time-picker';
+import TimePicker from '..';
 
 const showSecond = true;
 const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
 
-const now = moment().hour(14).minute(30);
+const now = moment()
+  .hour(14)
+  .minute(30);
 
 function generateOptions(length, excludedOptions) {
   const arr = [];
-  for (let value = 0; value < length; value++) {
+  for (let value = 0; value < length; value += 1) {
     if (excludedOptions.indexOf(value) < 0) {
       arr.push(value);
     }
@@ -44,17 +42,13 @@ function disabledMinutes(h) {
 }
 
 function disabledSeconds(h, m) {
-  return [h + m % 60];
+  return [h + (m % 60)];
 }
 
-ReactDom.render(
-  <div>
+const App = () => (
+  <>
     <h3>Disabled picker</h3>
-    <TimePicker
-      defaultValue={now}
-      disabled
-      onChange={onChange}
-    />
+    <TimePicker defaultValue={now} disabled onChange={onChange} />
     <h3>Disabled options</h3>
     <TimePicker
       showSecond={showSecond}
@@ -65,5 +59,7 @@ ReactDom.render(
       disabledMinutes={disabledMinutes}
       disabledSeconds={disabledSeconds}
     />
-  </div>
-, document.getElementById('__react-content'));
+  </>
+);
+
+export default App;

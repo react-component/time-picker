@@ -12,7 +12,6 @@ describe('Select', () => {
     const showSecond = true;
     const format = 'HH:mm:ss';
 
-    // eslint-disable-next-line
     return mount(
       <TimePicker
         format={format}
@@ -459,9 +458,7 @@ describe('Select', () => {
     testClearIcon(
       'customize element clear icon correctly',
       <span className="test-clear-element">Clear Me</span>,
-      picker => {
-        return picker.find('.test-clear-element');
-      },
+      picker => picker.find('.test-clear-element'),
     );
   });
 

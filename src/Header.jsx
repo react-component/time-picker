@@ -1,32 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
 class Header extends Component {
-  static propTypes = {
-    format: PropTypes.string,
-    prefixCls: PropTypes.string,
-    disabledDate: PropTypes.func,
-    placeholder: PropTypes.string,
-    clearText: PropTypes.string,
-    value: PropTypes.object,
-    inputReadOnly: PropTypes.bool,
-    hourOptions: PropTypes.array,
-    minuteOptions: PropTypes.array,
-    secondOptions: PropTypes.array,
-    disabledHours: PropTypes.func,
-    disabledMinutes: PropTypes.func,
-    disabledSeconds: PropTypes.func,
-    onChange: PropTypes.func,
-    onEsc: PropTypes.func,
-    defaultOpenValue: PropTypes.object,
-    currentSelectPanel: PropTypes.string,
-    focusOnOpen: PropTypes.bool,
-    onKeyDown: PropTypes.func,
-    clearIcon: PropTypes.node,
-  };
-
   static defaultProps = {
     inputReadOnly: false,
   };
@@ -43,12 +19,14 @@ class Header extends Component {
   componentDidMount() {
     const { focusOnOpen } = this.props;
     if (focusOnOpen) {
-      // Wait one frame for the panel to be positioned before focusing
-      const requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
-      requestAnimationFrame(() => {
+      // requestAnimationFrame will cause jump on rc-trigger 3.x
+      // https://github.com/ant-design/ant-design/pull/19698#issuecomment-552889571
+      // use setTimeout can resolve it
+      // 60ms is a magic timeout to avoid focusing before dropdown reposition correctly
+      this.timeout = setTimeout(() => {
         this.refInput.focus();
         this.refInput.select();
-      });
+      }, 60);
     }
   }
 
@@ -60,6 +38,12 @@ class Header extends Component {
         str: (value && value.format(format)) || '',
         invalid: false,
       });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
   }
 

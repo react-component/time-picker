@@ -13,8 +13,10 @@ declare module "rc-time-picker" {
     value?: Moment;
     placeholder?: string;
     className?: string;
+    inputClassName?: string;
     id?: string;
     popupClassName?: string;
+    popupStyle?: any;
     showHour?: boolean;
     showMinute?: boolean;
     showSecond?: boolean;
@@ -25,6 +27,7 @@ declare module "rc-time-picker" {
     use12Hours?: boolean;
     hideDisabledOptions?: boolean;
     onChange?: (newValue: Moment) => void;
+    onAmPmChange?: (ampm: 'PM' | 'AM') => void;
     addon?: (instance: typeof Panel) => React.ReactNode;
     placement?: string;
     transitionName?: string;
