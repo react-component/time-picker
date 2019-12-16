@@ -22,7 +22,6 @@ class Picker extends Component {
     inputClassName: '',
     popupClassName: '',
     popupStyle: {},
-    id: '',
     align: {},
     defaultOpenValue: moment(),
     allowEmpty: true,
