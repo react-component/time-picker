@@ -32,8 +32,12 @@ declare module "rc-time-picker" {
     placement?: string;
     transitionName?: string;
     name?: string;
-    onOpen?: (newState: {open: true}) => void;
-    onClose?: (newState: {open: false}) => void;
+    autoComplete?: string;
+    onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+    autoFocus?: boolean;
+    onOpen?: (newState: { open: true }) => void;
+    onClose?: (newState: { open: false }) => void;
     hourStep?: number;
     minuteStep?: number;
     secondStep?: number;
