@@ -26,7 +26,7 @@ declare module "rc-time-picker" {
     disabledSeconds?: (hour: number, minute: number) => number[];
     use12Hours?: boolean;
     hideDisabledOptions?: boolean;
-    onChange?: (newValue: Moment) => void;
+    onChange?: (newValue: Moment | null) => void;
     onAmPmChange?: (ampm: 'PM' | 'AM') => void;
     addon?: (instance: typeof Panel) => React.ReactNode;
     placement?: string;
