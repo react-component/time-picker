@@ -61,6 +61,7 @@ class Header extends Component {
       disabledMinutes,
       disabledSeconds,
       onChange,
+      onUserInputChange,
     } = this.props;
 
     if (str) {
@@ -70,7 +71,8 @@ class Header extends Component {
       if (!parsed.isValid()) {
         this.setState({
           invalid: true,
-        });
+        });   
+        onUserInputChange(str)
         return;
       }
       value
