@@ -37,6 +37,7 @@ class Picker extends Component {
     onAmPmChange: noop,
     onOpen: noop,
     onClose: noop,
+    onUserInputChange:noop,
     onFocus: noop,
     onBlur: noop,
     addon: noop,
@@ -153,6 +154,7 @@ class Picker extends Component {
       minuteStep,
       secondStep,
       clearIcon,
+      onUserInputChange,
     } = this.props;
     const { value } = this.state;
     return (
@@ -183,6 +185,7 @@ class Picker extends Component {
         focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
         clearIcon={clearIcon}
+        onUserInputChange={onUserInputChange}
       />
     );
   }

@@ -42,6 +42,7 @@ class Panel extends Component {
     onKeyDown: noop,
     onAmPmChange: noop,
     inputReadOnly: false,
+    onUserInputChange:noop,
   };
 
   state = {};
@@ -121,6 +122,7 @@ class Panel extends Component {
       secondStep,
       inputReadOnly,
       clearIcon,
+      onUserInputChange,
     } = this.props;
     const { value, currentSelectPanel } = this.state;
     const disabledHourOptions = this.disabledHours();
@@ -172,6 +174,7 @@ class Panel extends Component {
           onKeyDown={onKeyDown}
           inputReadOnly={inputReadOnly}
           clearIcon={clearIcon}
+          onUserInputChange={onUserInputChange}
         />
         <Combobox
           prefixCls={prefixCls}
