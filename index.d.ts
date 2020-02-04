@@ -35,6 +35,7 @@ declare module "rc-time-picker" {
     autoComplete?: string;
     onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
     onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+    onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
     autoFocus?: boolean;
     onOpen?: (newState: { open: true }) => void;
     onClose?: (newState: { open: false }) => void;
