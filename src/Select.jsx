@@ -41,9 +41,9 @@ class Select extends Component {
     }
   }
 
-  onSelect = value => {
+  onSelect = (value, e) => {
     const { onSelect, type } = this.props;
-    onSelect(type, value);
+    onSelect(type, value, e);
   };
 
   getOptions() {
@@ -55,11 +55,11 @@ class Select extends Component {
       });
       const onClick = item.disabled
         ? undefined
-        : () => {
-            this.onSelect(item.value);
+        : (e) => {
+            this.onSelect(item.value, e);
           };
       const onKeyDown = e => {
-        if (e.keyCode === 13) onClick();
+        if (e.keyCode === 13) onClick(e);
         else if (e.keyCode === 27) onEsc();
       };
       return (

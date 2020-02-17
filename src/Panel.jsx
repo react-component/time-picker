@@ -56,10 +56,10 @@ class Panel extends Component {
     return null;
   }
 
-  onChange = newValue => {
+  onChange = (newValue, e) => {
     const { onChange } = this.props;
     this.setState({ value: newValue });
-    onChange(newValue);
+    onChange(newValue, e);
   };
 
   onAmPmChange = ampm => {

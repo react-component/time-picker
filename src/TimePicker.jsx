@@ -72,13 +72,13 @@ class Picker extends Component {
       : null;
   }
 
-  onPanelChange = value => {
-    this.setValue(value);
+  onPanelChange = (value, e) => {
+    this.setValue(value, e);
   };
 
-  onAmPmChange = ampm => {
+  onAmPmChange = (ampm, e) => {
     const { onAmPmChange } = this.props;
-    onAmPmChange(ampm);
+    onAmPmChange(ampm, e);
   };
 
   onClear = event => {
@@ -102,14 +102,14 @@ class Picker extends Component {
     }
   };
 
-  setValue(value) {
+  setValue(value, e) {
     const { onChange } = this.props;
     if (!('value' in this.props)) {
       this.setState({
         value,
       });
     }
-    onChange(value);
+    onChange(value, e);
   }
 
   getFormat() {
