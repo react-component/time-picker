@@ -46,7 +46,7 @@ declare module "rc-time-picker" {
     inputReadOnly?: boolean;
     inputIcon?: React.ReactNode;
     clearIcon?: React.ReactNode;
-    getPopupContainer: React.ReactNode;
+    getPopupContainer?: React.ReactNode;
   };
   export default class TimePicker extends React.Component<TimePickerProps> {
     focus(): void;
