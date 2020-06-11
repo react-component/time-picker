@@ -11,6 +11,14 @@ function refFn(field, component) {
   this[field] = component;
 }
 
+function toArray(val) {
+  if (val === null || val === undefined) {
+    return [];
+  }
+
+  return Array.isArray(val) ? val : [val];
+}
+
 class Picker extends Component {
   static defaultProps = {
     clearText: 'clear',
@@ -115,7 +123,7 @@ class Picker extends Component {
   getFormat() {
     const { format, showHour, showMinute, showSecond, use12Hours } = this.props;
     if (format) {
-      return format;
+      return toArray(format);
     }
 
     if (use12Hours) {
@@ -123,12 +131,14 @@ class Picker extends Component {
         .filter(item => !!item)
         .join(':');
 
-      return fmtString.concat(' a');
+      return toArray(fmtString.concat(' a'));
     }
 
-    return [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
-      .filter(item => !!item)
-      .join(':');
+    return toArray(
+      [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+        .filter(item => !!item)
+        .join(':'),
+    );
   }
 
   getPanelElement() {
@@ -314,7 +324,7 @@ class Picker extends Component {
             name={name}
             onKeyDown={this.onKeyDown}
             disabled={disabled}
-            value={(value && value.format(this.getFormat())) || ''}
+            value={(value && value.format(this.getFormat()[0])) || ''}
             autoComplete={autoComplete}
             onFocus={onFocus}
             onBlur={onBlur}

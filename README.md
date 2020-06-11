@@ -68,7 +68,7 @@ API
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
-| format                  | String                            | - | moment format |
+| format                  | String \| String[]                | - | moment format. When an array is provided, all values are used for parsing and first value for display |
 | disabledHours           | Function                          | - | disabled hour options |
 | disabledMinutes         | Function                          | - | disabled minute options |
 | disabledSeconds         | Function                          | - | disabled second options |

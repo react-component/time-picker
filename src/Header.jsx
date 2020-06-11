@@ -11,7 +11,7 @@ class Header extends Component {
     super(props);
     const { value, format } = props;
     this.state = {
-      str: (value && value.format(format)) || '',
+      str: (value && value.format(format[0])) || '',
       invalid: false,
     };
   }
@@ -35,7 +35,7 @@ class Header extends Component {
     if (value !== prevProps.value) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        str: (value && value.format(format)) || '',
+        str: (value && value.format(format[0])) || '',
         invalid: false,
       });
     }
@@ -53,7 +53,6 @@ class Header extends Component {
       str,
     });
     const {
-      format,
       hourOptions,
       minuteOptions,
       secondOptions,
@@ -66,13 +65,16 @@ class Header extends Component {
     if (str) {
       const { value: originalValue } = this.props;
       const value = this.getProtoValue().clone();
-      const parsed = moment(str, format, true);
-      if (!parsed.isValid()) {
+
+      const parsed = this.parseValue(str);
+
+      if (parsed === null) {
         this.setState({
           invalid: true,
         });
         return;
       }
+
       value
         .hour(parsed.hour())
         .minute(parsed.minute())
@@ -162,6 +164,24 @@ class Header extends Component {
       />
     );
   }
+
+  parseValue = str => {
+    const { format } = this.props;
+
+    let parsedDate = null;
+    format.find(singleFormat => {
+      const date = moment(str, singleFormat, true);
+
+      if (date.isValid()) {
+        parsedDate = date;
+        return true;
+      }
+
+      return false;
+    });
+
+    return parsedDate;
+  };
 
   render() {
     const { prefixCls } = this.props;

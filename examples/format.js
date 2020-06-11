@@ -12,6 +12,14 @@ const App = () => (
     <TimePicker defaultValue={moment()} showMinute={false} showSecond={false} />
     <TimePicker defaultValue={moment()} showHour={false} showSecond={false} />
     <TimePicker defaultValue={moment()} showHour={false} showMinute={false} />
+
+    <TimePicker defaultValue={moment()} format={['HH:mm:ss', 'HH.mm.ss', 'HH.mm.ss']} />
+    <TimePicker
+      defaultValue={moment()}
+      format={['HH:mm a', 'HH.mm a', 'HH.mm a']}
+      showSecond={false}
+      use12Hours
+    />
   </>
 );
 

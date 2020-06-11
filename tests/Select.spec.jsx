@@ -199,6 +199,32 @@ describe('Select', () => {
       expect(picker.state().open).toBeTruthy();
     });
 
+    it('ampm correctly format value', async () => {
+      const onAmPmChange = jest.fn();
+      const picker = renderPicker({
+        onAmPmChange,
+        defaultValue: moment()
+          .hour(0)
+          .minute(0)
+          .second(0),
+        format: 'hh:mm a',
+        showSecond: false,
+        use12Hours: true,
+      });
+      expect(picker.state().open).toBeFalsy();
+      clickInput(picker);
+
+      expect(picker.state().open).toBeTruthy();
+
+      matchValue(picker, '12:00 am');
+      clickSelectItem(picker, 2, 1);
+
+      expect(onAmPmChange).toBeCalled();
+      expect(onAmPmChange.mock.calls[0][0]).toBe('PM');
+      matchValue(picker, '12:00 pm');
+      expect(picker.state().open).toBeTruthy();
+    });
+
     it('disabled correctly', async () => {
       const onChange = jest.fn();
       const picker = renderPicker({
@@ -266,6 +292,52 @@ describe('Select', () => {
       expect(onChange.mock.calls[0][0].hour()).toBe(8);
       matchAll(picker, '08:02:04');
       expect(picker.state().open).toBeTruthy();
+    });
+  });
+
+  describe('multi format parsing mode', () => {
+    it('renders correctly', async () => {
+      const picker = renderPicker({
+        use12Hours: true,
+        defaultValue: moment()
+          .hour(14)
+          .minute(0)
+          .second(0),
+        format: ['h:mm a', 'h-mm a'],
+        showSecond: false,
+      });
+
+      expect(picker.state().open).toBeFalsy();
+      clickInput(picker);
+      expect(picker.state().open).toBeTruthy();
+
+      matchValue(picker, '2:00 pm');
+
+      expect(picker.find('.rc-time-picker-panel-select').length).toBe(3);
+    });
+
+    it('renders 12am/pm correctly', async () => {
+      const picker = renderPicker({
+        use12Hours: true,
+        defaultValue: moment()
+          .hour(0)
+          .minute(0)
+          .second(0),
+        showSecond: false,
+        format: ['hh:mm a', 'hh-mm a'],
+      });
+
+      expect(picker.state().open).toBeFalsy();
+      clickInput(picker);
+      expect(picker.state().open).toBeTruthy();
+
+      matchValue(picker, '12:00 am');
+
+      clickSelectItem(picker, 2, 1);
+      matchValue(picker, '12:00 pm');
+
+      clickSelectItem(picker, 2, 0);
+      matchValue(picker, '12:00 am');
     });
   });
 
