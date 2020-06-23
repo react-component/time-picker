@@ -6,12 +6,27 @@ import Combobox from './Combobox';
 
 function noop() {}
 
-function generateOptions(length, disabledOptions, hideDisabledOptions, step = 1) {
-  const arr = [];
+function generateOptions(
+  length,
+  disabledOptions,
+  hideDisabledOptions,
+  step = 1,
+  start = 0,
+) {
+  let arr = [];
   for (let value = 0; value < length; value += step) {
-    if (!disabledOptions || disabledOptions.indexOf(value) < 0 || !hideDisabledOptions) {
+    if (
+      !disabledOptions ||
+      disabledOptions.indexOf(value) < 0 ||
+      !hideDisabledOptions
+    ) {
       arr.push(value);
     }
+  }
+  if (start) {
+    const firstHalf = arr.slice(start, arr.length);
+    const secondHalf = arr.slice(0, start);
+    arr = firstHalf.concat(secondHalf);
   }
   return arr;
 }
@@ -22,10 +37,14 @@ function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
     .sort((a, b) => Math.abs(time.hour() - a) - Math.abs(time.hour() - b))[0];
   const minute = minuteOptions
     .slice()
-    .sort((a, b) => Math.abs(time.minute() - a) - Math.abs(time.minute() - b))[0];
+    .sort(
+      (a, b) => Math.abs(time.minute() - a) - Math.abs(time.minute() - b),
+    )[0];
   const second = secondOptions
     .slice()
-    .sort((a, b) => Math.abs(time.second() - a) - Math.abs(time.second() - b))[0];
+    .sort(
+      (a, b) => Math.abs(time.second() - a) - Math.abs(time.second() - b),
+    )[0];
   return moment(`${hour}:${minute}:${second}`, 'HH:mm:ss');
 }
 
@@ -76,7 +95,9 @@ class Panel extends Component {
     let disabledOptions = disabledHours();
     if (use12Hours && Array.isArray(disabledOptions)) {
       if (this.isAM()) {
-        disabledOptions = disabledOptions.filter(h => h < 12).map(h => (h === 0 ? 12 : h));
+        disabledOptions = disabledOptions
+          .filter(h => h < 12)
+          .map(h => (h === 0 ? 12 : h));
       } else {
         disabledOptions = disabledOptions.map(h => (h === 12 ? 12 : h - 12));
       }
@@ -121,6 +142,7 @@ class Panel extends Component {
       secondStep,
       inputReadOnly,
       clearIcon,
+      startHour,
     } = this.props;
     const { value, currentSelectPanel } = this.state;
     const disabledHourOptions = this.disabledHours();
@@ -129,7 +151,13 @@ class Panel extends Component {
       value ? value.hour() : null,
       value ? value.minute() : null,
     );
-    const hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions, hourStep);
+    const hourOptions = generateOptions(
+      24,
+      disabledHourOptions,
+      hideDisabledOptions,
+      hourStep,
+      startHour,
+    );
     const minuteOptions = generateOptions(
       60,
       disabledMinuteOptions,

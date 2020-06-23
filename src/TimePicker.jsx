@@ -43,13 +43,19 @@ class Picker extends Component {
     use12Hours: false,
     focusOnOpen: false,
     onKeyDown: noop,
+    startHour: null,
   };
 
   constructor(props) {
     super(props);
     this.saveInputRef = refFn.bind(this, 'picker');
     this.savePanelRef = refFn.bind(this, 'panelInstance');
-    const { defaultOpen, defaultValue, open = defaultOpen, value = defaultValue } = props;
+    const {
+      defaultOpen,
+      defaultValue,
+      open = defaultOpen,
+      value = defaultValue,
+    } = props;
     this.state = {
       open,
       value,
@@ -119,14 +125,22 @@ class Picker extends Component {
     }
 
     if (use12Hours) {
-      const fmtString = [showHour ? 'h' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+      const fmtString = [
+        showHour ? 'h' : '',
+        showMinute ? 'mm' : '',
+        showSecond ? 'ss' : '',
+      ]
         .filter(item => !!item)
         .join(':');
 
       return fmtString.concat(' a');
     }
 
-    return [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+    return [
+      showHour ? 'HH' : '',
+      showMinute ? 'mm' : '',
+      showSecond ? 'ss' : '',
+    ]
       .filter(item => !!item)
       .join(':');
   }
@@ -153,6 +167,7 @@ class Picker extends Component {
       minuteStep,
       secondStep,
       clearIcon,
+      startHour,
     } = this.props;
     const { value } = this.state;
     return (
@@ -183,12 +198,20 @@ class Picker extends Component {
         focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
         clearIcon={clearIcon}
+        startHour={startHour}
       />
     );
   }
 
   getPopupClassName() {
-    const { showHour, showMinute, showSecond, use12Hours, prefixCls, popupClassName } = this.props;
+    const {
+      showHour,
+      showMinute,
+      showSecond,
+      use12Hours,
+      prefixCls,
+      popupClassName,
+    } = this.props;
     let selectColumnCount = 0;
     if (showHour) {
       selectColumnCount += 1;
@@ -206,7 +229,8 @@ class Picker extends Component {
     return classNames(
       popupClassName,
       {
-        [`${prefixCls}-panel-narrow`]: (!showHour || !showMinute || !showSecond) && !use12Hours,
+        [`${prefixCls}-panel-narrow`]:
+          (!showHour || !showMinute || !showSecond) && !use12Hours,
       },
       `${prefixCls}-panel-column-${selectColumnCount}`,
     );
@@ -237,7 +261,13 @@ class Picker extends Component {
 
   renderClearButton() {
     const { value } = this.state;
-    const { prefixCls, allowEmpty, clearIcon, clearText, disabled } = this.props;
+    const {
+      prefixCls,
+      allowEmpty,
+      clearIcon,
+      clearText,
+      disabled,
+    } = this.props;
     if (!allowEmpty || !value || disabled) {
       return null;
     }
