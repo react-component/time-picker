@@ -9,14 +9,14 @@ describe('Select', () => {
   let container;
 
   function renderPicker(props) {
-    const showSecond = true;
-    const format = 'HH:mm:ss';
+    const showMillisecond = true;
+    const format = 'HH:mm:ss:SS';
 
     return mount(
       <TimePicker
         format={format}
-        showSecond={showSecond}
-        defaultValue={moment('01:02:04', format)}
+        showMillisecond={showMillisecond}
+        defaultValue={moment('01:02:04:05', format)}
         {...props}
       />,
     );
@@ -80,6 +80,7 @@ describe('Select', () => {
         hourStep: 5,
         minuteStep: 15,
         secondStep: 21,
+        millisecondStep: 30,
       });
       clickInput(picker);
 
@@ -88,6 +89,7 @@ describe('Select', () => {
       const hourSelector = selectors.at(0);
       const minuteSelector = selectors.at(1);
       const secondSelector = selectors.at(2);
+      const millisecondSelector = selectors.at(3);
 
       const hours = hourSelector.find('li').map(node => node.text());
       expect(hours).toEqual(['00', '05', '10', '15', '20']);
@@ -97,6 +99,9 @@ describe('Select', () => {
 
       const seconds = secondSelector.find('li').map(node => node.text());
       expect(seconds).toEqual(['00', '21', '42']);
+
+      const milliseconds = millisecondSelector.find('li').map(node => node.text());
+      expect(milliseconds).toEqual(['00', '30', '60', '90']);
     });
   });
 
@@ -108,7 +113,7 @@ describe('Select', () => {
       clickInput(picker);
       expect(picker.state().open).toBeTruthy();
 
-      expect(picker.find('.rc-time-picker-panel-select').length).toBe(3);
+      expect(picker.find('.rc-time-picker-panel-select').length).toBe(4);
     });
   });
 
@@ -123,13 +128,13 @@ describe('Select', () => {
       clickInput(picker);
 
       expect(picker.state().open).toBeTruthy();
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
 
       clickSelectItem(picker, 0, 19);
 
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].hour()).toBe(19);
-      matchAll(picker, '19:02:04');
+      matchAll(picker, '19:02:04:05');
       expect(picker.state().open).toBeTruthy();
     });
 
@@ -143,13 +148,13 @@ describe('Select', () => {
       clickInput(picker);
 
       expect(picker.state().open).toBeTruthy();
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
 
       clickSelectItem(picker, 1, 19);
 
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].minute()).toBe(19);
-      matchAll(picker, '01:19:04');
+      matchAll(picker, '01:19:04:05');
       expect(picker.state().open).toBeTruthy();
     });
 
@@ -163,13 +168,33 @@ describe('Select', () => {
       clickInput(picker);
 
       expect(picker.state().open).toBeTruthy();
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
 
       clickSelectItem(picker, 2, 19);
 
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].second()).toBe(19);
-      matchAll(picker, '01:02:19');
+      matchAll(picker, '01:02:19:05');
+      expect(picker.state().open).toBeTruthy();
+    });
+
+    it('millisecond correctly', async () => {
+      const onChange = jest.fn();
+      const picker = renderPicker({
+        onChange,
+      });
+      expect(picker.state().open).toBeFalsy();
+
+      clickInput(picker);
+
+      expect(picker.state().open).toBeTruthy();
+      matchAll(picker, '01:02:04:05');
+
+      clickSelectItem(picker, 3, 19);
+
+      expect(onChange).toBeCalled();
+      expect(onChange.mock.calls[0][0].millisecond()).toBe(190);
+      matchAll(picker, '01:02:04:19');
       expect(picker.state().open).toBeTruthy();
     });
 
@@ -183,6 +208,7 @@ describe('Select', () => {
           .second(0),
         format: undefined,
         showSecond: false,
+        showMillisecond: false,
         use12Hours: true,
       });
       expect(picker.state().open).toBeFalsy();
@@ -215,25 +241,25 @@ describe('Select', () => {
 
       expect(picker.state().open).toBeTruthy();
 
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
 
       clickSelectItem(picker, 1, 1);
 
       expect(onChange).not.toBeCalled();
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
       expect(picker.state().open).toBeTruthy();
 
       clickSelectItem(picker, 2, 3);
 
       expect(onChange).not.toBeCalled();
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
       expect(picker.state().open).toBeTruthy();
 
       clickSelectItem(picker, 1, 7);
 
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].minute()).toBe(7);
-      matchAll(picker, '01:07:04');
+      matchAll(picker, '01:07:04:05');
       expect(picker.state().open).toBeTruthy();
     });
 
@@ -250,13 +276,13 @@ describe('Select', () => {
       clickInput(picker);
       expect(picker.state().open).toBeTruthy();
 
-      matchAll(picker, '01:02:04');
+      matchAll(picker, '01:02:04:05');
 
       clickSelectItem(picker, 0, 3);
 
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].hour()).toBe(6);
-      matchAll(picker, '06:02:04');
+      matchAll(picker, '06:02:04:05');
       expect(picker.state().open).toBeTruthy();
       onChange.mockReset();
 
@@ -264,7 +290,7 @@ describe('Select', () => {
 
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].hour()).toBe(8);
-      matchAll(picker, '08:02:04');
+      matchAll(picker, '08:02:04:05');
       expect(picker.state().open).toBeTruthy();
     });
   });
@@ -278,6 +304,7 @@ describe('Select', () => {
           .minute(0)
           .second(0),
         showSecond: false,
+        showMillisecond: false,
         format: undefined,
       });
 
@@ -298,6 +325,7 @@ describe('Select', () => {
           .minute(0)
           .second(0),
         showSecond: false,
+        showMillisecond: false,
         format: undefined,
       });
       expect(picker.state().open).toBeFalsy();
@@ -315,6 +343,7 @@ describe('Select', () => {
           .minute(0)
           .second(0),
         showSecond: false,
+        showMillisecond: false,
         format: undefined,
       });
       expect(picker.state().open).toBeFalsy();
@@ -335,6 +364,7 @@ describe('Select', () => {
           .minute(0)
           .second(0),
         showSecond: false,
+        showMillisecond: false,
         format: undefined,
       });
 
@@ -359,6 +389,7 @@ describe('Select', () => {
           .minute(0)
           .second(0),
         showSecond: false,
+        showMillisecond: false,
         format: 'h:mm A',
       });
 
@@ -389,6 +420,7 @@ describe('Select', () => {
           .minute(0)
           .second(0),
         showSecond: false,
+        showMillisecond: false,
       });
 
       expect(picker.state().open).toBeFalsy();
@@ -439,7 +471,7 @@ describe('Select', () => {
         });
 
         const clearButton = findClearFunc(picker);
-        matchValue(picker, '01:02:04');
+        matchValue(picker, '01:02:04:05');
 
         clearButton.simulate('click');
         expect(picker.state().open).toBeFalsy();

@@ -68,10 +68,12 @@ API
 | showHour                | Boolean                           | true | whether show hour | |
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
+| showMillisecond         | Boolean                           | false | whether show millisecond |
 | format                  | String                            | - | moment format |
 | disabledHours           | Function                          | - | disabled hour options |
 | disabledMinutes         | Function                          | - | disabled minute options |
 | disabledSeconds         | Function                          | - | disabled second options |
+| disabledMilliseconds    | Function                          | - | disabled millisecond options |
 | use12Hours              | Boolean                           | false | 12 hours display mode |
 | hideDisabledOptions     | Boolean                           | false | whether hide disabled options |
 | onChange                | Function                          | null | called when time-picker a different value |
@@ -85,10 +87,11 @@ API
 | hourStep                | Number                            | 1 | interval between hours in picker  |
 | minuteStep              | Number                            | 1 | interval between minutes in picker  |
 | secondStep              | Number                            | 1 | interval between seconds in picker  |
+| millisecondStep         | Number                            | 1 | interval between milliseconds in picker |
 | focusOnOpen             | Boolean                           | false | automatically focus the input when the picker opens |
-| inputReadOnly             | Boolean                           | false | set input to read only |
-| inputIcon             | ReactNode                           |  | specific the time-picker icon. |
-| clearIcon             | ReactNode                           |  | specific the clear icon. |
+| inputReadOnly           | Boolean                           | false | set input to read only |
+| inputIcon               | ReactNode                         |  | specific the select icon. |
+| clearIcon               | ReactNode                         |  | specific the clear icon. |
 
 ## Test Case
 

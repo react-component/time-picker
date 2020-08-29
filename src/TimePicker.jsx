@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Panel from './Panel';
 import placements from './placements';
 
-function noop() {}
+function noop() { }
 
 function refFn(field, component) {
   this[field] = component;
@@ -28,9 +28,11 @@ class Picker extends Component {
     showHour: true,
     showMinute: true,
     showSecond: true,
+    showMillisecond: false,
     disabledHours: noop,
     disabledMinutes: noop,
     disabledSeconds: noop,
+    disabledMilliseconds: noop,
     hideDisabledOptions: false,
     placement: 'bottomLeft',
     onChange: noop,
@@ -66,9 +68,9 @@ class Picker extends Component {
     }
     return Object.keys(newState).length > 0
       ? {
-          ...state,
-          ...newState,
-        }
+        ...state,
+        ...newState,
+      }
       : null;
   }
 
@@ -113,20 +115,30 @@ class Picker extends Component {
   }
 
   getFormat() {
-    const { format, showHour, showMinute, showSecond, use12Hours } = this.props;
+    const { format, showHour, showMinute, showSecond, showMillisecond, use12Hours } = this.props;
     if (format) {
       return format;
     }
 
     if (use12Hours) {
-      const fmtString = [showHour ? 'h' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+      const fmtString = [
+        showHour ? 'h' : '',
+        showMinute ? 'mm' : '',
+        showSecond ? 'ss' : '',
+        showMillisecond ? 'SS' : '',
+      ]
         .filter(item => !!item)
         .join(':');
 
       return fmtString.concat(' a');
     }
 
-    return [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : '']
+    return [
+      showHour ? 'HH' : '',
+      showMinute ? 'mm' : '',
+      showSecond ? 'ss' : '',
+      showMillisecond ? 'SS' : '',
+    ]
       .filter(item => !!item)
       .join(':');
   }
@@ -138,11 +150,13 @@ class Picker extends Component {
       disabledHours,
       disabledMinutes,
       disabledSeconds,
+      disabledMilliseconds,
       hideDisabledOptions,
       inputReadOnly,
       showHour,
       showMinute,
       showSecond,
+      showMillisecond,
       defaultOpenValue,
       clearText,
       addon,
@@ -152,6 +166,7 @@ class Picker extends Component {
       hourStep,
       minuteStep,
       secondStep,
+      millisecondStep,
       clearIcon,
     } = this.props;
     const { value } = this.state;
@@ -168,17 +183,20 @@ class Picker extends Component {
         showHour={showHour}
         showMinute={showMinute}
         showSecond={showSecond}
+        showMillisecond={showMillisecond}
         onEsc={this.onEsc}
         format={this.getFormat()}
         placeholder={placeholder}
         disabledHours={disabledHours}
         disabledMinutes={disabledMinutes}
         disabledSeconds={disabledSeconds}
+        disabledMilliseconds={disabledMilliseconds}
         hideDisabledOptions={hideDisabledOptions}
         use12Hours={use12Hours}
         hourStep={hourStep}
         minuteStep={minuteStep}
         secondStep={secondStep}
+        millisecondStep={millisecondStep}
         addon={addon}
         focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
@@ -188,7 +206,15 @@ class Picker extends Component {
   }
 
   getPopupClassName() {
-    const { showHour, showMinute, showSecond, use12Hours, prefixCls, popupClassName } = this.props;
+    const {
+      showHour,
+      showMinute,
+      showSecond,
+      showMillisecond,
+      use12Hours,
+      prefixCls,
+      popupClassName,
+    } = this.props;
     let selectColumnCount = 0;
     if (showHour) {
       selectColumnCount += 1;
@@ -199,14 +225,23 @@ class Picker extends Component {
     if (showSecond) {
       selectColumnCount += 1;
     }
+    if (showMillisecond) {
+      selectColumnCount += 1;
+    }
     if (use12Hours) {
       selectColumnCount += 1;
     }
     // Keep it for old compatibility
+    let showCount = 0;
+    if (showHour) showCount += 1;
+    if (showMinute) showCount += 1;
+    if (showSecond) showCount += 1;
+    if (showMillisecond) showCount += 1;
     return classNames(
       popupClassName,
       {
-        [`${prefixCls}-panel-narrow`]: (!showHour || !showMinute || !showSecond) && !use12Hours,
+        [`${prefixCls}-panel-narrow`]: showCount <= 2 && !use12Hours,
+        [`${prefixCls}-panel-wide`]: showCount === 4 && !use12Hours,
       },
       `${prefixCls}-panel-column-${selectColumnCount}`,
     );

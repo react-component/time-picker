@@ -56,8 +56,11 @@ class Combobox extends Component {
         }
       }
       onAmPmChange(ampm);
-    } else {
+    } else if (type === 'second') {
       value.second(+itemValue);
+    } else {
+      itemValue += '0';
+      value.millisecond(+itemValue);
     }
     onChange(value);
   };
@@ -154,6 +157,33 @@ class Combobox extends Component {
     );
   }
 
+  getMillisecondSelect(millisecond) {
+    const {
+      prefixCls,
+      millisecondOptions,
+      disabledMilliseconds,
+      showMillisecond,
+      defaultOpenValue,
+      value: propValue,
+    } = this.props;
+    if (!showMillisecond) {
+      return null;
+    }
+    const value = propValue || defaultOpenValue;
+    const disabledOptions = disabledMilliseconds(value.hour(), value.minute(), value.second());
+
+    return (
+      <Select
+        prefixCls={prefixCls}
+        options={millisecondOptions.map(option => formatOption(option, disabledOptions))}
+        selectedIndex={millisecondOptions.indexOf(Math.floor(millisecond / 10))}
+        type="millisecond"
+        onSelect={this.onItemChange}
+        onMouseEnter={() => this.onEnterSelectPanel('millisecond')}
+      />
+    );
+  }
+
   getAMPMSelect() {
     const { prefixCls, use12Hours, format, isAM, onEsc } = this.props;
     if (!use12Hours) {
@@ -187,6 +217,7 @@ class Combobox extends Component {
         {this.getHourSelect(value.hour())}
         {this.getMinuteSelect(value.minute())}
         {this.getSecondSelect(value.second())}
+        {this.getMillisecondSelect(value.millisecond())}
         {this.getAMPMSelect(value.hour())}
       </div>
     );

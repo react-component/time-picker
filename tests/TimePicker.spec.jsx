@@ -9,29 +9,42 @@ describe('TimePicker', () => {
   let container;
 
   function renderPicker(props, options) {
-    const showSecond = true;
-    const format = 'HH:mm:ss';
+    const showMillisecond = true;
+    const format = 'HH:mm:ss:SS';
 
     return mount(
       <TimePicker
         format={format}
-        showSecond={showSecond}
-        defaultValue={moment('12:57:58', format)}
+        showMillisecond={showMillisecond}
+        defaultValue={moment('12:57:58:65', format)}
         {...props}
       />,
       options,
     );
   }
 
-  function renderPickerWithoutSeconds(props) {
-    const showSecond = false;
-    const format = 'HH:mm';
+  function renderPickerWithoutMilliseconds(props) {
+    const showMillisecond = false;
+    const format = 'HH:mm:ss';
 
     return mount(
       <TimePicker
         format={format}
-        showSecond={showSecond}
-        defaultValue={moment('08:24', format)}
+        showMillisecond={showMillisecond}
+        defaultValue={moment('08:24:32', format)}
+        {...props}
+      />,
+    );
+  }
+
+  function renderPickerWithoutFormat(props) {
+    const showMillisecond = false;
+
+    // eslint-disable-next-line
+    return mount(
+      <TimePicker
+        showMillisecond={showMillisecond}
+        defaultValue={moment('08:24:32', 'HH:mm:ss')}
         {...props}
       />,
     );
@@ -54,7 +67,7 @@ describe('TimePicker', () => {
         onChange,
       });
       expect(picker.state().open).toBeFalsy();
-      matchValue(picker, '12:57:58');
+      matchValue(picker, '12:57:58:65');
       clickInput(picker);
 
       expect(picker.state().open).toBeTruthy();
@@ -64,7 +77,8 @@ describe('TimePicker', () => {
       expect(onChange.mock.calls[0][0].hour()).toBe(1);
       expect(onChange.mock.calls[0][0].minute()).toBe(57);
       expect(onChange.mock.calls[0][0].second()).toBe(58);
-      matchValue(picker, '01:57:58');
+      expect(onChange.mock.calls[0][0].millisecond()).toBe(650);
+      matchValue(picker, '01:57:58:65');
       expect(picker.state().open).toBeTruthy();
     });
 
@@ -113,14 +127,14 @@ describe('TimePicker', () => {
     });
   });
 
-  describe('render panel to body (without seconds)', () => {
+  describe('render panel to body (without milliseconds)', () => {
     it('popup correctly', async () => {
       const onChange = jest.fn();
-      const picker = renderPickerWithoutSeconds({
+      const picker = renderPickerWithoutMilliseconds({
         onChange,
       });
       expect(picker.state().open).toBeFalsy();
-      matchValue(picker, '08:24');
+      matchValue(picker, '08:24:32');
       clickInput(picker);
 
       expect(picker.find('.rc-time-picker-panel-inner').length).toBeTruthy();
@@ -130,7 +144,31 @@ describe('TimePicker', () => {
       expect(onChange).toBeCalled();
       expect(onChange.mock.calls[0][0].hour()).toBe(1);
       expect(onChange.mock.calls[0][0].minute()).toBe(24);
-      matchValue(picker, '01:24');
+      expect(onChange.mock.calls[0][0].second()).toBe(32);
+      matchValue(picker, '01:24:32');
+      expect(picker.state().open).toBeTruthy();
+    });
+  });
+
+  describe('render panel to body (without format)', () => {
+    it('popup correctly', async () => {
+      const onChange = jest.fn();
+      const picker = renderPickerWithoutFormat({
+        onChange,
+      });
+      expect(picker.state().open).toBeFalsy();
+      matchValue(picker, '08:24:32');
+      clickInput(picker);
+
+      expect(picker.find('.rc-time-picker-panel-inner').length).toBeTruthy();
+      expect(picker.state().open).toBeTruthy();
+      clickSelectItem(picker, 0, 1);
+
+      expect(onChange).toBeCalled();
+      expect(onChange.mock.calls[0][0].hour()).toBe(1);
+      expect(onChange.mock.calls[0][0].minute()).toBe(24);
+      expect(onChange.mock.calls[0][0].second()).toBe(32);
+      matchValue(picker, '01:24:32');
       expect(picker.state().open).toBeTruthy();
     });
   });
@@ -138,7 +176,7 @@ describe('TimePicker', () => {
   describe('render panel to body 12pm mode', () => {
     it('popup correctly', async () => {
       const onChange = jest.fn();
-      const picker = renderPickerWithoutSeconds({
+      const picker = renderPickerWithoutMilliseconds({
         use12Hours: true,
         value: null,
         onChange,
