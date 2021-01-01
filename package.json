@@ -42,7 +42,7 @@
     "enzyme": "^3.8.0",
     "enzyme-to-json": "^3.4.0",
     "father": "^2.24.1",
-    "np": "^6.0.0",
+    "np": "^7.2.0",
     "rc-util": "^5.1.0"
   },
   "peerDependencies": {
