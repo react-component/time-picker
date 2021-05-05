@@ -107,7 +107,7 @@ class Select extends Component {
       index = 0;
     }
     const topOption = this.list.children[index];
-    const to = topOption.offsetTop;
+    const to = topOption.offsetTop + topOption.offsetHeight / 2 - this.root.offsetHeight / 2; // align center
     scrollTo(this.root, to, duration);
   }
 
