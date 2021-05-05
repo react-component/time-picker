@@ -19,7 +19,7 @@ const formatOption = (option, disabledOptions) => {
 };
 
 class Combobox extends Component {
-  onItemChange = (type, itemValue) => {
+  onItemChange = (type, itemValue, e) => {
     const {
       onChange,
       defaultOpenValue,
@@ -55,11 +55,11 @@ class Combobox extends Component {
           }
         }
       }
-      onAmPmChange(ampm);
+      onAmPmChange(ampm, e);
     } else {
       value.second(+itemValue);
     }
-    onChange(value);
+    onChange(value, e);
   };
 
   onEnterSelectPanel = range => {
