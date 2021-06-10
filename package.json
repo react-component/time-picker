@@ -1,6 +1,6 @@
 {
-  "name": "rc-time-picker",
-  "version": "4.0.0-alpha.3",
+  "name": "rc-time-picker-trex-fork",
+  "version": "1.0.2",
   "description": "React TimePicker",
   "keywords": [
     "react",
@@ -25,7 +25,7 @@
   "author": "wuzhao.mail@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:react-component/time-picker.git"
+    "url": "git@github.com:TrexTechnology/time-picker.git"
   },
   "bugs": {
     "url": "http://github.com/react-component/time-picker/issues"
@@ -35,7 +35,8 @@
     "classnames": "2.x",
     "moment": "2.x",
     "raf": "^3.4.1",
-    "rc-trigger": "^4.0.0-alpha.8"
+    "rc-time-picker-trex-fork": "^1.0.1",
+    "rc-trigger": "5.2.9"
   },
   "devDependencies": {
     "cross-env": "^7.0.0",

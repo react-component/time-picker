@@ -304,6 +304,7 @@ class Picker extends Component {
         popupTransitionName={transitionName}
         popupVisible={open}
         onPopupVisibleChange={this.onVisibleChange}
+        zIndex={1000}
       >
         <span className={classNames(prefixCls, className)} style={style}>
           <input
