@@ -25,7 +25,7 @@
   "author": "wuzhao.mail@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git@github.com:react-component/time-picker.git"
+    "url": "git@github.com:TrexTechnology/time-picker.git"
   },
   "bugs": {
     "url": "http://github.com/react-component/time-picker/issues"
