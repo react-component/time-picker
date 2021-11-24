@@ -109,6 +109,7 @@ class Panel extends Component {
       showMinute,
       showSecond,
       format,
+      validFormats,
       defaultOpenValue,
       clearText,
       onEsc,
@@ -160,6 +161,7 @@ class Panel extends Component {
           currentSelectPanel={currentSelectPanel}
           onEsc={onEsc}
           format={format}
+          validFormats={validFormats}
           placeholder={placeholder}
           hourOptions={hourOptions}
           minuteOptions={minuteOptions}
