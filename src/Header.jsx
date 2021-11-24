@@ -47,13 +47,14 @@ class Header extends Component {
     }
   }
 
-  onInputChange = event => {
+  onInputChange = (event) => {
     const str = event.target.value;
     this.setState({
       str,
     });
     const {
-      format,
+      format: propFormat,
+      validFormats,
       hourOptions,
       minuteOptions,
       secondOptions,
@@ -66,6 +67,21 @@ class Header extends Component {
     if (str) {
       const { value: originalValue } = this.props;
       const value = this.getProtoValue().clone();
+
+      const format =
+        validFormats?.find((format) => {
+          const result = moment(str, format, true).isValid();
+          return result;
+        }) || propFormat;
+
+      if (!format) {
+        this.setState({
+          invalid: true,
+        });
+
+        return;
+      }
+
       const parsed = moment(str, format, true);
       if (!parsed.isValid()) {
         this.setState({
@@ -73,10 +89,7 @@ class Header extends Component {
         });
         return;
       }
-      value
-        .hour(parsed.hour())
-        .minute(parsed.minute())
-        .second(parsed.second());
+      value.hour(parsed.hour()).minute(parsed.minute()).second(parsed.second());
 
       // if time value not allowed, response warning.
       if (
@@ -130,7 +143,7 @@ class Header extends Component {
     });
   };
 
-  onKeyDown = e => {
+  onKeyDown = (e) => {
     const { onEsc, onKeyDown } = this.props;
     if (e.keyCode === 27) {
       onEsc();
@@ -151,7 +164,7 @@ class Header extends Component {
     return (
       <input
         className={classNames(`${prefixCls}-input`, invalidClass)}
-        ref={ref => {
+        ref={(ref) => {
           this.refInput = ref;
         }}
         onKeyDown={this.onKeyDown}

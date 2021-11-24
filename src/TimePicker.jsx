@@ -153,6 +153,7 @@ class Picker extends Component {
       minuteStep,
       secondStep,
       clearIcon,
+      validFormats,
     } = this.props;
     const { value } = this.state;
     return (
@@ -183,6 +184,7 @@ class Picker extends Component {
         focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
         clearIcon={clearIcon}
+        validFormats={validFormats}
       />
     );
   }

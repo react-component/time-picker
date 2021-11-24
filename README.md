@@ -69,6 +69,7 @@ API
 | showMinute              | Boolean                           | true | whether show minute |
 | showSecond              | Boolean                           | true | whether show second |
 | format                  | String                            | - | moment format |
+| validFormats            | Array of string                   | - | alternative moment formats that the user can enter: use this to support 1pm, 12:30, in addition to the default format |
 | disabledHours           | Function                          | - | disabled hour options |
 | disabledMinutes         | Function                          | - | disabled minute options |
 | disabledSeconds         | Function                          | - | disabled second options |
