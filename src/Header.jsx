@@ -53,7 +53,8 @@ class Header extends Component {
       str,
     });
     const {
-      format,
+      format: passedInFormat,
+      validFormats,
       hourOptions,
       minuteOptions,
       secondOptions,
@@ -66,6 +67,20 @@ class Header extends Component {
     if (str) {
       const { value: originalValue } = this.props;
       const value = this.getProtoValue().clone();
+
+      const format = validFormats?.find((format) => {
+        const result = moment(str, format, true).isValid();
+        return result;
+      }) || passedInFormat;
+
+      if (!format) {
+        this.setState({
+          invalid: true
+        });
+
+        return;
+      }
+
       const parsed = moment(str, format, true);
       if (!parsed.isValid()) {
         this.setState({

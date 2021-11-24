@@ -21,6 +21,7 @@ declare module "rc-time-picker" {
     showMinute?: boolean;
     showSecond?: boolean;
     format?: string;
+    validFormats?: string[];
     disabledHours?: () => number[];
     disabledMinutes?: (hour: number) => number[];
     disabledSeconds?: (hour: number, minute: number) => number[];
