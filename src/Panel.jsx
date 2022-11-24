@@ -121,6 +121,7 @@ class Panel extends Component {
       secondStep,
       inputReadOnly,
       clearIcon,
+      allowAllTimeValues
     } = this.props;
     const { value, currentSelectPanel } = this.state;
     const disabledHourOptions = this.disabledHours();
@@ -172,6 +173,7 @@ class Panel extends Component {
           onKeyDown={onKeyDown}
           inputReadOnly={inputReadOnly}
           clearIcon={clearIcon}
+          allowAllTimeValues={allowAllTimeValues}
         />
         <Combobox
           prefixCls={prefixCls}

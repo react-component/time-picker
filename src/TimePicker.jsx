@@ -43,6 +43,7 @@ class Picker extends Component {
     use12Hours: false,
     focusOnOpen: false,
     onKeyDown: noop,
+    allowAllTimeValues: false
   };
 
   constructor(props) {
@@ -153,6 +154,7 @@ class Picker extends Component {
       minuteStep,
       secondStep,
       clearIcon,
+      allowAllTimeValues
     } = this.props;
     const { value } = this.state;
     return (
@@ -183,6 +185,7 @@ class Picker extends Component {
         focusOnOpen={focusOnOpen}
         onKeyDown={onKeyDown}
         clearIcon={clearIcon}
+        allowAllTimeValues={allowAllTimeValues}
       />
     );
   }

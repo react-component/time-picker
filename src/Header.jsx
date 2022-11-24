@@ -61,6 +61,7 @@ class Header extends Component {
       disabledMinutes,
       disabledSeconds,
       onChange,
+      allowAllTimeValues
     } = this.props;
 
     if (str) {
@@ -80,9 +81,10 @@ class Header extends Component {
 
       // if time value not allowed, response warning.
       if (
-        hourOptions.indexOf(value.hour()) < 0 ||
-        minuteOptions.indexOf(value.minute()) < 0 ||
-        secondOptions.indexOf(value.second()) < 0
+        (hourOptions.indexOf(value.hour()) < 0 ||
+          minuteOptions.indexOf(value.minute()) < 0 ||
+          secondOptions.indexOf(value.second()) < 0) &&
+        !allowAllTimeValues
       ) {
         this.setState({
           invalid: true,
